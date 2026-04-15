@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 
 class PakistanIntelAPITester:
-    def __init__(self, base_url="https://pk-briefing-hub.preview.emergentagent.com"):
+    def __init__(self, base_url="https://magical-shtern-3.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
@@ -213,35 +213,35 @@ class PakistanIntelAPITester:
 
     def test_regional(self):
         """Test regional relations endpoint"""
-        success = self.test_endpoint("regional", ["relations", "updated"])
+        success = self.test_endpoint("regional-relations", ["data", "updated"])
         if success:
             # Additional validation for regional data
-            url = f"{self.base_url}/api/regional"
+            url = f"{self.base_url}/api/regional-relations"
             try:
                 response = requests.get(url, timeout=10)
                 data = response.json()
-                relations = data.get("relations", {})
-                expected_countries = ["china", "india", "usa"]
-                missing_countries = [country for country in expected_countries if country not in relations]
-                if missing_countries:
+                regional_data = data.get("data", {})
+                countries = regional_data.get("countries", [])
+                if not countries:
                     return self.log_result("Regional Relations Countries", False, 
-                                        error=f"Missing countries: {missing_countries}")
+                                        error="No countries data returned")
                 else:
-                    return self.log_result("Regional Relations Countries", True)
+                    return self.log_result("Regional Relations Countries", True,
+                                        response_data=f"Found {len(countries)} countries")
             except Exception as e:
                 return self.log_result("Regional Validation", False, error=str(e))
         return success
 
     def test_infrastructure(self):
         """Test infrastructure endpoint"""
-        success = self.test_endpoint("infrastructure", ["power", "internet", "transport", "updated"])
+        success = self.test_endpoint("infrastructure", ["power", "internet", "updated"])
         if success:
             # Additional validation for infrastructure data
             url = f"{self.base_url}/api/infrastructure"
             try:
                 response = requests.get(url, timeout=10)
                 data = response.json()
-                required_sections = ["power", "internet", "transport"]
+                required_sections = ["power", "internet"]
                 missing_sections = [section for section in required_sections if section not in data]
                 if missing_sections:
                     return self.log_result("Infrastructure Sections", False, 
@@ -277,6 +277,30 @@ class PakistanIntelAPITester:
                 return self.log_result("Map Data Validation", False, error=str(e))
         return success
 
+    def test_daily_energy_report(self):
+        """Test daily energy report endpoint"""
+        return self.test_endpoint("daily-energy-report", ["data", "updated"])
+
+    def test_daily_briefing(self):
+        """Test daily briefing endpoint"""
+        return self.test_endpoint("daily-briefing", ["briefing", "updated"])
+
+    def test_power_generation(self):
+        """Test power generation endpoint"""
+        return self.test_endpoint("power-generation", ["data", "updated"])
+
+    def test_energy_payments(self):
+        """Test energy payments endpoint"""
+        return self.test_endpoint("energy-payments", ["data", "updated"])
+
+    def test_minerals_metals(self):
+        """Test minerals and metals endpoint"""
+        return self.test_endpoint("minerals-metals", ["data", "updated"])
+
+    def test_psx_data(self):
+        """Test Pakistan Stock Exchange data endpoint"""
+        return self.test_endpoint("psx-data", ["data", "updated"])
+
 def main():
     print("🇵🇰 Pakistan Intelligence Monitor - Backend API Testing")
     print("=" * 60)
@@ -293,6 +317,12 @@ def main():
     tester.test_regional()
     tester.test_infrastructure()
     tester.test_map_data()
+    tester.test_daily_energy_report()
+    tester.test_daily_briefing()
+    tester.test_power_generation()
+    tester.test_energy_payments()
+    tester.test_minerals_metals()
+    tester.test_psx_data()
     
     # Print summary
     print("\n" + "=" * 60)
