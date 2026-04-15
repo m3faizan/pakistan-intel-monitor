@@ -1,0 +1,76 @@
+{
+  "summary": "All requested Auto Vehicles modal refinements and 2/3 Wheelers feature tested successfully. Production/Sales selector is on same row as time range. Category toggles allow deselect (become dull at 0.42 opacity) while keeping visual format. Auto Vehicles stacked chart excludes 2/3 wheelers (only 5 categories: Cars, Trucks, Buses, Jeeps & Pickups, Tractors). Real Sector panel includes new 2/3 Wheelers tile with Production (157.5K) and Sales (159.5K) values. 2/3 Wheelers modal opens with Production/Sales mode toggle, time range selector, and area trend chart. LSM and Auto cards still work correctly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "Auto Vehicles modal has Production/Sales selector on same row as time range",
+    "Auto Vehicles category toggles allow deselect (opacity changes from 1 to 0.42)",
+    "Category toggles restore opacity when reselected",
+    "At least one category must remain selected (last cannot be deselected)",
+    "Auto Vehicles stacked chart excludes 2/3 wheelers (only 5 categories shown)",
+    "Chart updates correctly when series are toggled on/off",
+    "Real Sector panel shows 2/3 Wheelers tile",
+    "2/3 Wheelers tile shows Production value (157.5K)",
+    "2/3 Wheelers tile shows Sales value (159.5K)",
+    "2/3 Wheelers tile shows MoM change percentages",
+    "2/3 Wheelers tile is clickable and opens modal",
+    "2/3 Wheelers modal has Production/Sales mode toggle on same row as time selector",
+    "2/3 Wheelers modal has 1Y, 2Y, 5Y, ALL time range options",
+    "2/3 Wheelers modal shows area trend chart",
+    "2/3 Wheelers modal Sales mode toggle works",
+    "2/3 Wheelers modal close button works",
+    "LSM card still works (regression)",
+    "LSM modal opens correctly (regression)",
+    "Auto Vehicles card still works (regression)"
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {
+    "backend": "N/A (frontend only test)",
+    "frontend": "100% (all 19 tests passed)"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Auto Vehicles modal refinements complete: Production/Sales on same row as time range, category toggles support deselect with visual dimming, 2/3 wheelers excluded from stacked chart. New 2/3 Wheelers tile added to Real Sector panel with its own modal featuring area trend chart. LSM and Auto cards continue to work as expected.",
+  "verified_features": {
+    "auto_vehicles_modal": {
+      "production_sales_same_row": true,
+      "category_toggles_deselect": true,
+      "deselect_opacity": "0.42",
+      "minimum_one_category": true,
+      "excluded_two_three_wheelers": true,
+      "categories_shown": ["Cars", "Trucks", "Buses", "Jeeps & Pickups", "Tractors"]
+    },
+    "two_three_wheelers_card": {
+      "testid": "real-sector-item-two-three",
+      "production_value": "157.5K",
+      "sales_value": "159.5K",
+      "clickable": true
+    },
+    "two_three_wheelers_modal": {
+      "testid": "two-three-modal",
+      "production_sales_toggle": true,
+      "time_ranges": ["1Y", "2Y", "5Y", "ALL"],
+      "chart_type": "area",
+      "summary_value_displayed": true,
+      "mom_change_displayed": true
+    },
+    "lsm_regression": {
+      "card_clickable": true,
+      "modal_opens": true
+    },
+    "auto_vehicles_regression": {
+      "card_clickable": true
+    }
+  }
+}

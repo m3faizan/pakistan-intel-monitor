@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="17" time="12.142" timestamp="2026-03-12T04:52:35.877765+00:00" hostname="agent-env-d1dc4473-9677-4101-abc7-d69b01ddc463"><testcase classname="backend.tests.test_lsm_real_sector.TestLSMEndpoint" name="test_lsm_returns_200" time="4.469" /><testcase classname="backend.tests.test_lsm_real_sector.TestLSMEndpoint" name="test_lsm_has_data_structure" time="0.114"><failure message="TypeError: argument of type 'NoneType' is not iterable">backend/tests/test_lsm_real_sector.py:31: in test_lsm_has_data_structure
+    assert "latest" in lsm_data, "Missing 'latest' field"
+           ^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not iterable</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMEndpoint" name="test_lsm_latest_contains_required_fields" time="0.104"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:41: in test_lsm_latest_contains_required_fields
+    latest = lsm_data.get("latest", {})
+             ^^^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMEndpoint" name="test_lsm_mom_change_semantics" time="0.136"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:58: in test_lsm_mom_change_semantics
+    mom_change_pct = lsm_data.get("mom_change_pct")
+                     ^^^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMEndpoint" name="test_lsm_yoy_change_present" time="0.108"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:74: in test_lsm_yoy_change_present
+    yoy_change = lsm_data.get("yoy_change")
+                 ^^^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_historical_returns_200" time="2.269" /><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_historical_has_history" time="0.120"><failure message="TypeError: argument of type 'NoneType' is not iterable">backend/tests/test_lsm_real_sector.py:95: in test_lsm_historical_has_history
+    assert "history" in data, "Missing 'history' field"
+           ^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not iterable</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_historical_spans_from_1977" time="0.132"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:108: in test_lsm_historical_spans_from_1977
+    history = data.get("history", [])
+              ^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_historical_extends_to_2025" time="0.110"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:126: in test_lsm_historical_extends_to_2025
+    history = data.get("history", [])
+              ^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_historical_has_base_year_markers" time="0.103"><failure message="TypeError: argument of type 'NoneType' is not iterable">backend/tests/test_lsm_real_sector.py:144: in test_lsm_historical_has_base_year_markers
+    assert "base_year_markers" in data, "Missing 'base_year_markers' field"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not iterable</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_history_entries_have_base_year" time="0.097"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">backend/tests/test_lsm_real_sector.py:162: in test_lsm_history_entries_have_base_year
+    history = data.get("history", [])
+              ^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_date_range_field" time="0.143"><failure message="TypeError: argument of type 'NoneType' is not iterable">backend/tests/test_lsm_real_sector.py:178: in test_lsm_date_range_field
+    assert "date_range" in data, "Missing 'date_range' field"
+           ^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not iterable</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestLSMHistoricalEndpoint" name="test_lsm_total_data_points" time="0.119"><failure message="TypeError: argument of type 'NoneType' is not iterable">backend/tests/test_lsm_real_sector.py:190: in test_lsm_total_data_points
+    assert "total_data_points" in data, "Missing 'total_data_points' field"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: argument of type 'NoneType' is not iterable</failure></testcase><testcase classname="backend.tests.test_lsm_real_sector.TestRegressionExistingEndpoints" name="test_inflation_cpi_yoy_returns_200" time="0.495" /><testcase classname="backend.tests.test_lsm_real_sector.TestRegressionExistingEndpoints" name="test_inflation_cpi_mom_returns_200" time="1.490" /><testcase classname="backend.tests.test_lsm_real_sector.TestRegressionExistingEndpoints" name="test_economic_endpoint_returns_200" time="0.122" /><testcase classname="backend.tests.test_lsm_real_sector.TestRegressionExistingEndpoints" name="test_business_environment_returns_200" time="1.866" /></testsuite></testsuites>

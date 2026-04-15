@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "tests_run": 8,
+    "tests_passed": 0,
+    "success_rate": 0.0,
+    "timestamp": "2026-02-26T21:44:34.825031"
+  },
+  "failed_tests": [
+    {
+      "test": "API GET /health",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /news",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /economic",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /weather",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /security",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /regional",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /infrastructure",
+      "error": "Status code: 404"
+    },
+    {
+      "test": "API GET /map-data",
+      "error": "Status code: 404"
+    }
+  ],
+  "detailed_results": {
+    "API GET /health": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /news": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /economic": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /weather": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /security": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /regional": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /infrastructure": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    },
+    "API GET /map-data": {
+      "success": false,
+      "error": "Status code: 404",
+      "response_sample": null
+    }
+  }
+}

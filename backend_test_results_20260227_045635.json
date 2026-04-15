@@ -1,0 +1,101 @@
+{
+  "summary": {
+    "tests_run": 18,
+    "tests_passed": 18,
+    "success_rate": 100.0,
+    "timestamp": "2026-02-27T04:56:35.534224"
+  },
+  "failed_tests": [],
+  "detailed_results": {
+    "API GET /health": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'status': 'healthy', 'timestamp': '2026-02-27T04:56:33.698739+00:00', 'version': '1.0.0'}"
+    },
+    "API GET /news": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'news': [{'title': 'Govt misuses public safety law to keep activists behind bars', 'link': 'https://balochistantimes.com/govt-misuses-public-safety-law-to-keep-activists-behind-bars/', 'published': '"
+    },
+    "News Count Check": {
+      "success": true,
+      "error": null,
+      "response_sample": "Returned 100 news items"
+    },
+    "News Item Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "News Categories Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 5 categories: ['general', 'business', 'regional', 'tech', 'international']"
+    },
+    "News Sources Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 12 different news sources"
+    },
+    "API GET /economic": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'pkr_usd': {'rate': 278.5, 'change': -0.25, 'change_percent': -0.09, 'updated': '2026-02-27T04:56:05.346815+00:00'}, 'pkr_eur': {'rate': 302.15, 'change': 0.45, 'change_percent': 0.15, 'upda"
+    },
+    "Economic Data Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /weather": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'temp': 28, 'condition': 'Partly Cloudy', 'humidity': 65}, {'name': 'Lahore', 'lat': 31.5204, 'lon': 74.3587, 'temp': 18, 'condition': '"
+    },
+    "Weather City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /security": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'alerts': [{'type': 'political', 'severity': 'medium', 'title': 'National Assembly Session Scheduled', 'description': 'Parliament to convene for budget discussions', 'region': 'Islamabad', 'timestamp"
+    },
+    "Security Alert Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /regional": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'relations': {'india': {'status': 'Tense', 'trade_status': 'Limited', 'recent_events': ['Border security talks scheduled', 'Trade discussions on hold'], 'sentiment': -0.3}, 'china': {'status': 'Strat"
+    },
+    "Regional Relations Countries": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /infrastructure": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'power': {'national_grid_status': 'Stable', 'load_shedding': {'urban': '2-3 hours', 'rural': '4-6 hours'}, 'generation_capacity': '85%', 'demand': '22,500 MW', 'supply': '21,000 MW'}, 'internet': {'n"
+    },
+    "Infrastructure Sections": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /map-data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Islamabad', 'lat': 33.6844, 'lon': 73.0479, 'type': 'capital', 'population': '1.1M'}, {'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'type': 'major', 'population': '14.9M'},"
+    },
+    "Map City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "project_name": "Pakistan Intelligence Monitoring Tool",
+  "version": "1.0.0",
+  "tech_stack": {
+    "frontend": "React",
+    "backend": "FastAPI",
+    "database": "MongoDB",
+    "styling": "Tailwind CSS",
+    "maps": "MapLibre GL / Deck.gl"
+  },
+  "design_system": {
+    "theme": {
+      "mode": "dark",
+      "colors": {
+        "primary": {
+          "DEFAULT": "#22C55E",
+          "hover": "#16A34A",
+          "active": "#15803D",
+          "foreground": "#FFFFFF"
+        },
+        "secondary": {
+          "DEFAULT": "#0F172A",
+          "foreground": "#F8FAFC"
+        },
+        "accent": {
+          "DEFAULT": "#00FF00",
+          "foreground": "#000000"
+        },
+        "background": "#020617",
+        "surface": "#0F172A",
+        "border": "#1E293B",
+        "muted": "#64748B",
+        "destructive": "#EF4444",
+        "warning": "#F59E0B"
+      },
+      "typography": {
+        "font_family_heading": "Barlow Condensed, sans-serif",
+        "font_family_body": "JetBrains Mono, monospace",
+        "scale": {
+          "h1": "text-4xl font-bold tracking-tight",
+          "h2": "text-3xl font-bold tracking-tight",
+          "h3": "text-2xl font-semibold tracking-tight",
+          "p": "text-sm leading-7",
+          "small": "text-xs font-medium leading-none"
+        }
+      },
+      "radius": "0px"
+    },
+    "layout": {
+      "grid_system": "Bento Grid (12 columns)",
+      "spacing": "p-4",
+      "container_padding": "p-6",
+      "gap": "gap-4"
+    },
+    "components": {
+      "card": {
+        "style": "bg-slate-950 border border-slate-800 shadow-sm",
+        "header_style": "flex flex-row items-center justify-between space-y-0 pb-2",
+        "content_style": "p-4"
+      },
+      "button": {
+        "default": "bg-green-600 text-white hover:bg-green-700 rounded-none px-4 py-2 uppercase font-mono text-xs tracking-wider",
+        "outline": "border border-green-600 text-green-500 hover:bg-green-950/50 rounded-none px-4 py-2 uppercase font-mono text-xs tracking-wider",
+        "ghost": "hover:bg-slate-800 text-slate-300 hover:text-white rounded-none px-4 py-2"
+      },
+      "input": {
+        "style": "flex h-9 w-full rounded-none border border-slate-800 bg-slate-950 px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-green-500 disabled:cursor-not-allowed disabled:opacity-50"
+      },
+      "badge": {
+        "default": "inline-flex items-center rounded-none border border-transparent bg-green-900/50 px-2.5 py-0.5 text-xs font-semibold text-green-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2",
+        "destructive": "inline-flex items-center rounded-none border border-transparent bg-red-900/50 px-2.5 py-0.5 text-xs font-semibold text-red-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2",
+        "outline": "text-slate-400 border-slate-700"
+      }
+    }
+  },
+  "assets": {
+    "images": {
+      "map_background": "https://images.unsplash.com/photo-1675855546578-f23ac1ef0680?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwxfHxwYWtpc3RhbiUyMG1hcCUyMHNhdGVsbGl0ZSUyMG5pZ2h0fGVufDB8fHx8MTc3MjE0MTQ3OXww&ixlib=rb-4.1.0&q=85",
+      "pakistan_flag": "https://images.unsplash.com/photo-1604732387551-69ac9cce4e59?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwyfHxwYWtpc3RhbiUyMG1hcCUyMHNhdGVsbGl0ZSUyMG5pZ2h0fGVufDB8fHx8MTc3MjE0MTQ3OXww&ixlib=rb-4.1.0&q=85",
+      "stock_market_bg": "https://images.unsplash.com/photo-1647067517631-aa36cda58a17?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxzdG9jayUyMG1hcmtldCUyMGRhdGElMjBzY3JlZW4lMjBncmVlbnxlbnwwfHx8fDE3NzIxNDE0ODJ8MA&ixlib=rb-4.1.0&q=85",
+      "server_room_bg": "https://images.unsplash.com/photo-1680992046617-e2e35451bcdb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByb29tJTIwZ3JlZW4lMjBsaWdodHN8ZW58MHx8fHwxNzcyMTQxNDgyfDA&ixlib=rb-4.1.0&q=85"
+    },
+    "icons": {
+      "library": "lucide-react",
+      "usage": "Use strictly outlined icons with 1.5px stroke width"
+    }
+  },
+  "instructions_to_main_agent": [
+    "1. INITIAL SETUP: Install React and Tailwind CSS. The current project is vanilla TS. You must convert it to React. Run: `npm install react react-dom react-router-dom tailwindcss postcss autoprefixer lucide-react clsx tailwind-merge framer-motion rechart`",
+    "2. CONFIGURATION: Create `tailwind.config.js` and `postcss.config.js`. Configure Tailwind to scan `./src/**/*.{js,jsx,ts,tsx}`.",
+    "3. FILE STRUCTURE: Use `.jsx` (or `.js` with JSX) for components if constrained to JS files. Place components in `/app/src/components/`.",
+    "4. ROUTING: Set up `react-router-dom` in `App.jsx`. Create a main layout with a sidebar/header.",
+    "5. THEME: Apply the dark theme globally in `index.css`. Set `body { @apply bg-slate-950 text-slate-50; }`.",
+    "6. MAP INTEGRATION: Use `react-map-gl` or `deck.gl` for the Interactive Map. Center it on Pakistan coordinates [30.3753, 69.3451].",
+    "7. DATA FETCHING: Mock the data initially for News, Economy, and Infrastructure. Prepare FastAPI endpoints structure.",
+    "8. COMPONENT DEV: Build the 'Bento Grid' layout first, then fill it with 'Card' components.",
+    "9. ANIMATION: Use `framer-motion` for entrance animations (staggered fade-in) and `react-fast-marquee` for the News Ticker.",
+    "10. TESTING: Add `data-testid` to all interactive elements."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for backgrounds, use solid dark colors with subtle borders.",
+    "Use 'Barlow Condensed' for all headings to give a 'Tactical' feel.",
+    "Use 'JetBrains Mono' for all data values, timestamps, and codes.",
+    "Green (#22C55E) is the primary color. Use it for 'Good/Active' states. Use Red (#EF4444) for 'Alert/Danger'.",
+    "All panels must have a 'Grid Border' style: `border border-slate-800 bg-slate-950/50 backdrop-blur-sm`.",
+    "Ensure the map is the 'Hero' element, taking up at least 50% of the screen real estate on desktop.",
+    "For the 'News Ticker', use a continuous scrolling text at the bottom or top of the screen."
+  ]
+}

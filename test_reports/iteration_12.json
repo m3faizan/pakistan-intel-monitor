@@ -1,0 +1,98 @@
+{
+  "summary": "Fertilizer data point added to Real Sector successfully. Backend API /api/fertilizer returns latest (257), mom_change_pct (-82.10%), categories (Urea/DAP), and history (193 data points). Frontend shows Fertilizer tile with value, month (January 2026), and MoM change. Modal has stacked bars (Urea green + DAP blue) with Total yellow line. All series toggles (Total/Urea/DAP) are deselectable with 0.42 opacity when inactive. Last series cannot be deselected. Time range selector works (1Y/2Y/5Y/ALL). Regression: Auto Vehicles and 2/3 Wheelers tiles still render and modals function correctly.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "passed_tests": [
+    "GET /api/fertilizer returns HTTP 200",
+    "Fertilizer API returns latest with total, urea, dap, month, date, unit",
+    "Fertilizer API returns mom_change_pct (-82.10%)",
+    "Fertilizer API returns categories array with urea and dap",
+    "Fertilizer API returns history array (193 data points) with date, total, urea, dap",
+    "Fertilizer API history is chronologically ordered (oldest to newest)",
+    "Auto Vehicles API regression: returns HTTP 200",
+    "Auto Vehicles API regression: returns production and sales data",
+    "Real Sector panel includes Fertilizer tile",
+    "Fertilizer tile displays value (257)",
+    "Fertilizer tile displays month (January 2026)",
+    "Fertilizer tile displays MoM change (-82.10%)",
+    "Click Fertilizer tile opens Fertilizer modal",
+    "Fertilizer modal title: Fertilizer Sales/Offtake",
+    "Fertilizer modal has time range selector (1Y/2Y/5Y/ALL)",
+    "Fertilizer modal has stacked bar chart (Urea green + DAP blue)",
+    "Fertilizer modal has Total line (yellow)",
+    "Series toggle Total is deselectable (opacity becomes 0.42)",
+    "Series toggle Urea is deselectable",
+    "Series toggle DAP is deselectable",
+    "Last active series cannot be deselected (stays at opacity 1)",
+    "Series toggles can be re-enabled (opacity restores to 1)",
+    "Time range 5Y selection works",
+    "Time range ALL selection shows full history from 2010",
+    "Modal close button works",
+    "Regression: LSM tile visible in Real Sector",
+    "Regression: Auto Vehicles tile visible in Real Sector",
+    "Regression: 2/3 Wheelers tile visible in Real Sector",
+    "Regression: Auto Vehicles modal opens and closes",
+    "Regression: 2/3 Wheelers modal opens and closes"
+  ],
+  "test_report_links": [
+    "/app/backend/tests/test_fertilizer.py",
+    "/app/test_reports/pytest/pytest_fertilizer.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [
+    "/app/backend/tests/test_fertilizer.py"
+  ],
+  "success_rate": {
+    "backend": "100% (9/9 tests passed)",
+    "frontend": "100% (30 tests passed)"
+  },
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Fertilizer feature fully implemented. Backend fetches data from FERTILIZER_SERIES (TS_GP_RLS_SALEFERT_M dataset) with total, urea, and dap series. Frontend has FertilizerModal.js with ComposedChart showing stacked bars (Urea+DAP) and Total line. Series toggles allow deselect with visual dimming (opacity 0.42). Minimum one series must remain active. RealSectorPanel.js includes Fertilizer tile alongside LSM, Auto Vehicles, and 2/3 Wheelers.",
+  "verified_features": {
+    "fertilizer_api": {
+      "endpoint": "/api/fertilizer",
+      "latest_value": 257,
+      "latest_month": "January 2026",
+      "mom_change_pct": -82.1,
+      "categories": ["urea", "dap"],
+      "history_count": 193,
+      "date_range": "2010-01-01 to 2026-01-01"
+    },
+    "fertilizer_tile": {
+      "testid": "real-sector-item-fertilizer",
+      "value_displayed": "257",
+      "month_displayed": "January 2026",
+      "change_displayed": "-82.10%",
+      "clickable": true
+    },
+    "fertilizer_modal": {
+      "testid": "fertilizer-modal",
+      "chart_type": "ComposedChart (stacked bars + line)",
+      "stacked_bars": ["urea (green)", "dap (blue)"],
+      "total_line": "yellow",
+      "series_toggles": {
+        "total": {"testid": "fertilizer-series-toggle-total", "deselectable": true},
+        "urea": {"testid": "fertilizer-series-toggle-urea", "deselectable": true},
+        "dap": {"testid": "fertilizer-series-toggle-dap", "deselectable": true}
+      },
+      "deselect_opacity": "0.42",
+      "minimum_one_series": true,
+      "time_ranges": ["1Y", "2Y", "5Y", "ALL"]
+    },
+    "regression": {
+      "lsm_tile": "visible",
+      "auto_vehicles_tile": "visible and modal works",
+      "two_three_wheelers_tile": "visible and modal works"
+    }
+  }
+}

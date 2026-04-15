@@ -1,0 +1,4160 @@
+[
+  {
+    "date": "2011-05-07",
+    "sbp_reserves": 13589.9,
+    "bank_reserves": 3419.0,
+    "total": 17008.9
+  },
+  {
+    "date": "2011-05-14",
+    "sbp_reserves": 13556.1,
+    "bank_reserves": 3410.5,
+    "total": 16966.6
+  },
+  {
+    "date": "2011-05-21",
+    "sbp_reserves": 13669.3,
+    "bank_reserves": 3396.5,
+    "total": 17065.8
+  },
+  {
+    "date": "2011-05-28",
+    "sbp_reserves": 13906.9,
+    "bank_reserves": 3432.7,
+    "total": 17339.6
+  },
+  {
+    "date": "2011-06-04",
+    "sbp_reserves": 13726.6,
+    "bank_reserves": 3437.9,
+    "total": 17164.5
+  },
+  {
+    "date": "2011-06-11",
+    "sbp_reserves": 14085.9,
+    "bank_reserves": 3432.0,
+    "total": 17517.9
+  },
+  {
+    "date": "2011-06-18",
+    "sbp_reserves": 14107.4,
+    "bank_reserves": 3415.7,
+    "total": 17523.1
+  },
+  {
+    "date": "2011-06-25",
+    "sbp_reserves": 14022.2,
+    "bank_reserves": 3448.4,
+    "total": 17470.600000000002
+  },
+  {
+    "date": "2011-07-02",
+    "sbp_reserves": 14786.5,
+    "bank_reserves": 3460.6,
+    "total": 18247.1
+  },
+  {
+    "date": "2011-07-09",
+    "sbp_reserves": 14638.6,
+    "bank_reserves": 3469.1,
+    "total": 18107.7
+  },
+  {
+    "date": "2011-07-16",
+    "sbp_reserves": 14711.4,
+    "bank_reserves": 3523.9,
+    "total": 18235.3
+  },
+  {
+    "date": "2011-07-23",
+    "sbp_reserves": 14743.3,
+    "bank_reserves": 3559.8,
+    "total": 18303.1
+  },
+  {
+    "date": "2011-08-06",
+    "sbp_reserves": 14465.3,
+    "bank_reserves": 3510.0,
+    "total": 17975.3
+  },
+  {
+    "date": "2011-08-13",
+    "sbp_reserves": 14555.1,
+    "bank_reserves": 3487.2,
+    "total": 18042.3
+  },
+  {
+    "date": "2011-08-20",
+    "sbp_reserves": 14499.6,
+    "bank_reserves": 3459.0,
+    "total": 17958.6
+  },
+  {
+    "date": "2011-08-27",
+    "sbp_reserves": 14447.6,
+    "bank_reserves": 3451.1,
+    "total": 17898.7
+  },
+  {
+    "date": "2011-09-03",
+    "sbp_reserves": 14602.9,
+    "bank_reserves": 3460.2,
+    "total": 18063.1
+  },
+  {
+    "date": "2011-09-10",
+    "sbp_reserves": 14340.2,
+    "bank_reserves": 3453.9,
+    "total": 17794.100000000002
+  },
+  {
+    "date": "2011-09-17",
+    "sbp_reserves": 14123.1,
+    "bank_reserves": 3515.9,
+    "total": 17639.0
+  },
+  {
+    "date": "2011-09-24",
+    "sbp_reserves": 13737.8,
+    "bank_reserves": 3641.6,
+    "total": 17379.399999999998
+  },
+  {
+    "date": "2011-10-01",
+    "sbp_reserves": 13636.9,
+    "bank_reserves": 3708.8,
+    "total": 17345.7
+  },
+  {
+    "date": "2011-10-08",
+    "sbp_reserves": 13460.6,
+    "bank_reserves": 3711.3,
+    "total": 17171.9
+  },
+  {
+    "date": "2011-10-14",
+    "sbp_reserves": 13462.1,
+    "bank_reserves": 3740.4,
+    "total": 17202.5
+  },
+  {
+    "date": "2011-10-21",
+    "sbp_reserves": 13443.0,
+    "bank_reserves": 3766.3,
+    "total": 17209.3
+  },
+  {
+    "date": "2011-10-28",
+    "sbp_reserves": 13409.3,
+    "bank_reserves": 3737.0,
+    "total": 17146.3
+  },
+  {
+    "date": "2011-11-04",
+    "sbp_reserves": 13280.6,
+    "bank_reserves": 3748.2,
+    "total": 17028.8
+  },
+  {
+    "date": "2011-11-11",
+    "sbp_reserves": 13269.3,
+    "bank_reserves": 3762.2,
+    "total": 17031.5
+  },
+  {
+    "date": "2011-11-18",
+    "sbp_reserves": 13202.5,
+    "bank_reserves": 3758.9,
+    "total": 16961.4
+  },
+  {
+    "date": "2011-11-25",
+    "sbp_reserves": 13122.4,
+    "bank_reserves": 3762.4,
+    "total": 16884.8
+  },
+  {
+    "date": "2011-12-02",
+    "sbp_reserves": 12865.0,
+    "bank_reserves": 3813.9,
+    "total": 16678.9
+  },
+  {
+    "date": "2011-12-09",
+    "sbp_reserves": 12807.9,
+    "bank_reserves": 3881.5,
+    "total": 16689.4
+  },
+  {
+    "date": "2011-12-16",
+    "sbp_reserves": 12757.6,
+    "bank_reserves": 3900.4,
+    "total": 16658.0
+  },
+  {
+    "date": "2011-12-23",
+    "sbp_reserves": 12806.9,
+    "bank_reserves": 3962.3,
+    "total": 16769.2
+  },
+  {
+    "date": "2012-01-06",
+    "sbp_reserves": 12821.1,
+    "bank_reserves": 4080.3,
+    "total": 16901.4
+  },
+  {
+    "date": "2012-01-13",
+    "sbp_reserves": 12688.8,
+    "bank_reserves": 4213.9,
+    "total": 16902.699999999997
+  },
+  {
+    "date": "2012-01-20",
+    "sbp_reserves": 12553.4,
+    "bank_reserves": 4248.6,
+    "total": 16802.0
+  },
+  {
+    "date": "2012-01-27",
+    "sbp_reserves": 12523.0,
+    "bank_reserves": 4347.1,
+    "total": 16870.1
+  },
+  {
+    "date": "2012-02-03",
+    "sbp_reserves": 12324.1,
+    "bank_reserves": 4365.8,
+    "total": 16689.9
+  },
+  {
+    "date": "2012-02-10",
+    "sbp_reserves": 12286.5,
+    "bank_reserves": 4482.2,
+    "total": 16768.7
+  },
+  {
+    "date": "2012-02-17",
+    "sbp_reserves": 12212.2,
+    "bank_reserves": 4433.0,
+    "total": 16645.2
+  },
+  {
+    "date": "2012-02-24",
+    "sbp_reserves": 12062.3,
+    "bank_reserves": 4362.2,
+    "total": 16424.5
+  },
+  {
+    "date": "2012-03-02",
+    "sbp_reserves": 11897.6,
+    "bank_reserves": 4438.6,
+    "total": 16336.2
+  },
+  {
+    "date": "2012-03-09",
+    "sbp_reserves": 11862.9,
+    "bank_reserves": 4527.4,
+    "total": 16390.3
+  },
+  {
+    "date": "2012-03-16",
+    "sbp_reserves": 11671.2,
+    "bank_reserves": 4724.1,
+    "total": 16395.300000000003
+  },
+  {
+    "date": "2012-03-23",
+    "sbp_reserves": 11767.7,
+    "bank_reserves": 4673.9,
+    "total": 16441.6
+  },
+  {
+    "date": "2012-04-06",
+    "sbp_reserves": 11865.4,
+    "bank_reserves": 4657.0,
+    "total": 16522.4
+  },
+  {
+    "date": "2012-04-13",
+    "sbp_reserves": 11971.2,
+    "bank_reserves": 4631.0,
+    "total": 16602.2
+  },
+  {
+    "date": "2012-04-20",
+    "sbp_reserves": 11916.6,
+    "bank_reserves": 4505.9,
+    "total": 16422.5
+  },
+  {
+    "date": "2012-04-27",
+    "sbp_reserves": 12069.5,
+    "bank_reserves": 4365.4,
+    "total": 16434.9
+  },
+  {
+    "date": "2012-05-04",
+    "sbp_reserves": 11978.0,
+    "bank_reserves": 4438.1,
+    "total": 16416.1
+  },
+  {
+    "date": "2012-05-11",
+    "sbp_reserves": 11784.1,
+    "bank_reserves": 4319.5,
+    "total": 16103.6
+  },
+  {
+    "date": "2012-05-18",
+    "sbp_reserves": 11935.8,
+    "bank_reserves": 4375.3,
+    "total": 16311.099999999999
+  },
+  {
+    "date": "2012-05-25",
+    "sbp_reserves": 11698.6,
+    "bank_reserves": 4307.2,
+    "total": 16005.8
+  },
+  {
+    "date": "2012-06-01",
+    "sbp_reserves": 11243.7,
+    "bank_reserves": 4292.7,
+    "total": 15536.400000000001
+  },
+  {
+    "date": "2012-06-08",
+    "sbp_reserves": 11117.3,
+    "bank_reserves": 4300.0,
+    "total": 15417.3
+  },
+  {
+    "date": "2012-06-15",
+    "sbp_reserves": 10680.7,
+    "bank_reserves": 4365.8,
+    "total": 15046.5
+  },
+  {
+    "date": "2012-06-22",
+    "sbp_reserves": 10535.5,
+    "bank_reserves": 4428.7,
+    "total": 14964.2
+  },
+  {
+    "date": "2012-07-06",
+    "sbp_reserves": 10496.2,
+    "bank_reserves": 4412.6,
+    "total": 14908.800000000001
+  },
+  {
+    "date": "2012-07-13",
+    "sbp_reserves": 10501.6,
+    "bank_reserves": 4437.9,
+    "total": 14939.5
+  },
+  {
+    "date": "2012-07-20",
+    "sbp_reserves": 10354.4,
+    "bank_reserves": 4418.1,
+    "total": 14772.5
+  },
+  {
+    "date": "2012-07-27",
+    "sbp_reserves": 10139.3,
+    "bank_reserves": 4435.2,
+    "total": 14574.5
+  },
+  {
+    "date": "2012-08-03",
+    "sbp_reserves": 11088.8,
+    "bank_reserves": 4453.4,
+    "total": 15542.199999999999
+  },
+  {
+    "date": "2012-08-10",
+    "sbp_reserves": 10825.2,
+    "bank_reserves": 4473.2,
+    "total": 15298.400000000001
+  },
+  {
+    "date": "2012-08-17",
+    "sbp_reserves": 10740.7,
+    "bank_reserves": 4442.0,
+    "total": 15182.7
+  },
+  {
+    "date": "2012-08-24",
+    "sbp_reserves": 10326.7,
+    "bank_reserves": 4437.5,
+    "total": 14764.2
+  },
+  {
+    "date": "2012-09-07",
+    "sbp_reserves": 10432.3,
+    "bank_reserves": 4396.1,
+    "total": 14828.4
+  },
+  {
+    "date": "2012-09-14",
+    "sbp_reserves": 10383.8,
+    "bank_reserves": 4480.5,
+    "total": 14864.3
+  },
+  {
+    "date": "2012-09-21",
+    "sbp_reserves": 10321.8,
+    "bank_reserves": 4519.7,
+    "total": 14841.5
+  },
+  {
+    "date": "2012-10-05",
+    "sbp_reserves": 9919.4,
+    "bank_reserves": 4487.3,
+    "total": 14406.7
+  },
+  {
+    "date": "2012-10-12",
+    "sbp_reserves": 9814.2,
+    "bank_reserves": 4505.1,
+    "total": 14319.300000000001
+  },
+  {
+    "date": "2012-10-19",
+    "sbp_reserves": 9829.4,
+    "bank_reserves": 4560.4,
+    "total": 14389.8
+  },
+  {
+    "date": "2012-10-26",
+    "sbp_reserves": 9806.1,
+    "bank_reserves": 4527.1,
+    "total": 14333.2
+  },
+  {
+    "date": "2012-11-02",
+    "sbp_reserves": 9547.4,
+    "bank_reserves": 4553.1,
+    "total": 14100.5
+  },
+  {
+    "date": "2012-11-09",
+    "sbp_reserves": 9242.6,
+    "bank_reserves": 4602.9,
+    "total": 13845.5
+  },
+  {
+    "date": "2012-11-16",
+    "sbp_reserves": 9124.6,
+    "bank_reserves": 4689.6,
+    "total": 13814.2
+  },
+  {
+    "date": "2012-11-23",
+    "sbp_reserves": 8860.3,
+    "bank_reserves": 4715.4,
+    "total": 13575.699999999999
+  },
+  {
+    "date": "2012-12-07",
+    "sbp_reserves": 8514.1,
+    "bank_reserves": 4860.4,
+    "total": 13374.5
+  },
+  {
+    "date": "2012-12-14",
+    "sbp_reserves": 8587.1,
+    "bank_reserves": 4621.3,
+    "total": 13208.400000000001
+  },
+  {
+    "date": "2012-12-21",
+    "sbp_reserves": 8625.7,
+    "bank_reserves": 4752.4,
+    "total": 13378.1
+  },
+  {
+    "date": "2012-12-28",
+    "sbp_reserves": 9009.4,
+    "bank_reserves": 4798.7,
+    "total": 13808.099999999999
+  },
+  {
+    "date": "2013-01-04",
+    "sbp_reserves": 8769.699999999999,
+    "bank_reserves": 4789.1,
+    "total": 13558.8
+  },
+  {
+    "date": "2013-01-11",
+    "sbp_reserves": 8950.9,
+    "bank_reserves": 4831.5,
+    "total": 13782.4
+  },
+  {
+    "date": "2013-01-18",
+    "sbp_reserves": 8809.0,
+    "bank_reserves": 4896.3,
+    "total": 13705.3
+  },
+  {
+    "date": "2013-01-25",
+    "sbp_reserves": 8654.4,
+    "bank_reserves": 4894.7,
+    "total": 13549.099999999999
+  },
+  {
+    "date": "2013-02-01",
+    "sbp_reserves": 8586.6,
+    "bank_reserves": 4887.6,
+    "total": 13474.2
+  },
+  {
+    "date": "2013-02-08",
+    "sbp_reserves": 8458.4,
+    "bank_reserves": 4937.2,
+    "total": 13395.599999999999
+  },
+  {
+    "date": "2013-02-15",
+    "sbp_reserves": 8141.2,
+    "bank_reserves": 4917.4,
+    "total": 13058.599999999999
+  },
+  {
+    "date": "2013-02-22",
+    "sbp_reserves": 8227.0,
+    "bank_reserves": 4958.0,
+    "total": 13185.0
+  },
+  {
+    "date": "2013-03-01",
+    "sbp_reserves": 7860.9,
+    "bank_reserves": 4943.8,
+    "total": 12804.7
+  },
+  {
+    "date": "2013-03-08",
+    "sbp_reserves": 7655.0,
+    "bank_reserves": 4910.5,
+    "total": 12565.5
+  },
+  {
+    "date": "2013-03-15",
+    "sbp_reserves": 7450.5,
+    "bank_reserves": 4985.6,
+    "total": 12436.1
+  },
+  {
+    "date": "2013-03-22",
+    "sbp_reserves": 7277.4,
+    "bank_reserves": 5092.6,
+    "total": 12370.0
+  },
+  {
+    "date": "2013-04-05",
+    "sbp_reserves": 6697.4,
+    "bank_reserves": 5061.1,
+    "total": 11758.5
+  },
+  {
+    "date": "2013-04-12",
+    "sbp_reserves": 6640.2,
+    "bank_reserves": 5049.8,
+    "total": 11690.0
+  },
+  {
+    "date": "2013-04-19",
+    "sbp_reserves": 6817.0,
+    "bank_reserves": 5121.0,
+    "total": 11938.0
+  },
+  {
+    "date": "2013-04-26",
+    "sbp_reserves": 6676.9,
+    "bank_reserves": 5087.5,
+    "total": 11764.4
+  },
+  {
+    "date": "2013-05-03",
+    "sbp_reserves": 6772.4,
+    "bank_reserves": 5090.7,
+    "total": 11863.099999999999
+  },
+  {
+    "date": "2013-05-10",
+    "sbp_reserves": 6524.5,
+    "bank_reserves": 5076.5,
+    "total": 11601.0
+  },
+  {
+    "date": "2013-05-17",
+    "sbp_reserves": 6382.9,
+    "bank_reserves": 5050.1,
+    "total": 11433.0
+  },
+  {
+    "date": "2013-05-24",
+    "sbp_reserves": 6564.7,
+    "bank_reserves": 5059.1,
+    "total": 11623.8
+  },
+  {
+    "date": "2013-06-07",
+    "sbp_reserves": 6286.9,
+    "bank_reserves": 5159.1,
+    "total": 11446.0
+  },
+  {
+    "date": "2013-06-14",
+    "sbp_reserves": 6239.0,
+    "bank_reserves": 5101.6,
+    "total": 11340.6
+  },
+  {
+    "date": "2013-06-21",
+    "sbp_reserves": 6256.5,
+    "bank_reserves": 5088.3,
+    "total": 11344.8
+  },
+  {
+    "date": "2013-07-05",
+    "sbp_reserves": 5546.5,
+    "bank_reserves": 4997.0,
+    "total": 10543.5
+  },
+  {
+    "date": "2013-07-12",
+    "sbp_reserves": 5521.1,
+    "bank_reserves": 4980.8,
+    "total": 10501.900000000001
+  },
+  {
+    "date": "2013-07-19",
+    "sbp_reserves": 5153.3,
+    "bank_reserves": 5049.4,
+    "total": 10202.7
+  },
+  {
+    "date": "2013-07-26",
+    "sbp_reserves": 5170.8,
+    "bank_reserves": 5053.8,
+    "total": 10224.6
+  },
+  {
+    "date": "2013-08-02",
+    "sbp_reserves": 5142.7,
+    "bank_reserves": 5088.0,
+    "total": 10230.7
+  },
+  {
+    "date": "2013-08-07",
+    "sbp_reserves": 5228.5,
+    "bank_reserves": 5098.3,
+    "total": 10326.8
+  },
+  {
+    "date": "2013-08-16",
+    "sbp_reserves": 5248.1,
+    "bank_reserves": 5151.0,
+    "total": 10399.1
+  },
+  {
+    "date": "2013-08-23",
+    "sbp_reserves": 5203.6,
+    "bank_reserves": 5186.9,
+    "total": 10390.5
+  },
+  {
+    "date": "2013-09-06",
+    "sbp_reserves": 5162.4,
+    "bank_reserves": 5210.8,
+    "total": 10373.2
+  },
+  {
+    "date": "2013-09-13",
+    "sbp_reserves": 5118.3,
+    "bank_reserves": 5256.2,
+    "total": 10374.5
+  },
+  {
+    "date": "2013-09-20",
+    "sbp_reserves": 4928.4,
+    "bank_reserves": 5282.3,
+    "total": 10210.7
+  },
+  {
+    "date": "2013-09-27",
+    "sbp_reserves": 4602.1,
+    "bank_reserves": 5321.3,
+    "total": 9923.400000000001
+  },
+  {
+    "date": "2013-10-04",
+    "sbp_reserves": 3953.6,
+    "bank_reserves": 5174.0,
+    "total": 9127.6
+  },
+  {
+    "date": "2013-10-11",
+    "sbp_reserves": 4075.4,
+    "bank_reserves": 5131.9,
+    "total": 9207.3
+  },
+  {
+    "date": "2013-10-14",
+    "sbp_reserves": 4086.0,
+    "bank_reserves": 5144.3,
+    "total": 9230.3
+  },
+  {
+    "date": "2013-10-25",
+    "sbp_reserves": 4299.4,
+    "bank_reserves": 5197.8,
+    "total": 9497.2
+  },
+  {
+    "date": "2013-11-01",
+    "sbp_reserves": 4224.5,
+    "bank_reserves": 5285.3,
+    "total": 9509.8
+  },
+  {
+    "date": "2013-11-08",
+    "sbp_reserves": 3845.4,
+    "bank_reserves": 5232.3,
+    "total": 9077.7
+  },
+  {
+    "date": "2013-11-13",
+    "sbp_reserves": 3645.8,
+    "bank_reserves": 5219.4,
+    "total": 8865.2
+  },
+  {
+    "date": "2013-11-22",
+    "sbp_reserves": 3463.7,
+    "bank_reserves": 5332.3,
+    "total": 8796.0
+  },
+  {
+    "date": "2013-12-06",
+    "sbp_reserves": 2963.1,
+    "bank_reserves": 5097.3,
+    "total": 8060.4
+  },
+  {
+    "date": "2013-12-13",
+    "sbp_reserves": 3467.8,
+    "bank_reserves": 5058.5,
+    "total": 8526.3
+  },
+  {
+    "date": "2013-12-20",
+    "sbp_reserves": 3192.9,
+    "bank_reserves": 4897.3,
+    "total": 8090.200000000001
+  },
+  {
+    "date": "2013-12-27",
+    "sbp_reserves": 3657.3,
+    "bank_reserves": 4864.1,
+    "total": 8521.400000000001
+  },
+  {
+    "date": "2014-01-03",
+    "sbp_reserves": 3245.0,
+    "bank_reserves": 4804.3,
+    "total": 8049.3
+  },
+  {
+    "date": "2014-01-10",
+    "sbp_reserves": 3467.2,
+    "bank_reserves": 4849.7,
+    "total": 8316.9
+  },
+  {
+    "date": "2014-01-17",
+    "sbp_reserves": 3322.3,
+    "bank_reserves": 4846.1,
+    "total": 8168.400000000001
+  },
+  {
+    "date": "2014-01-24",
+    "sbp_reserves": 3176.6,
+    "bank_reserves": 4817.3,
+    "total": 7993.9
+  },
+  {
+    "date": "2014-02-07",
+    "sbp_reserves": 2841.3,
+    "bank_reserves": 4748.3,
+    "total": 7589.6
+  },
+  {
+    "date": "2014-02-14",
+    "sbp_reserves": 3196.7,
+    "bank_reserves": 4797.5,
+    "total": 7994.2
+  },
+  {
+    "date": "2014-02-21",
+    "sbp_reserves": 3870.8,
+    "bank_reserves": 4783.8,
+    "total": 8654.6
+  },
+  {
+    "date": "2014-03-07",
+    "sbp_reserves": 4622.6,
+    "bank_reserves": 4753.1,
+    "total": 9375.7
+  },
+  {
+    "date": "2014-03-14",
+    "sbp_reserves": 4808.5,
+    "bank_reserves": 4840.4,
+    "total": 9648.9
+  },
+  {
+    "date": "2014-03-21",
+    "sbp_reserves": 4426.4,
+    "bank_reserves": 4717.4,
+    "total": 9143.8
+  },
+  {
+    "date": "2014-03-28",
+    "sbp_reserves": 5171.6,
+    "bank_reserves": 4692.6,
+    "total": 9864.2
+  },
+  {
+    "date": "2014-04-04",
+    "sbp_reserves": 4943.2,
+    "bank_reserves": 4770.3,
+    "total": 9713.5
+  },
+  {
+    "date": "2014-04-11",
+    "sbp_reserves": 4983.9,
+    "bank_reserves": 4865.7,
+    "total": 9849.599999999999
+  },
+  {
+    "date": "2014-04-18",
+    "sbp_reserves": 7010.0,
+    "bank_reserves": 4743.8,
+    "total": 11753.8
+  },
+  {
+    "date": "2014-04-25",
+    "sbp_reserves": 7041.5,
+    "bank_reserves": 4699.2,
+    "total": 11740.7
+  },
+  {
+    "date": "2014-05-02",
+    "sbp_reserves": 7240.2,
+    "bank_reserves": 4804.1,
+    "total": 12044.3
+  },
+  {
+    "date": "2014-05-09",
+    "sbp_reserves": 8019.8,
+    "bank_reserves": 4865.0,
+    "total": 12884.8
+  },
+  {
+    "date": "2014-05-16",
+    "sbp_reserves": 8320.3,
+    "bank_reserves": 4812.5,
+    "total": 13132.8
+  },
+  {
+    "date": "2014-05-23",
+    "sbp_reserves": 8649.5,
+    "bank_reserves": 4790.0,
+    "total": 13439.5
+  },
+  {
+    "date": "2014-06-06",
+    "sbp_reserves": 8612.9,
+    "bank_reserves": 4844.0,
+    "total": 13456.9
+  },
+  {
+    "date": "2014-06-13",
+    "sbp_reserves": 8669.3,
+    "bank_reserves": 4901.9,
+    "total": 13571.199999999999
+  },
+  {
+    "date": "2014-06-20",
+    "sbp_reserves": 9189.5,
+    "bank_reserves": 5074.0,
+    "total": 14263.5
+  },
+  {
+    "date": "2014-06-27",
+    "sbp_reserves": 9033.2,
+    "bank_reserves": 4956.9,
+    "total": 13990.1
+  },
+  {
+    "date": "2014-07-04",
+    "sbp_reserves": 9602.3,
+    "bank_reserves": 5035.4,
+    "total": 14637.699999999999
+  },
+  {
+    "date": "2014-07-11",
+    "sbp_reserves": 9485.8,
+    "bank_reserves": 5027.8,
+    "total": 14513.599999999999
+  },
+  {
+    "date": "2014-07-18",
+    "sbp_reserves": 9398.8,
+    "bank_reserves": 5051.4,
+    "total": 14450.199999999999
+  },
+  {
+    "date": "2014-07-25",
+    "sbp_reserves": 9275.7,
+    "bank_reserves": 5064.9,
+    "total": 14340.6
+  },
+  {
+    "date": "2014-08-01",
+    "sbp_reserves": 9277.0,
+    "bank_reserves": 5029.9,
+    "total": 14306.9
+  },
+  {
+    "date": "2014-08-08",
+    "sbp_reserves": 9188.0,
+    "bank_reserves": 5076.1,
+    "total": 14264.1
+  },
+  {
+    "date": "2014-08-15",
+    "sbp_reserves": 8902.7,
+    "bank_reserves": 5023.1,
+    "total": 13925.800000000001
+  },
+  {
+    "date": "2014-08-22",
+    "sbp_reserves": 8554.4,
+    "bank_reserves": 5027.2,
+    "total": 13581.599999999999
+  },
+  {
+    "date": "2014-09-05",
+    "sbp_reserves": 8693.4,
+    "bank_reserves": 4721.4,
+    "total": 13414.8
+  },
+  {
+    "date": "2014-09-12",
+    "sbp_reserves": 8795.5,
+    "bank_reserves": 4729.7,
+    "total": 13525.2
+  },
+  {
+    "date": "2014-09-19",
+    "sbp_reserves": 8627.7,
+    "bank_reserves": 4677.3,
+    "total": 13305.0
+  },
+  {
+    "date": "2014-09-26",
+    "sbp_reserves": 8609.8,
+    "bank_reserves": 4600.7,
+    "total": 13210.5
+  },
+  {
+    "date": "2014-10-03",
+    "sbp_reserves": 8857.2,
+    "bank_reserves": 4543.6,
+    "total": 13400.800000000001
+  },
+  {
+    "date": "2014-10-10",
+    "sbp_reserves": 8882.1,
+    "bank_reserves": 4553.8,
+    "total": 13435.900000000001
+  },
+  {
+    "date": "2014-10-17",
+    "sbp_reserves": 8787.3,
+    "bank_reserves": 4677.6,
+    "total": 13464.9
+  },
+  {
+    "date": "2014-10-24",
+    "sbp_reserves": 8568.3,
+    "bank_reserves": 4631.7,
+    "total": 13200.0
+  },
+  {
+    "date": "2014-11-07",
+    "sbp_reserves": 8487.4,
+    "bank_reserves": 4780.4,
+    "total": 13267.8
+  },
+  {
+    "date": "2014-11-14",
+    "sbp_reserves": 8493.7,
+    "bank_reserves": 4734.4,
+    "total": 13228.1
+  },
+  {
+    "date": "2014-11-21",
+    "sbp_reserves": 8506.4,
+    "bank_reserves": 4713.5,
+    "total": 13219.9
+  },
+  {
+    "date": "2014-12-05",
+    "sbp_reserves": 9203.1,
+    "bank_reserves": 4719.3,
+    "total": 13922.400000000001
+  },
+  {
+    "date": "2014-12-12",
+    "sbp_reserves": 9346.5,
+    "bank_reserves": 4695.9,
+    "total": 14042.4
+  },
+  {
+    "date": "2014-12-19",
+    "sbp_reserves": 10364.6,
+    "bank_reserves": 4733.9,
+    "total": 15098.5
+  },
+  {
+    "date": "2014-12-26",
+    "sbp_reserves": 10304.9,
+    "bank_reserves": 4639.8,
+    "total": 14944.7
+  },
+  {
+    "date": "2015-01-02",
+    "sbp_reserves": 10475.8,
+    "bank_reserves": 4736.9,
+    "total": 15212.699999999999
+  },
+  {
+    "date": "2015-01-09",
+    "sbp_reserves": 10365.1,
+    "bank_reserves": 4695.1,
+    "total": 15060.2
+  },
+  {
+    "date": "2015-01-16",
+    "sbp_reserves": 10330.5,
+    "bank_reserves": 4689.3,
+    "total": 15019.8
+  },
+  {
+    "date": "2015-01-23",
+    "sbp_reserves": 10248.7,
+    "bank_reserves": 4815.2,
+    "total": 15063.900000000001
+  },
+  {
+    "date": "2015-02-06",
+    "sbp_reserves": 10416.6,
+    "bank_reserves": 4821.6,
+    "total": 15238.2
+  },
+  {
+    "date": "2015-02-13",
+    "sbp_reserves": 11194.2,
+    "bank_reserves": 4842.5,
+    "total": 16036.7
+  },
+  {
+    "date": "2015-02-20",
+    "sbp_reserves": 11074.9,
+    "bank_reserves": 4868.8,
+    "total": 15943.7
+  },
+  {
+    "date": "2015-03-06",
+    "sbp_reserves": 11271.9,
+    "bank_reserves": 5012.3,
+    "total": 16284.2
+  },
+  {
+    "date": "2015-03-13",
+    "sbp_reserves": 11226.1,
+    "bank_reserves": 5047.6,
+    "total": 16273.7
+  },
+  {
+    "date": "2015-03-20",
+    "sbp_reserves": 11067.3,
+    "bank_reserves": 5064.6,
+    "total": 16131.9
+  },
+  {
+    "date": "2015-03-27",
+    "sbp_reserves": 11123.3,
+    "bank_reserves": 5070.9,
+    "total": 16194.199999999999
+  },
+  {
+    "date": "2015-04-03",
+    "sbp_reserves": 11616.5,
+    "bank_reserves": 5089.8,
+    "total": 16706.3
+  },
+  {
+    "date": "2015-04-10",
+    "sbp_reserves": 11758.7,
+    "bank_reserves": 5059.7,
+    "total": 16818.4
+  },
+  {
+    "date": "2015-04-17",
+    "sbp_reserves": 12364.0,
+    "bank_reserves": 5127.0,
+    "total": 17491.0
+  },
+  {
+    "date": "2015-04-24",
+    "sbp_reserves": 12565.1,
+    "bank_reserves": 5152.5,
+    "total": 17717.6
+  },
+  {
+    "date": "2015-05-01",
+    "sbp_reserves": 12517.3,
+    "bank_reserves": 5172.8,
+    "total": 17690.1
+  },
+  {
+    "date": "2015-05-08",
+    "sbp_reserves": 12549.9,
+    "bank_reserves": 5189.4,
+    "total": 17739.3
+  },
+  {
+    "date": "2015-05-15",
+    "sbp_reserves": 12511.7,
+    "bank_reserves": 5237.4,
+    "total": 17749.1
+  },
+  {
+    "date": "2015-05-22",
+    "sbp_reserves": 12284.4,
+    "bank_reserves": 5209.8,
+    "total": 17494.2
+  },
+  {
+    "date": "2015-06-05",
+    "sbp_reserves": 12312.7,
+    "bank_reserves": 5134.2,
+    "total": 17446.9
+  },
+  {
+    "date": "2015-06-12",
+    "sbp_reserves": 12284.3,
+    "bank_reserves": 5164.2,
+    "total": 17448.5
+  },
+  {
+    "date": "2015-06-19",
+    "sbp_reserves": 12315.6,
+    "bank_reserves": 5141.5,
+    "total": 17457.1
+  },
+  {
+    "date": "2015-06-26",
+    "sbp_reserves": 13088.2,
+    "bank_reserves": 5113.3,
+    "total": 18201.5
+  },
+  {
+    "date": "2015-07-03",
+    "sbp_reserves": 13535.2,
+    "bank_reserves": 5179.4,
+    "total": 18714.6
+  },
+  {
+    "date": "2015-07-10",
+    "sbp_reserves": 13469.4,
+    "bank_reserves": 5120.5,
+    "total": 18589.9
+  },
+  {
+    "date": "2015-07-17",
+    "sbp_reserves": 13543.0,
+    "bank_reserves": 5134.4,
+    "total": 18677.4
+  },
+  {
+    "date": "2015-07-24",
+    "sbp_reserves": 13385.8,
+    "bank_reserves": 5150.2,
+    "total": 18536.0
+  },
+  {
+    "date": "2015-08-07",
+    "sbp_reserves": 13627.8,
+    "bank_reserves": 5051.0,
+    "total": 18678.8
+  },
+  {
+    "date": "2015-08-14",
+    "sbp_reserves": 13615.2,
+    "bank_reserves": 5039.8,
+    "total": 18655.0
+  },
+  {
+    "date": "2015-08-21",
+    "sbp_reserves": 13458.4,
+    "bank_reserves": 5050.3,
+    "total": 18508.7
+  },
+  {
+    "date": "2015-08-28",
+    "sbp_reserves": 13460.5,
+    "bank_reserves": 5036.5,
+    "total": 18497.0
+  },
+  {
+    "date": "2015-09-04",
+    "sbp_reserves": 13555.7,
+    "bank_reserves": 5042.3,
+    "total": 18598.0
+  },
+  {
+    "date": "2015-09-11",
+    "sbp_reserves": 13689.5,
+    "bank_reserves": 5036.6,
+    "total": 18726.1
+  },
+  {
+    "date": "2015-09-18",
+    "sbp_reserves": 13496.2,
+    "bank_reserves": 5004.6,
+    "total": 18500.800000000003
+  },
+  {
+    "date": "2015-09-25",
+    "sbp_reserves": 13408.2,
+    "bank_reserves": 4940.9,
+    "total": 18349.1
+  },
+  {
+    "date": "2015-10-02",
+    "sbp_reserves": 15202.0,
+    "bank_reserves": 4852.2,
+    "total": 20054.2
+  },
+  {
+    "date": "2015-10-09",
+    "sbp_reserves": 15103.6,
+    "bank_reserves": 4889.5,
+    "total": 19993.1
+  },
+  {
+    "date": "2015-10-16",
+    "sbp_reserves": 15019.7,
+    "bank_reserves": 4901.1,
+    "total": 19920.800000000003
+  },
+  {
+    "date": "2015-10-23",
+    "sbp_reserves": 14918.3,
+    "bank_reserves": 4900.4,
+    "total": 19818.699999999997
+  },
+  {
+    "date": "2015-11-06",
+    "sbp_reserves": 14704.2,
+    "bank_reserves": 5042.1,
+    "total": 19746.300000000003
+  },
+  {
+    "date": "2015-11-13",
+    "sbp_reserves": 14588.7,
+    "bank_reserves": 5124.3,
+    "total": 19713.0
+  },
+  {
+    "date": "2015-11-20",
+    "sbp_reserves": 14676.6,
+    "bank_reserves": 5151.6,
+    "total": 19828.2
+  },
+  {
+    "date": "2015-11-27",
+    "sbp_reserves": 14787.3,
+    "bank_reserves": 5032.0,
+    "total": 19819.3
+  },
+  {
+    "date": "2015-12-04",
+    "sbp_reserves": 15441.4,
+    "bank_reserves": 5009.5,
+    "total": 20450.9
+  },
+  {
+    "date": "2015-12-11",
+    "sbp_reserves": 15719.3,
+    "bank_reserves": 4990.0,
+    "total": 20709.3
+  },
+  {
+    "date": "2015-12-18",
+    "sbp_reserves": 15612.8,
+    "bank_reserves": 4961.5,
+    "total": 20574.3
+  },
+  {
+    "date": "2015-12-25",
+    "sbp_reserves": 16171.6,
+    "bank_reserves": 4902.3,
+    "total": 21073.9
+  },
+  {
+    "date": "2016-01-01",
+    "sbp_reserves": 15883.4,
+    "bank_reserves": 4926.7,
+    "total": 20810.1
+  },
+  {
+    "date": "2016-01-08",
+    "sbp_reserves": 15824.0,
+    "bank_reserves": 4935.6,
+    "total": 20759.6
+  },
+  {
+    "date": "2016-01-15",
+    "sbp_reserves": 15752.3,
+    "bank_reserves": 4937.4,
+    "total": 20689.699999999997
+  },
+  {
+    "date": "2016-01-22",
+    "sbp_reserves": 15646.8,
+    "bank_reserves": 4855.3,
+    "total": 20502.1
+  },
+  {
+    "date": "2016-02-05",
+    "sbp_reserves": 15341.0,
+    "bank_reserves": 4854.8,
+    "total": 20195.8
+  },
+  {
+    "date": "2016-02-12",
+    "sbp_reserves": 15514.8,
+    "bank_reserves": 4873.1,
+    "total": 20387.9
+  },
+  {
+    "date": "2016-02-19",
+    "sbp_reserves": 15478.9,
+    "bank_reserves": 4854.0,
+    "total": 20332.9
+  },
+  {
+    "date": "2016-02-26",
+    "sbp_reserves": 15506.5,
+    "bank_reserves": 4845.8,
+    "total": 20352.3
+  },
+  {
+    "date": "2016-03-04",
+    "sbp_reserves": 15663.7,
+    "bank_reserves": 4858.3,
+    "total": 20522.0
+  },
+  {
+    "date": "2016-03-11",
+    "sbp_reserves": 15859.0,
+    "bank_reserves": 4859.4,
+    "total": 20718.4
+  },
+  {
+    "date": "2016-03-18",
+    "sbp_reserves": 15630.4,
+    "bank_reserves": 4891.1,
+    "total": 20521.5
+  },
+  {
+    "date": "2016-03-25",
+    "sbp_reserves": 15588.0,
+    "bank_reserves": 4835.6,
+    "total": 20423.6
+  },
+  {
+    "date": "2016-04-01",
+    "sbp_reserves": 16078.1,
+    "bank_reserves": 4806.8,
+    "total": 20884.9
+  },
+  {
+    "date": "2016-04-08",
+    "sbp_reserves": 16040.8,
+    "bank_reserves": 4793.5,
+    "total": 20834.3
+  },
+  {
+    "date": "2016-04-15",
+    "sbp_reserves": 16027.2,
+    "bank_reserves": 4752.6,
+    "total": 20779.800000000003
+  },
+  {
+    "date": "2016-04-22",
+    "sbp_reserves": 15988.8,
+    "bank_reserves": 4801.2,
+    "total": 20790.0
+  },
+  {
+    "date": "2016-05-06",
+    "sbp_reserves": 16032.7,
+    "bank_reserves": 4801.5,
+    "total": 20834.2
+  },
+  {
+    "date": "2016-05-13",
+    "sbp_reserves": 16517.5,
+    "bank_reserves": 4801.9,
+    "total": 21319.4
+  },
+  {
+    "date": "2016-05-20",
+    "sbp_reserves": 16810.4,
+    "bank_reserves": 4801.3,
+    "total": 21611.7
+  },
+  {
+    "date": "2016-05-27",
+    "sbp_reserves": 16807.2,
+    "bank_reserves": 4794.5,
+    "total": 21601.7
+  },
+  {
+    "date": "2016-06-03",
+    "sbp_reserves": 16462.6,
+    "bank_reserves": 4804.0,
+    "total": 21266.6
+  },
+  {
+    "date": "2016-06-10",
+    "sbp_reserves": 16546.2,
+    "bank_reserves": 4868.9,
+    "total": 21415.1
+  },
+  {
+    "date": "2016-06-17",
+    "sbp_reserves": 16815.5,
+    "bank_reserves": 4955.0,
+    "total": 21770.5
+  },
+  {
+    "date": "2016-06-24",
+    "sbp_reserves": 16819.6,
+    "bank_reserves": 4946.2,
+    "total": 21765.8
+  },
+  {
+    "date": "2016-07-01",
+    "sbp_reserves": 18128.9,
+    "bank_reserves": 4956.0,
+    "total": 23084.9
+  },
+  {
+    "date": "2016-07-08",
+    "sbp_reserves": 18104.4,
+    "bank_reserves": 4958.5,
+    "total": 23062.9
+  },
+  {
+    "date": "2016-07-15",
+    "sbp_reserves": 18077.4,
+    "bank_reserves": 5014.0,
+    "total": 23091.4
+  },
+  {
+    "date": "2016-07-22",
+    "sbp_reserves": 18036.9,
+    "bank_reserves": 4959.7,
+    "total": 22996.600000000002
+  },
+  {
+    "date": "2016-08-05",
+    "sbp_reserves": 17664.2,
+    "bank_reserves": 4930.9,
+    "total": 22595.1
+  },
+  {
+    "date": "2016-08-12",
+    "sbp_reserves": 17719.6,
+    "bank_reserves": 4903.6,
+    "total": 22623.199999999997
+  },
+  {
+    "date": "2016-08-19",
+    "sbp_reserves": 18186.8,
+    "bank_reserves": 4894.4,
+    "total": 23081.199999999997
+  },
+  {
+    "date": "2016-08-26",
+    "sbp_reserves": 18128.8,
+    "bank_reserves": 4909.9,
+    "total": 23038.699999999997
+  },
+  {
+    "date": "2016-09-02",
+    "sbp_reserves": 18065.3,
+    "bank_reserves": 4918.4,
+    "total": 22983.699999999997
+  },
+  {
+    "date": "2016-09-09",
+    "sbp_reserves": 17853.7,
+    "bank_reserves": 5004.7,
+    "total": 22858.4
+  },
+  {
+    "date": "2016-09-16",
+    "sbp_reserves": 17657.2,
+    "bank_reserves": 5040.7,
+    "total": 22697.9
+  },
+  {
+    "date": "2016-09-23",
+    "sbp_reserves": 18395.1,
+    "bank_reserves": 5022.9,
+    "total": 23418.0
+  },
+  {
+    "date": "2016-10-07",
+    "sbp_reserves": 18410.2,
+    "bank_reserves": 5081.9,
+    "total": 23492.1
+  },
+  {
+    "date": "2016-10-14",
+    "sbp_reserves": 19461.7,
+    "bank_reserves": 4999.7,
+    "total": 24461.4
+  },
+  {
+    "date": "2016-10-21",
+    "sbp_reserves": 19320.8,
+    "bank_reserves": 5005.7,
+    "total": 24326.5
+  },
+  {
+    "date": "2016-10-28",
+    "sbp_reserves": 19130.5,
+    "bank_reserves": 5058.8,
+    "total": 24189.3
+  },
+  {
+    "date": "2016-11-04",
+    "sbp_reserves": 19075.9,
+    "bank_reserves": 5077.5,
+    "total": 24153.4
+  },
+  {
+    "date": "2016-11-11",
+    "sbp_reserves": 19027.1,
+    "bank_reserves": 5068.7,
+    "total": 24095.8
+  },
+  {
+    "date": "2016-11-18",
+    "sbp_reserves": 18846.9,
+    "bank_reserves": 5018.3,
+    "total": 23865.2
+  },
+  {
+    "date": "2016-11-25",
+    "sbp_reserves": 18574.8,
+    "bank_reserves": 5040.0,
+    "total": 23614.8
+  },
+  {
+    "date": "2016-12-02",
+    "sbp_reserves": 18353.2,
+    "bank_reserves": 4991.2,
+    "total": 23344.4
+  },
+  {
+    "date": "2016-12-09",
+    "sbp_reserves": 18323.2,
+    "bank_reserves": 4971.6,
+    "total": 23294.800000000003
+  },
+  {
+    "date": "2016-12-16",
+    "sbp_reserves": 18190.4,
+    "bank_reserves": 4941.6,
+    "total": 23132.0
+  },
+  {
+    "date": "2016-12-23",
+    "sbp_reserves": 18299.4,
+    "bank_reserves": 4986.6,
+    "total": 23286.0
+  },
+  {
+    "date": "2017-01-06",
+    "sbp_reserves": 18309.7,
+    "bank_reserves": 4890.5,
+    "total": 23200.2
+  },
+  {
+    "date": "2017-01-13",
+    "sbp_reserves": 18361.0,
+    "bank_reserves": 4830.5,
+    "total": 23191.5
+  },
+  {
+    "date": "2017-01-20",
+    "sbp_reserves": 18383.5,
+    "bank_reserves": 4862.7,
+    "total": 23246.2
+  },
+  {
+    "date": "2017-01-27",
+    "sbp_reserves": 17593.8,
+    "bank_reserves": 4841.1,
+    "total": 22434.9
+  },
+  {
+    "date": "2017-02-03",
+    "sbp_reserves": 17217.8,
+    "bank_reserves": 4813.5,
+    "total": 22031.3
+  },
+  {
+    "date": "2017-02-10",
+    "sbp_reserves": 16993.4,
+    "bank_reserves": 4831.1,
+    "total": 21824.5
+  },
+  {
+    "date": "2017-02-17",
+    "sbp_reserves": 17027.8,
+    "bank_reserves": 4902.0,
+    "total": 21929.8
+  },
+  {
+    "date": "2017-02-24",
+    "sbp_reserves": 16850.8,
+    "bank_reserves": 4971.8,
+    "total": 21822.6
+  },
+  {
+    "date": "2017-03-03",
+    "sbp_reserves": 17139.7,
+    "bank_reserves": 5012.1,
+    "total": 22151.800000000003
+  },
+  {
+    "date": "2017-03-10",
+    "sbp_reserves": 17238.3,
+    "bank_reserves": 5035.7,
+    "total": 22274.0
+  },
+  {
+    "date": "2017-03-17",
+    "sbp_reserves": 16960.5,
+    "bank_reserves": 5089.7,
+    "total": 22050.2
+  },
+  {
+    "date": "2017-03-24",
+    "sbp_reserves": 16730.3,
+    "bank_reserves": 5065.6,
+    "total": 21795.9
+  },
+  {
+    "date": "2017-04-07",
+    "sbp_reserves": 16688.2,
+    "bank_reserves": 5055.9,
+    "total": 21744.1
+  },
+  {
+    "date": "2017-04-14",
+    "sbp_reserves": 16416.1,
+    "bank_reserves": 5152.0,
+    "total": 21568.1
+  },
+  {
+    "date": "2017-04-21",
+    "sbp_reserves": 16050.1,
+    "bank_reserves": 5100.7,
+    "total": 21150.8
+  },
+  {
+    "date": "2017-05-05",
+    "sbp_reserves": 15912.5,
+    "bank_reserves": 4878.0,
+    "total": 20790.5
+  },
+  {
+    "date": "2017-05-12",
+    "sbp_reserves": 15895.9,
+    "bank_reserves": 4782.7,
+    "total": 20678.6
+  },
+  {
+    "date": "2017-05-19",
+    "sbp_reserves": 16212.6,
+    "bank_reserves": 4795.2,
+    "total": 21007.8
+  },
+  {
+    "date": "2017-05-26",
+    "sbp_reserves": 16921.9,
+    "bank_reserves": 4848.5,
+    "total": 21770.4
+  },
+  {
+    "date": "2017-06-02",
+    "sbp_reserves": 15706.6,
+    "bank_reserves": 4809.1,
+    "total": 20515.7
+  },
+  {
+    "date": "2017-06-09",
+    "sbp_reserves": 15296.3,
+    "bank_reserves": 4861.5,
+    "total": 20157.8
+  },
+  {
+    "date": "2017-06-16",
+    "sbp_reserves": 15420.8,
+    "bank_reserves": 4940.2,
+    "total": 20361.0
+  },
+  {
+    "date": "2017-06-23",
+    "sbp_reserves": 16376.0,
+    "bank_reserves": 4982.0,
+    "total": 21358.0
+  },
+  {
+    "date": "2017-07-07",
+    "sbp_reserves": 16197.3,
+    "bank_reserves": 5250.3,
+    "total": 21447.6
+  },
+  {
+    "date": "2017-07-14",
+    "sbp_reserves": 15478.5,
+    "bank_reserves": 5351.5,
+    "total": 20830.0
+  },
+  {
+    "date": "2017-07-21",
+    "sbp_reserves": 15003.1,
+    "bank_reserves": 5433.1,
+    "total": 20436.2
+  },
+  {
+    "date": "2017-07-28",
+    "sbp_reserves": 14698.2,
+    "bank_reserves": 5584.9,
+    "total": 20283.1
+  },
+  {
+    "date": "2017-08-04",
+    "sbp_reserves": 14398.8,
+    "bank_reserves": 5604.9,
+    "total": 20003.699999999997
+  },
+  {
+    "date": "2017-08-11",
+    "sbp_reserves": 14310.5,
+    "bank_reserves": 5631.3,
+    "total": 19941.8
+  },
+  {
+    "date": "2017-08-18",
+    "sbp_reserves": 14375.1,
+    "bank_reserves": 5671.2,
+    "total": 20046.3
+  },
+  {
+    "date": "2017-08-25",
+    "sbp_reserves": 14343.4,
+    "bank_reserves": 5657.7,
+    "total": 20001.1
+  },
+  {
+    "date": "2017-09-08",
+    "sbp_reserves": 14758.4,
+    "bank_reserves": 5826.8,
+    "total": 20585.2
+  },
+  {
+    "date": "2017-09-15",
+    "sbp_reserves": 14283.6,
+    "bank_reserves": 5816.1,
+    "total": 20099.7
+  },
+  {
+    "date": "2017-09-22",
+    "sbp_reserves": 14132.7,
+    "bank_reserves": 5918.9,
+    "total": 20051.6
+  },
+  {
+    "date": "2017-10-06",
+    "sbp_reserves": 13787.9,
+    "bank_reserves": 5884.1,
+    "total": 19672.0
+  },
+  {
+    "date": "2017-10-13",
+    "sbp_reserves": 14157.6,
+    "bank_reserves": 5895.3,
+    "total": 20052.9
+  },
+  {
+    "date": "2017-10-20",
+    "sbp_reserves": 13941.6,
+    "bank_reserves": 5960.5,
+    "total": 19902.1
+  },
+  {
+    "date": "2017-10-27",
+    "sbp_reserves": 13846.7,
+    "bank_reserves": 5996.1,
+    "total": 19842.800000000003
+  },
+  {
+    "date": "2017-11-03",
+    "sbp_reserves": 13861.2,
+    "bank_reserves": 6050.9,
+    "total": 19912.1
+  },
+  {
+    "date": "2017-11-10",
+    "sbp_reserves": 13677.6,
+    "bank_reserves": 6017.4,
+    "total": 19695.0
+  },
+  {
+    "date": "2017-11-17",
+    "sbp_reserves": 13541.1,
+    "bank_reserves": 6169.6,
+    "total": 19710.7
+  },
+  {
+    "date": "2017-11-24",
+    "sbp_reserves": 13547.3,
+    "bank_reserves": 6145.9,
+    "total": 19693.199999999997
+  },
+  {
+    "date": "2017-12-08",
+    "sbp_reserves": 14666.3,
+    "bank_reserves": 6020.4,
+    "total": 20686.699999999997
+  },
+  {
+    "date": "2017-12-15",
+    "sbp_reserves": 14332.2,
+    "bank_reserves": 6051.2,
+    "total": 20383.4
+  },
+  {
+    "date": "2017-12-22",
+    "sbp_reserves": 14133.3,
+    "bank_reserves": 6055.7,
+    "total": 20189.0
+  },
+  {
+    "date": "2018-01-05",
+    "sbp_reserves": 13982.5,
+    "bank_reserves": 6037.5,
+    "total": 20020.0
+  },
+  {
+    "date": "2018-01-12",
+    "sbp_reserves": 13699.0,
+    "bank_reserves": 6072.5,
+    "total": 19771.5
+  },
+  {
+    "date": "2018-01-19",
+    "sbp_reserves": 13532.8,
+    "bank_reserves": 6107.6,
+    "total": 19640.4
+  },
+  {
+    "date": "2018-01-26",
+    "sbp_reserves": 13234.0,
+    "bank_reserves": 6120.5,
+    "total": 19354.5
+  },
+  {
+    "date": "2018-02-02",
+    "sbp_reserves": 13060.6,
+    "bank_reserves": 6122.3,
+    "total": 19182.9
+  },
+  {
+    "date": "2018-02-09",
+    "sbp_reserves": 12833.9,
+    "bank_reserves": 6134.2,
+    "total": 18968.1
+  },
+  {
+    "date": "2018-02-16",
+    "sbp_reserves": 12703.7,
+    "bank_reserves": 6125.0,
+    "total": 18828.7
+  },
+  {
+    "date": "2018-02-23",
+    "sbp_reserves": 12345.6,
+    "bank_reserves": 6067.7,
+    "total": 18413.3
+  },
+  {
+    "date": "2018-03-02",
+    "sbp_reserves": 12233.2,
+    "bank_reserves": 6096.0,
+    "total": 18329.2
+  },
+  {
+    "date": "2018-03-09",
+    "sbp_reserves": 12125.7,
+    "bank_reserves": 6114.7,
+    "total": 18240.4
+  },
+  {
+    "date": "2018-03-16",
+    "sbp_reserves": 11944.0,
+    "bank_reserves": 6135.0,
+    "total": 18079.0
+  },
+  {
+    "date": "2018-03-30",
+    "sbp_reserves": 11602.3,
+    "bank_reserves": 6210.5,
+    "total": 17812.8
+  },
+  {
+    "date": "2018-04-06",
+    "sbp_reserves": 11438.3,
+    "bank_reserves": 6201.5,
+    "total": 17639.8
+  },
+  {
+    "date": "2018-04-13",
+    "sbp_reserves": 11379.6,
+    "bank_reserves": 6165.9,
+    "total": 17545.5
+  },
+  {
+    "date": "2018-04-20",
+    "sbp_reserves": 10917.0,
+    "bank_reserves": 6213.6,
+    "total": 17130.6
+  },
+  {
+    "date": "2018-04-27",
+    "sbp_reserves": 11510.3,
+    "bank_reserves": 6202.6,
+    "total": 17712.9
+  },
+  {
+    "date": "2018-05-04",
+    "sbp_reserves": 11162.7,
+    "bank_reserves": 6123.7,
+    "total": 17286.4
+  },
+  {
+    "date": "2018-05-11",
+    "sbp_reserves": 10798.9,
+    "bank_reserves": 6268.1,
+    "total": 17067.0
+  },
+  {
+    "date": "2018-05-18",
+    "sbp_reserves": 10320.2,
+    "bank_reserves": 6332.0,
+    "total": 16652.2
+  },
+  {
+    "date": "2018-05-25",
+    "sbp_reserves": 10033.8,
+    "bank_reserves": 6373.0,
+    "total": 16406.8
+  },
+  {
+    "date": "2018-06-01",
+    "sbp_reserves": 10041.6,
+    "bank_reserves": 6378.0,
+    "total": 16419.6
+  },
+  {
+    "date": "2018-06-08",
+    "sbp_reserves": 10065.6,
+    "bank_reserves": 6391.5,
+    "total": 16457.1
+  },
+  {
+    "date": "2018-06-22",
+    "sbp_reserves": 9662.5,
+    "bank_reserves": 6581.4,
+    "total": 16243.9
+  },
+  {
+    "date": "2018-07-06",
+    "sbp_reserves": 9479.5,
+    "bank_reserves": 6604.8,
+    "total": 16084.3
+  },
+  {
+    "date": "2018-07-13",
+    "sbp_reserves": 9063.6,
+    "bank_reserves": 6618.9,
+    "total": 15682.5
+  },
+  {
+    "date": "2018-07-20",
+    "sbp_reserves": 9010.7,
+    "bank_reserves": 6718.1,
+    "total": 15728.800000000001
+  },
+  {
+    "date": "2018-07-27",
+    "sbp_reserves": 10349.7,
+    "bank_reserves": 6730.0,
+    "total": 17079.7
+  },
+  {
+    "date": "2018-08-03",
+    "sbp_reserves": 10369.1,
+    "bank_reserves": 6635.9,
+    "total": 17005.0
+  },
+  {
+    "date": "2018-08-10",
+    "sbp_reserves": 10152.6,
+    "bank_reserves": 6560.2,
+    "total": 16712.8
+  },
+  {
+    "date": "2018-08-17",
+    "sbp_reserves": 10234.8,
+    "bank_reserves": 6488.0,
+    "total": 16722.8
+  },
+  {
+    "date": "2018-08-24",
+    "sbp_reserves": 10226.7,
+    "bank_reserves": 6458.4,
+    "total": 16685.1
+  },
+  {
+    "date": "2018-09-07",
+    "sbp_reserves": 9624.4,
+    "bank_reserves": 6445.5,
+    "total": 16069.9
+  },
+  {
+    "date": "2018-09-14",
+    "sbp_reserves": 9328.8,
+    "bank_reserves": 6461.3,
+    "total": 15790.099999999999
+  },
+  {
+    "date": "2018-10-05",
+    "sbp_reserves": 8307.8,
+    "bank_reserves": 6544.3,
+    "total": 14852.099999999999
+  },
+  {
+    "date": "2018-10-12",
+    "sbp_reserves": 8088.9,
+    "bank_reserves": 6525.0,
+    "total": 14613.9
+  },
+  {
+    "date": "2018-10-19",
+    "sbp_reserves": 7825.0,
+    "bank_reserves": 6470.8,
+    "total": 14295.8
+  },
+  {
+    "date": "2018-10-26",
+    "sbp_reserves": 7776.9,
+    "bank_reserves": 6407.6,
+    "total": 14184.5
+  },
+  {
+    "date": "2018-11-02",
+    "sbp_reserves": 7678.9,
+    "bank_reserves": 6389.2,
+    "total": 14068.099999999999
+  },
+  {
+    "date": "2018-11-09",
+    "sbp_reserves": 7482.9,
+    "bank_reserves": 6349.1,
+    "total": 13832.0
+  },
+  {
+    "date": "2018-11-16",
+    "sbp_reserves": 7286.5,
+    "bank_reserves": 6428.5,
+    "total": 13715.0
+  },
+  {
+    "date": "2018-11-23",
+    "sbp_reserves": 8062.4,
+    "bank_reserves": 6510.2,
+    "total": 14572.599999999999
+  },
+  {
+    "date": "2018-11-30",
+    "sbp_reserves": 7502.1,
+    "bank_reserves": 6509.3,
+    "total": 14011.400000000001
+  },
+  {
+    "date": "2018-12-07",
+    "sbp_reserves": 7260.4,
+    "bank_reserves": 6493.5,
+    "total": 13753.9
+  },
+  {
+    "date": "2018-12-14",
+    "sbp_reserves": 8048.4,
+    "bank_reserves": 6536.2,
+    "total": 14584.599999999999
+  },
+  {
+    "date": "2018-12-21",
+    "sbp_reserves": 7457.3,
+    "bank_reserves": 6560.5,
+    "total": 14017.8
+  },
+  {
+    "date": "2018-12-28",
+    "sbp_reserves": 7287.5,
+    "bank_reserves": 6550.3,
+    "total": 13837.8
+  },
+  {
+    "date": "2019-01-04",
+    "sbp_reserves": 7048.7,
+    "bank_reserves": 6548.3,
+    "total": 13597.0
+  },
+  {
+    "date": "2019-01-11",
+    "sbp_reserves": 6901.2,
+    "bank_reserves": 6588.0,
+    "total": 13489.2
+  },
+  {
+    "date": "2019-01-18",
+    "sbp_reserves": 6636.1,
+    "bank_reserves": 6621.1,
+    "total": 13257.2
+  },
+  {
+    "date": "2019-01-25",
+    "sbp_reserves": 8154.3,
+    "bank_reserves": 6648.2,
+    "total": 14802.5
+  },
+  {
+    "date": "2019-02-01",
+    "sbp_reserves": 8192.5,
+    "bank_reserves": 6692.6,
+    "total": 14885.1
+  },
+  {
+    "date": "2019-02-08",
+    "sbp_reserves": 8205.9,
+    "bank_reserves": 6689.9,
+    "total": 14895.8
+  },
+  {
+    "date": "2019-02-15",
+    "sbp_reserves": 8043.0,
+    "bank_reserves": 6751.6,
+    "total": 14794.6
+  },
+  {
+    "date": "2019-02-22",
+    "sbp_reserves": 8036.8,
+    "bank_reserves": 6779.0,
+    "total": 14815.8
+  },
+  {
+    "date": "2019-03-01",
+    "sbp_reserves": 8116.5,
+    "bank_reserves": 6839.7,
+    "total": 14956.2
+  },
+  {
+    "date": "2019-03-08",
+    "sbp_reserves": 8122.9,
+    "bank_reserves": 6843.0,
+    "total": 14965.9
+  },
+  {
+    "date": "2019-03-15",
+    "sbp_reserves": 8838.7,
+    "bank_reserves": 6870.9,
+    "total": 15709.6
+  },
+  {
+    "date": "2019-03-22",
+    "sbp_reserves": 8560.9,
+    "bank_reserves": 6913.0,
+    "total": 15473.9
+  },
+  {
+    "date": "2019-04-05",
+    "sbp_reserves": 10271.9,
+    "bank_reserves": 6956.4,
+    "total": 17228.3
+  },
+  {
+    "date": "2019-04-12",
+    "sbp_reserves": 9243.7,
+    "bank_reserves": 6952.2,
+    "total": 16195.900000000001
+  },
+  {
+    "date": "2019-04-19",
+    "sbp_reserves": 9024.3,
+    "bank_reserves": 6970.0,
+    "total": 15994.3
+  },
+  {
+    "date": "2019-04-26",
+    "sbp_reserves": 8805.2,
+    "bank_reserves": 6937.6,
+    "total": 15742.800000000001
+  },
+  {
+    "date": "2019-05-03",
+    "sbp_reserves": 8984.1,
+    "bank_reserves": 6988.5,
+    "total": 15972.6
+  },
+  {
+    "date": "2019-05-10",
+    "sbp_reserves": 8845.6,
+    "bank_reserves": 7048.8,
+    "total": 15894.400000000001
+  },
+  {
+    "date": "2019-05-17",
+    "sbp_reserves": 8057.599999999999,
+    "bank_reserves": 7068.9,
+    "total": 15126.5
+  },
+  {
+    "date": "2019-05-24",
+    "sbp_reserves": 8010.2,
+    "bank_reserves": 7079.6,
+    "total": 15089.8
+  },
+  {
+    "date": "2019-06-14",
+    "sbp_reserves": 7604.5,
+    "bank_reserves": 7034.6,
+    "total": 14639.1
+  },
+  {
+    "date": "2019-06-21",
+    "sbp_reserves": 7282.1,
+    "bank_reserves": 7069.2,
+    "total": 14351.3
+  },
+  {
+    "date": "2019-07-05",
+    "sbp_reserves": 7083.6,
+    "bank_reserves": 7175.7,
+    "total": 14259.3
+  },
+  {
+    "date": "2019-07-12",
+    "sbp_reserves": 8001.3,
+    "bank_reserves": 7247.9,
+    "total": 15249.2
+  },
+  {
+    "date": "2019-07-19",
+    "sbp_reserves": 7611.9,
+    "bank_reserves": 7250.5,
+    "total": 14862.4
+  },
+  {
+    "date": "2019-07-26",
+    "sbp_reserves": 7767.0,
+    "bank_reserves": 7294.8,
+    "total": 15061.8
+  },
+  {
+    "date": "2019-08-02",
+    "sbp_reserves": 7729.1,
+    "bank_reserves": 7291.1,
+    "total": 15020.2
+  },
+  {
+    "date": "2019-08-09",
+    "sbp_reserves": 8264.4,
+    "bank_reserves": 7313.1,
+    "total": 15577.5
+  },
+  {
+    "date": "2019-08-17",
+    "sbp_reserves": 8238.7,
+    "bank_reserves": 7366.0,
+    "total": 15604.7
+  },
+  {
+    "date": "2019-08-23",
+    "sbp_reserves": 8271.1,
+    "bank_reserves": 7358.6,
+    "total": 15629.7
+  },
+  {
+    "date": "2019-09-06",
+    "sbp_reserves": 8462.3,
+    "bank_reserves": 7289.4,
+    "total": 15751.699999999999
+  },
+  {
+    "date": "2019-09-13",
+    "sbp_reserves": 8600.4,
+    "bank_reserves": 7297.7,
+    "total": 15898.099999999999
+  },
+  {
+    "date": "2019-09-20",
+    "sbp_reserves": 8465.3,
+    "bank_reserves": 7307.3,
+    "total": 15772.599999999999
+  },
+  {
+    "date": "2019-09-27",
+    "sbp_reserves": 7741.6,
+    "bank_reserves": 7262.1,
+    "total": 15003.7
+  },
+  {
+    "date": "2019-10-04",
+    "sbp_reserves": 7757.6,
+    "bank_reserves": 7235.3,
+    "total": 14992.900000000001
+  },
+  {
+    "date": "2019-10-11",
+    "sbp_reserves": 7813.7,
+    "bank_reserves": 7328.9,
+    "total": 15142.599999999999
+  },
+  {
+    "date": "2019-10-18",
+    "sbp_reserves": 7892.7,
+    "bank_reserves": 7293.8,
+    "total": 15186.5
+  },
+  {
+    "date": "2019-10-25",
+    "sbp_reserves": 7914.3,
+    "bank_reserves": 7175.4,
+    "total": 15089.7
+  },
+  {
+    "date": "2019-11-01",
+    "sbp_reserves": 8357.6,
+    "bank_reserves": 7160.3,
+    "total": 15517.900000000001
+  },
+  {
+    "date": "2019-11-08",
+    "sbp_reserves": 8397.3,
+    "bank_reserves": 7105.1,
+    "total": 15502.4
+  },
+  {
+    "date": "2019-11-15",
+    "sbp_reserves": 8442.1,
+    "bank_reserves": 7020.2,
+    "total": 15462.3
+  },
+  {
+    "date": "2019-11-22",
+    "sbp_reserves": 8682.3,
+    "bank_reserves": 6895.4,
+    "total": 15577.699999999999
+  },
+  {
+    "date": "2019-11-29",
+    "sbp_reserves": 9112.4,
+    "bank_reserves": 6891.0,
+    "total": 16003.4
+  },
+  {
+    "date": "2019-12-06",
+    "sbp_reserves": 9233.6,
+    "bank_reserves": 6814.5,
+    "total": 16048.1
+  },
+  {
+    "date": "2019-12-13",
+    "sbp_reserves": 10892.9,
+    "bank_reserves": 6762.6,
+    "total": 17655.5
+  },
+  {
+    "date": "2019-12-20",
+    "sbp_reserves": 10907.3,
+    "bank_reserves": 6687.9,
+    "total": 17595.199999999997
+  },
+  {
+    "date": "2019-12-27",
+    "sbp_reserves": 11489.400000000001,
+    "bank_reserves": 6592.0,
+    "total": 18081.4
+  },
+  {
+    "date": "2020-01-03",
+    "sbp_reserves": 11503.7,
+    "bank_reserves": 6581.1,
+    "total": 18084.800000000003
+  },
+  {
+    "date": "2020-01-10",
+    "sbp_reserves": 11586.0,
+    "bank_reserves": 6537.6,
+    "total": 18123.6
+  },
+  {
+    "date": "2020-01-17",
+    "sbp_reserves": 11731.5,
+    "bank_reserves": 6539.5,
+    "total": 18271.0
+  },
+  {
+    "date": "2020-01-24",
+    "sbp_reserves": 11915.2,
+    "bank_reserves": 6447.5,
+    "total": 18362.7
+  },
+  {
+    "date": "2020-01-31",
+    "sbp_reserves": 12273.8,
+    "bank_reserves": 6384.3,
+    "total": 18658.1
+  },
+  {
+    "date": "2020-02-07",
+    "sbp_reserves": 12430.8,
+    "bank_reserves": 6304.6,
+    "total": 18735.4
+  },
+  {
+    "date": "2020-02-14",
+    "sbp_reserves": 12504.7,
+    "bank_reserves": 6242.4,
+    "total": 18747.1
+  },
+  {
+    "date": "2020-02-21",
+    "sbp_reserves": 12591.5,
+    "bank_reserves": 6151.3,
+    "total": 18742.8
+  },
+  {
+    "date": "2020-02-28",
+    "sbp_reserves": 12757.7,
+    "bank_reserves": 6123.3,
+    "total": 18881.0
+  },
+  {
+    "date": "2020-03-06",
+    "sbp_reserves": 12789.9,
+    "bank_reserves": 6114.7,
+    "total": 18904.6
+  },
+  {
+    "date": "2020-03-13",
+    "sbp_reserves": 12679.6,
+    "bank_reserves": 6063.4,
+    "total": 18743.0
+  },
+  {
+    "date": "2020-03-20",
+    "sbp_reserves": 11989.2,
+    "bank_reserves": 6115.9,
+    "total": 18105.1
+  },
+  {
+    "date": "2020-03-27",
+    "sbp_reserves": 11185.6,
+    "bank_reserves": 6201.9,
+    "total": 17387.5
+  },
+  {
+    "date": "2020-04-03",
+    "sbp_reserves": 10722.5,
+    "bank_reserves": 6265.7,
+    "total": 16988.2
+  },
+  {
+    "date": "2020-04-10",
+    "sbp_reserves": 10974.6,
+    "bank_reserves": 6320.9,
+    "total": 17295.5
+  },
+  {
+    "date": "2020-04-17",
+    "sbp_reserves": 10889.2,
+    "bank_reserves": 6411.1,
+    "total": 17300.300000000003
+  },
+  {
+    "date": "2020-04-24",
+    "sbp_reserves": 12070.3,
+    "bank_reserves": 6392.7,
+    "total": 18463.0
+  },
+  {
+    "date": "2020-05-08",
+    "sbp_reserves": 12270.7,
+    "bank_reserves": 6473.8,
+    "total": 18744.5
+  },
+  {
+    "date": "2020-05-15",
+    "sbp_reserves": 12129.3,
+    "bank_reserves": 6489.0,
+    "total": 18618.3
+  },
+  {
+    "date": "2020-05-29",
+    "sbp_reserves": 10362.1,
+    "bank_reserves": 6580.8,
+    "total": 16942.9
+  },
+  {
+    "date": "2020-06-05",
+    "sbp_reserves": 10095.8,
+    "bank_reserves": 6609.5,
+    "total": 16705.3
+  },
+  {
+    "date": "2020-06-12",
+    "sbp_reserves": 10107.1,
+    "bank_reserves": 6668.2,
+    "total": 16775.3
+  },
+  {
+    "date": "2020-06-19",
+    "sbp_reserves": 9961.2,
+    "bank_reserves": 6768.9,
+    "total": 16730.1
+  },
+  {
+    "date": "2020-06-26",
+    "sbp_reserves": 11231.0,
+    "bank_reserves": 6740.0,
+    "total": 17971.0
+  },
+  {
+    "date": "2020-07-03",
+    "sbp_reserves": 12041.6,
+    "bank_reserves": 6748.5,
+    "total": 18790.1
+  },
+  {
+    "date": "2020-07-10",
+    "sbp_reserves": 12054.9,
+    "bank_reserves": 6897.7,
+    "total": 18952.6
+  },
+  {
+    "date": "2020-07-17",
+    "sbp_reserves": 12121.6,
+    "bank_reserves": 6925.7,
+    "total": 19047.3
+  },
+  {
+    "date": "2020-07-24",
+    "sbp_reserves": 11975.6,
+    "bank_reserves": 6936.6,
+    "total": 18912.2
+  },
+  {
+    "date": "2020-08-07",
+    "sbp_reserves": 12469.3,
+    "bank_reserves": 7049.0,
+    "total": 19518.3
+  },
+  {
+    "date": "2020-08-21",
+    "sbp_reserves": 12640.8,
+    "bank_reserves": 7081.6,
+    "total": 19722.4
+  },
+  {
+    "date": "2020-08-28",
+    "sbp_reserves": 12712.7,
+    "bank_reserves": 7130.1,
+    "total": 19842.800000000003
+  },
+  {
+    "date": "2020-09-04",
+    "sbp_reserves": 12807.8,
+    "bank_reserves": 7153.5,
+    "total": 19961.3
+  },
+  {
+    "date": "2020-09-11",
+    "sbp_reserves": 12820.4,
+    "bank_reserves": 7138.6,
+    "total": 19959.0
+  },
+  {
+    "date": "2020-09-18",
+    "sbp_reserves": 12701.6,
+    "bank_reserves": 7202.1,
+    "total": 19903.7
+  },
+  {
+    "date": "2020-09-25",
+    "sbp_reserves": 12359.7,
+    "bank_reserves": 7175.1,
+    "total": 19534.800000000003
+  },
+  {
+    "date": "2020-10-02",
+    "sbp_reserves": 12154.7,
+    "bank_reserves": 7196.3,
+    "total": 19351.0
+  },
+  {
+    "date": "2020-10-09",
+    "sbp_reserves": 11798.4,
+    "bank_reserves": 7217.1,
+    "total": 19015.5
+  },
+  {
+    "date": "2020-10-16",
+    "sbp_reserves": 12066.6,
+    "bank_reserves": 7235.0,
+    "total": 19301.6
+  },
+  {
+    "date": "2020-10-23",
+    "sbp_reserves": 12121.5,
+    "bank_reserves": 7175.0,
+    "total": 19296.5
+  },
+  {
+    "date": "2020-11-06",
+    "sbp_reserves": 12740.5,
+    "bank_reserves": 7166.4,
+    "total": 19906.9
+  },
+  {
+    "date": "2020-11-13",
+    "sbp_reserves": 12931.2,
+    "bank_reserves": 7154.4,
+    "total": 20085.6
+  },
+  {
+    "date": "2020-11-20",
+    "sbp_reserves": 13415.5,
+    "bank_reserves": 7136.9,
+    "total": 20552.4
+  },
+  {
+    "date": "2020-11-27",
+    "sbp_reserves": 13110.9,
+    "bank_reserves": 7130.9,
+    "total": 20241.8
+  },
+  {
+    "date": "2020-12-04",
+    "sbp_reserves": 13298.5,
+    "bank_reserves": 7103.9,
+    "total": 20402.4
+  },
+  {
+    "date": "2020-12-11",
+    "sbp_reserves": 13298.8,
+    "bank_reserves": 7080.8,
+    "total": 20379.6
+  },
+  {
+    "date": "2020-12-18",
+    "sbp_reserves": 13216.2,
+    "bank_reserves": 7096.9,
+    "total": 20313.1
+  },
+  {
+    "date": "2021-01-08",
+    "sbp_reserves": 13400.0,
+    "bank_reserves": 7119.0,
+    "total": 20519.0
+  },
+  {
+    "date": "2021-01-15",
+    "sbp_reserves": 13013.8,
+    "bank_reserves": 7106.5,
+    "total": 20120.3
+  },
+  {
+    "date": "2021-01-22",
+    "sbp_reserves": 12998.4,
+    "bank_reserves": 7108.1,
+    "total": 20106.5
+  },
+  {
+    "date": "2021-02-12",
+    "sbp_reserves": 12889.7,
+    "bank_reserves": 7168.9,
+    "total": 20058.6
+  },
+  {
+    "date": "2021-02-19",
+    "sbp_reserves": 12908.7,
+    "bank_reserves": 7132.9,
+    "total": 20041.6
+  },
+  {
+    "date": "2021-02-26",
+    "sbp_reserves": 12975.0,
+    "bank_reserves": 7129.8,
+    "total": 20104.8
+  },
+  {
+    "date": "2021-03-05",
+    "sbp_reserves": 13016.1,
+    "bank_reserves": 7141.8,
+    "total": 20157.9
+  },
+  {
+    "date": "2021-03-12",
+    "sbp_reserves": 13019.7,
+    "bank_reserves": 7139.4,
+    "total": 20159.1
+  },
+  {
+    "date": "2021-03-19",
+    "sbp_reserves": 13295.0,
+    "bank_reserves": 7139.6,
+    "total": 20434.6
+  },
+  {
+    "date": "2021-03-26",
+    "sbp_reserves": 13673.0,
+    "bank_reserves": 7163.4,
+    "total": 20836.4
+  },
+  {
+    "date": "2021-04-02",
+    "sbp_reserves": 13527.2,
+    "bank_reserves": 7152.199999999999,
+    "total": 20679.4
+  },
+  {
+    "date": "2021-04-09",
+    "sbp_reserves": 16106.4,
+    "bank_reserves": 7113.9,
+    "total": 23220.3
+  },
+  {
+    "date": "2021-04-16",
+    "sbp_reserves": 16043.9,
+    "bank_reserves": 7168.9,
+    "total": 23212.8
+  },
+  {
+    "date": "2021-04-23",
+    "sbp_reserves": 16427.8,
+    "bank_reserves": 7092.4,
+    "total": 23520.199999999997
+  },
+  {
+    "date": "2021-05-07",
+    "sbp_reserves": 15774.5,
+    "bank_reserves": 7135.8,
+    "total": 22910.3
+  },
+  {
+    "date": "2021-05-21",
+    "sbp_reserves": 15862.0,
+    "bank_reserves": 7153.9,
+    "total": 23015.9
+  },
+  {
+    "date": "2021-05-28",
+    "sbp_reserves": 16133.6,
+    "bank_reserves": 7160.5,
+    "total": 23294.1
+  },
+  {
+    "date": "2021-06-04",
+    "sbp_reserves": 16414.9,
+    "bank_reserves": 7163.0,
+    "total": 23577.9
+  },
+  {
+    "date": "2021-06-11",
+    "sbp_reserves": 16417.3,
+    "bank_reserves": 7169.2,
+    "total": 23586.5
+  },
+  {
+    "date": "2021-06-18",
+    "sbp_reserves": 16106.1,
+    "bank_reserves": 7150.8,
+    "total": 23256.9
+  },
+  {
+    "date": "2021-06-25",
+    "sbp_reserves": 16119.4,
+    "bank_reserves": 7178.0,
+    "total": 23297.4
+  },
+  {
+    "date": "2021-07-02",
+    "sbp_reserves": 17231.1,
+    "bank_reserves": 7183.8,
+    "total": 24414.899999999998
+  },
+  {
+    "date": "2021-07-09",
+    "sbp_reserves": 17205.6,
+    "bank_reserves": 7106.5,
+    "total": 24312.1
+  },
+  {
+    "date": "2021-07-16",
+    "sbp_reserves": 18050.7,
+    "bank_reserves": 7077.299999999999,
+    "total": 25128.0
+  },
+  {
+    "date": "2021-07-23",
+    "sbp_reserves": 17829.8,
+    "bank_reserves": 7045.7,
+    "total": 24875.5
+  },
+  {
+    "date": "2021-08-06",
+    "sbp_reserves": 17622.7,
+    "bank_reserves": 7021.3,
+    "total": 24644.0
+  },
+  {
+    "date": "2021-08-13",
+    "sbp_reserves": 17625.9,
+    "bank_reserves": 7042.200000000001,
+    "total": 24668.100000000002
+  },
+  {
+    "date": "2021-08-20",
+    "sbp_reserves": 17578.9,
+    "bank_reserves": 7040.4,
+    "total": 24619.300000000003
+  },
+  {
+    "date": "2021-08-27",
+    "sbp_reserves": 20145.6,
+    "bank_reserves": 7082.1,
+    "total": 27227.699999999997
+  },
+  {
+    "date": "2021-09-03",
+    "sbp_reserves": 20022.6,
+    "bank_reserves": 7080.0,
+    "total": 27102.6
+  },
+  {
+    "date": "2021-09-10",
+    "sbp_reserves": 20022.7,
+    "bank_reserves": 7042.2,
+    "total": 27064.9
+  },
+  {
+    "date": "2021-09-17",
+    "sbp_reserves": 19543.4,
+    "bank_reserves": 6859.2,
+    "total": 26402.600000000002
+  },
+  {
+    "date": "2021-09-24",
+    "sbp_reserves": 19294.5,
+    "bank_reserves": 6856.3,
+    "total": 26150.8
+  },
+  {
+    "date": "2021-10-01",
+    "sbp_reserves": 19169.1,
+    "bank_reserves": 6830.8,
+    "total": 25999.899999999998
+  },
+  {
+    "date": "2021-10-08",
+    "sbp_reserves": 19138.4,
+    "bank_reserves": 6831.0,
+    "total": 25969.4
+  },
+  {
+    "date": "2021-10-15",
+    "sbp_reserves": 17492.2,
+    "bank_reserves": 6835.2,
+    "total": 24327.4
+  },
+  {
+    "date": "2021-10-22",
+    "sbp_reserves": 17146.7,
+    "bank_reserves": 6787.1,
+    "total": 23933.800000000003
+  },
+  {
+    "date": "2021-10-29",
+    "sbp_reserves": 17199.6,
+    "bank_reserves": 6629.7,
+    "total": 23829.3
+  },
+  {
+    "date": "2021-11-05",
+    "sbp_reserves": 17326.0,
+    "bank_reserves": 6699.5,
+    "total": 24025.5
+  },
+  {
+    "date": "2021-11-12",
+    "sbp_reserves": 16945.4,
+    "bank_reserves": 6605.2,
+    "total": 23550.600000000002
+  },
+  {
+    "date": "2021-11-19",
+    "sbp_reserves": 16254.1,
+    "bank_reserves": 6519.7,
+    "total": 22773.8
+  },
+  {
+    "date": "2021-11-26",
+    "sbp_reserves": 16010.3,
+    "bank_reserves": 6488.5,
+    "total": 22498.8
+  },
+  {
+    "date": "2021-12-03",
+    "sbp_reserves": 18658.2,
+    "bank_reserves": 6492.5,
+    "total": 25150.7
+  },
+  {
+    "date": "2021-12-10",
+    "sbp_reserves": 18568.3,
+    "bank_reserves": 6459.5,
+    "total": 25027.8
+  },
+  {
+    "date": "2021-12-17",
+    "sbp_reserves": 18153.7,
+    "bank_reserves": 6479.3,
+    "total": 24633.0
+  },
+  {
+    "date": "2021-12-24",
+    "sbp_reserves": 17855.3,
+    "bank_reserves": 6418.3,
+    "total": 24273.6
+  },
+  {
+    "date": "2022-01-07",
+    "sbp_reserves": 17597.9,
+    "bank_reserves": 6303.5,
+    "total": 23901.4
+  },
+  {
+    "date": "2022-01-14",
+    "sbp_reserves": 17035.7,
+    "bank_reserves": 6314.0,
+    "total": 23349.7
+  },
+  {
+    "date": "2022-01-21",
+    "sbp_reserves": 16190.1,
+    "bank_reserves": 6292.0,
+    "total": 22482.1
+  },
+  {
+    "date": "2022-01-28",
+    "sbp_reserves": 15727.6,
+    "bank_reserves": 6356.9,
+    "total": 22084.5
+  },
+  {
+    "date": "2022-02-04",
+    "sbp_reserves": 17336.8,
+    "bank_reserves": 6384.1,
+    "total": 23720.9
+  },
+  {
+    "date": "2022-02-11",
+    "sbp_reserves": 17095.8,
+    "bank_reserves": 6394.4,
+    "total": 23490.199999999997
+  },
+  {
+    "date": "2022-02-18",
+    "sbp_reserves": 16806.5,
+    "bank_reserves": 6419.5,
+    "total": 23226.0
+  },
+  {
+    "date": "2022-02-25",
+    "sbp_reserves": 16462.3,
+    "bank_reserves": 6412.8,
+    "total": 22875.1
+  },
+  {
+    "date": "2022-03-04",
+    "sbp_reserves": 16212.2,
+    "bank_reserves": 6456.5,
+    "total": 22668.7
+  },
+  {
+    "date": "2022-03-11",
+    "sbp_reserves": 15831.6,
+    "bank_reserves": 6451.8,
+    "total": 22283.4
+  },
+  {
+    "date": "2022-03-18",
+    "sbp_reserves": 14962.4,
+    "bank_reserves": 6477.3,
+    "total": 21439.7
+  },
+  {
+    "date": "2022-03-25",
+    "sbp_reserves": 12047.3,
+    "bank_reserves": 6507.2,
+    "total": 18554.5
+  },
+  {
+    "date": "2022-04-01",
+    "sbp_reserves": 11319.2,
+    "bank_reserves": 6157.7,
+    "total": 17476.9
+  },
+  {
+    "date": "2022-04-08",
+    "sbp_reserves": 10849.6,
+    "bank_reserves": 6178.5,
+    "total": 17028.1
+  },
+  {
+    "date": "2022-04-16",
+    "sbp_reserves": 10885.7,
+    "bank_reserves": 6159.3,
+    "total": 17045.0
+  },
+  {
+    "date": "2022-04-23",
+    "sbp_reserves": 10558.2,
+    "bank_reserves": 6110.0,
+    "total": 16668.2
+  },
+  {
+    "date": "2022-04-30",
+    "sbp_reserves": 10498.9,
+    "bank_reserves": 5907.1,
+    "total": 16406.0
+  },
+  {
+    "date": "2022-05-06",
+    "sbp_reserves": 10308.7,
+    "bank_reserves": 6067.0,
+    "total": 16375.7
+  },
+  {
+    "date": "2022-05-13",
+    "sbp_reserves": 10163.6,
+    "bank_reserves": 5997.4,
+    "total": 16161.0
+  },
+  {
+    "date": "2022-05-20",
+    "sbp_reserves": 10088.6,
+    "bank_reserves": 6061.2,
+    "total": 16149.8
+  },
+  {
+    "date": "2022-05-27",
+    "sbp_reserves": 9722.9,
+    "bank_reserves": 6048.5,
+    "total": 15771.4
+  },
+  {
+    "date": "2022-06-03",
+    "sbp_reserves": 9226.2,
+    "bank_reserves": 5950.3,
+    "total": 15176.5
+  },
+  {
+    "date": "2022-06-10",
+    "sbp_reserves": 8985.3,
+    "bank_reserves": 5957.7,
+    "total": 14943.0
+  },
+  {
+    "date": "2022-06-17",
+    "sbp_reserves": 8237.7,
+    "bank_reserves": 5972.7,
+    "total": 14210.400000000001
+  },
+  {
+    "date": "2022-06-24",
+    "sbp_reserves": 10309.0,
+    "bank_reserves": 5886.6,
+    "total": 16195.6
+  },
+  {
+    "date": "2022-07-15",
+    "sbp_reserves": 9328.6,
+    "bank_reserves": 5912.9,
+    "total": 15241.5
+  },
+  {
+    "date": "2022-07-22",
+    "sbp_reserves": 8575.1,
+    "bank_reserves": 5839.5,
+    "total": 14414.6
+  },
+  {
+    "date": "2022-08-05",
+    "sbp_reserves": 7830.3,
+    "bank_reserves": 5730.8,
+    "total": 13561.1
+  },
+  {
+    "date": "2022-08-12",
+    "sbp_reserves": 7897.3,
+    "bank_reserves": 5716.0,
+    "total": 13613.3
+  },
+  {
+    "date": "2022-08-19",
+    "sbp_reserves": 7809.9,
+    "bank_reserves": 5711.7,
+    "total": 13521.599999999999
+  },
+  {
+    "date": "2022-08-26",
+    "sbp_reserves": 7697.1,
+    "bank_reserves": 5706.4,
+    "total": 13403.5
+  },
+  {
+    "date": "2022-09-02",
+    "sbp_reserves": 8799.9,
+    "bank_reserves": 5673.6,
+    "total": 14473.5
+  },
+  {
+    "date": "2022-09-09",
+    "sbp_reserves": 8624.0,
+    "bank_reserves": 5693.4,
+    "total": 14317.4
+  },
+  {
+    "date": "2022-09-16",
+    "sbp_reserves": 8346.4,
+    "bank_reserves": 5723.5,
+    "total": 14069.9
+  },
+  {
+    "date": "2022-09-23",
+    "sbp_reserves": 8005.9,
+    "bank_reserves": 5756.0,
+    "total": 13761.9
+  },
+  {
+    "date": "2022-10-07",
+    "sbp_reserves": 7596.9,
+    "bank_reserves": 5649.9,
+    "total": 13246.8
+  },
+  {
+    "date": "2022-10-14",
+    "sbp_reserves": 7597.2,
+    "bank_reserves": 5653.7,
+    "total": 13250.9
+  },
+  {
+    "date": "2022-10-21",
+    "sbp_reserves": 7439.9,
+    "bank_reserves": 5722.3,
+    "total": 13162.2
+  },
+  {
+    "date": "2022-10-28",
+    "sbp_reserves": 8912.9,
+    "bank_reserves": 5766.0,
+    "total": 14678.9
+  },
+  {
+    "date": "2022-11-04",
+    "sbp_reserves": 7957.0,
+    "bank_reserves": 5764.0,
+    "total": 13721.0
+  },
+  {
+    "date": "2022-11-11",
+    "sbp_reserves": 7959.5,
+    "bank_reserves": 5836.7,
+    "total": 13796.2
+  },
+  {
+    "date": "2022-11-18",
+    "sbp_reserves": 7825.7,
+    "bank_reserves": 5819.3,
+    "total": 13645.0
+  },
+  {
+    "date": "2022-11-25",
+    "sbp_reserves": 7498.7,
+    "bank_reserves": 5879.5,
+    "total": 13378.2
+  },
+  {
+    "date": "2022-12-02",
+    "sbp_reserves": 6714.9,
+    "bank_reserves": 5866.8,
+    "total": 12581.7
+  },
+  {
+    "date": "2022-12-09",
+    "sbp_reserves": 6700.0,
+    "bank_reserves": 5870.2,
+    "total": 12570.2
+  },
+  {
+    "date": "2022-12-16",
+    "sbp_reserves": 6116.2,
+    "bank_reserves": 5883.9,
+    "total": 12000.099999999999
+  },
+  {
+    "date": "2022-12-23",
+    "sbp_reserves": 5821.9,
+    "bank_reserves": 5885.3,
+    "total": 11707.2
+  },
+  {
+    "date": "2023-01-06",
+    "sbp_reserves": 4343.2,
+    "bank_reserves": 5844.6,
+    "total": 10187.8
+  },
+  {
+    "date": "2023-01-13",
+    "sbp_reserves": 4601.2,
+    "bank_reserves": 5842.4,
+    "total": 10443.599999999999
+  },
+  {
+    "date": "2023-01-20",
+    "sbp_reserves": 3678.4,
+    "bank_reserves": 5774.8,
+    "total": 9453.2
+  },
+  {
+    "date": "2023-01-27",
+    "sbp_reserves": 3086.2,
+    "bank_reserves": 5655.5,
+    "total": 8741.7
+  },
+  {
+    "date": "2023-02-03",
+    "sbp_reserves": 2916.7,
+    "bank_reserves": 5622.9,
+    "total": 8539.599999999999
+  },
+  {
+    "date": "2023-02-10",
+    "sbp_reserves": 3192.9,
+    "bank_reserves": 5509.3,
+    "total": 8702.2
+  },
+  {
+    "date": "2023-02-17",
+    "sbp_reserves": 3258.5,
+    "bank_reserves": 5468.0,
+    "total": 8726.5
+  },
+  {
+    "date": "2023-02-24",
+    "sbp_reserves": 3814.1,
+    "bank_reserves": 5453.8,
+    "total": 9267.9
+  },
+  {
+    "date": "2023-03-03",
+    "sbp_reserves": 4301.0,
+    "bank_reserves": 5453.0,
+    "total": 9754.0
+  },
+  {
+    "date": "2023-03-10",
+    "sbp_reserves": 4319.1,
+    "bank_reserves": 5527.7,
+    "total": 9846.8
+  },
+  {
+    "date": "2023-03-17",
+    "sbp_reserves": 4598.7,
+    "bank_reserves": 5540.5,
+    "total": 10139.2
+  },
+  {
+    "date": "2023-03-24",
+    "sbp_reserves": 4244.3,
+    "bank_reserves": 5571.6,
+    "total": 9815.900000000001
+  },
+  {
+    "date": "2023-04-07",
+    "sbp_reserves": 4038.3,
+    "bank_reserves": 5526.2,
+    "total": 9564.5
+  },
+  {
+    "date": "2023-04-14",
+    "sbp_reserves": 4432.5,
+    "bank_reserves": 5532.4,
+    "total": 9964.9
+  },
+  {
+    "date": "2023-05-05",
+    "sbp_reserves": 4383.4,
+    "bank_reserves": 5607.0,
+    "total": 9990.4
+  },
+  {
+    "date": "2023-05-12",
+    "sbp_reserves": 4311.9,
+    "bank_reserves": 5625.6,
+    "total": 9937.5
+  },
+  {
+    "date": "2023-05-19",
+    "sbp_reserves": 4193.0,
+    "bank_reserves": 5538.1,
+    "total": 9731.1
+  },
+  {
+    "date": "2023-05-26",
+    "sbp_reserves": 4090.7,
+    "bank_reserves": 5422.3,
+    "total": 9513.0
+  },
+  {
+    "date": "2023-06-02",
+    "sbp_reserves": 3912.2,
+    "bank_reserves": 5422.6,
+    "total": 9334.8
+  },
+  {
+    "date": "2023-06-09",
+    "sbp_reserves": 4018.7,
+    "bank_reserves": 5359.5,
+    "total": 9378.2
+  },
+  {
+    "date": "2023-06-16",
+    "sbp_reserves": 3536.9,
+    "bank_reserves": 5326.9,
+    "total": 8863.8
+  },
+  {
+    "date": "2023-06-23",
+    "sbp_reserves": 4069.9,
+    "bank_reserves": 5270.9,
+    "total": 9340.8
+  },
+  {
+    "date": "2023-07-07",
+    "sbp_reserves": 4524.0,
+    "bank_reserves": 5314.5,
+    "total": 9838.5
+  },
+  {
+    "date": "2023-07-14",
+    "sbp_reserves": 8727.2,
+    "bank_reserves": 5338.1,
+    "total": 14065.300000000001
+  },
+  {
+    "date": "2023-07-21",
+    "sbp_reserves": 8186.1,
+    "bank_reserves": 5348.0,
+    "total": 13534.1
+  },
+  {
+    "date": "2023-08-04",
+    "sbp_reserves": 8043.4,
+    "bank_reserves": 5295.7,
+    "total": 13339.099999999999
+  },
+  {
+    "date": "2023-09-22",
+    "sbp_reserves": 7636.7,
+    "bank_reserves": 5525.1,
+    "total": 13161.8
+  },
+  {
+    "date": "2023-10-06",
+    "sbp_reserves": 7646.7,
+    "bank_reserves": 5383.4,
+    "total": 13030.099999999999
+  },
+  {
+    "date": "2023-10-13",
+    "sbp_reserves": 7714.0,
+    "bank_reserves": 5198.9,
+    "total": 12912.9
+  },
+  {
+    "date": "2023-10-20",
+    "sbp_reserves": 7494.2,
+    "bank_reserves": 5161.4,
+    "total": 12655.599999999999
+  },
+  {
+    "date": "2023-10-27",
+    "sbp_reserves": 7507.8,
+    "bank_reserves": 5068.8,
+    "total": 12576.6
+  },
+  {
+    "date": "2023-11-03",
+    "sbp_reserves": 7511.5,
+    "bank_reserves": 5102.7,
+    "total": 12614.2
+  },
+  {
+    "date": "2023-11-10",
+    "sbp_reserves": 7396.7,
+    "bank_reserves": 5138.8,
+    "total": 12535.5
+  },
+  {
+    "date": "2023-11-17",
+    "sbp_reserves": 7180.0,
+    "bank_reserves": 5122.3,
+    "total": 12302.3
+  },
+  {
+    "date": "2023-11-24",
+    "sbp_reserves": 7257.0,
+    "bank_reserves": 5135.8,
+    "total": 12392.8
+  },
+  {
+    "date": "2023-12-01",
+    "sbp_reserves": 7020.2,
+    "bank_reserves": 5086.9,
+    "total": 12107.099999999999
+  },
+  {
+    "date": "2023-12-08",
+    "sbp_reserves": 7040.8,
+    "bank_reserves": 5165.6,
+    "total": 12206.400000000001
+  },
+  {
+    "date": "2023-12-15",
+    "sbp_reserves": 6904.8,
+    "bank_reserves": 5163.6,
+    "total": 12068.400000000001
+  },
+  {
+    "date": "2023-12-22",
+    "sbp_reserves": 7757.1,
+    "bank_reserves": 5098.6,
+    "total": 12855.7
+  },
+  {
+    "date": "2024-01-05",
+    "sbp_reserves": 8154.8,
+    "bank_reserves": 5101.8,
+    "total": 13256.6
+  },
+  {
+    "date": "2024-01-12",
+    "sbp_reserves": 8027.4,
+    "bank_reserves": 5117.7,
+    "total": 13145.099999999999
+  },
+  {
+    "date": "2024-01-19",
+    "sbp_reserves": 8270.5,
+    "bank_reserves": 5070.9,
+    "total": 13341.4
+  },
+  {
+    "date": "2024-01-26",
+    "sbp_reserves": 8216.5,
+    "bank_reserves": 5046.0,
+    "total": 13262.5
+  },
+  {
+    "date": "2024-02-02",
+    "sbp_reserves": 8044.0,
+    "bank_reserves": 5053.6,
+    "total": 13097.6
+  },
+  {
+    "date": "2024-02-09",
+    "sbp_reserves": 8056.5,
+    "bank_reserves": 5092.6,
+    "total": 13149.1
+  },
+  {
+    "date": "2024-02-16",
+    "sbp_reserves": 8012.8,
+    "bank_reserves": 5085.0,
+    "total": 13097.8
+  },
+  {
+    "date": "2024-02-23",
+    "sbp_reserves": 7949.6,
+    "bank_reserves": 5088.9,
+    "total": 13038.5
+  },
+  {
+    "date": "2024-03-01",
+    "sbp_reserves": 7895.7,
+    "bank_reserves": 5124.3,
+    "total": 13020.0
+  },
+  {
+    "date": "2024-03-08",
+    "sbp_reserves": 7912.9,
+    "bank_reserves": 5238.4,
+    "total": 13151.3
+  },
+  {
+    "date": "2024-03-15",
+    "sbp_reserves": 8017.9,
+    "bank_reserves": 5372.8,
+    "total": 13390.7
+  },
+  {
+    "date": "2024-03-22",
+    "sbp_reserves": 8021.9,
+    "bank_reserves": 5405.7,
+    "total": 13427.599999999999
+  },
+  {
+    "date": "2024-03-29",
+    "sbp_reserves": 8040.4,
+    "bank_reserves": 4718.9,
+    "total": 12759.3
+  },
+  {
+    "date": "2024-04-05",
+    "sbp_reserves": 8040.3,
+    "bank_reserves": 5401.4,
+    "total": 13441.7
+  },
+  {
+    "date": "2024-04-12",
+    "sbp_reserves": 8054.7,
+    "bank_reserves": 5319.0,
+    "total": 13373.7
+  },
+  {
+    "date": "2024-04-19",
+    "sbp_reserves": 7981.2,
+    "bank_reserves": 5299.3,
+    "total": 13280.5
+  },
+  {
+    "date": "2024-04-26",
+    "sbp_reserves": 8006.0,
+    "bank_reserves": 5310.0,
+    "total": 13316.0
+  },
+  {
+    "date": "2024-05-03",
+    "sbp_reserves": 9120.3,
+    "bank_reserves": 5338.6,
+    "total": 14458.9
+  },
+  {
+    "date": "2024-05-10",
+    "sbp_reserves": 9135.5,
+    "bank_reserves": 5490.9,
+    "total": 14626.4
+  },
+  {
+    "date": "2024-05-17",
+    "sbp_reserves": 9157.0,
+    "bank_reserves": 5428.4,
+    "total": 14585.4
+  },
+  {
+    "date": "2024-05-24",
+    "sbp_reserves": 9093.7,
+    "bank_reserves": 5221.7,
+    "total": 14315.400000000001
+  },
+  {
+    "date": "2024-05-31",
+    "sbp_reserves": 9109.5,
+    "bank_reserves": 4541.3,
+    "total": 13650.8
+  },
+  {
+    "date": "2024-06-07",
+    "sbp_reserves": 9103.3,
+    "bank_reserves": 5280.5,
+    "total": 14383.8
+  },
+  {
+    "date": "2024-06-14",
+    "sbp_reserves": 9134.7,
+    "bank_reserves": 5279.9,
+    "total": 14414.6
+  },
+  {
+    "date": "2024-06-21",
+    "sbp_reserves": 8895.8,
+    "bank_reserves": 5311.5,
+    "total": 14207.3
+  },
+  {
+    "date": "2024-06-28",
+    "sbp_reserves": 9389.6,
+    "bank_reserves": 4606.7,
+    "total": 13996.3
+  },
+  {
+    "date": "2024-07-05",
+    "sbp_reserves": 9405.1,
+    "bank_reserves": 5239.6,
+    "total": 14644.7
+  },
+  {
+    "date": "2024-07-12",
+    "sbp_reserves": 9423.7,
+    "bank_reserves": 5279.8,
+    "total": 14703.5
+  },
+  {
+    "date": "2024-07-19",
+    "sbp_reserves": 9027.2,
+    "bank_reserves": 5308.2,
+    "total": 14335.400000000001
+  },
+  {
+    "date": "2024-07-26",
+    "sbp_reserves": 9102.2,
+    "bank_reserves": 5289.5,
+    "total": 14391.7
+  },
+  {
+    "date": "2024-08-02",
+    "sbp_reserves": 9153.3,
+    "bank_reserves": 5318.6,
+    "total": 14471.9
+  },
+  {
+    "date": "2024-08-09",
+    "sbp_reserves": 9272.6,
+    "bank_reserves": 5372.6,
+    "total": 14645.2
+  },
+  {
+    "date": "2024-08-16",
+    "sbp_reserves": 9291.8,
+    "bank_reserves": 5375.6,
+    "total": 14667.4
+  },
+  {
+    "date": "2024-08-23",
+    "sbp_reserves": 9403.4,
+    "bank_reserves": 5372.9,
+    "total": 14776.3
+  },
+  {
+    "date": "2024-09-06",
+    "sbp_reserves": 9466.6,
+    "bank_reserves": 5329.5,
+    "total": 14796.1
+  },
+  {
+    "date": "2024-09-13",
+    "sbp_reserves": 9509.6,
+    "bank_reserves": 5316.9,
+    "total": 14826.5
+  },
+  {
+    "date": "2024-09-20",
+    "sbp_reserves": 9533.6,
+    "bank_reserves": 5339.5,
+    "total": 14873.1
+  },
+  {
+    "date": "2024-09-27",
+    "sbp_reserves": 10701.7,
+    "bank_reserves": 5281.2,
+    "total": 15982.900000000001
+  },
+  {
+    "date": "2024-10-04",
+    "sbp_reserves": 10808.0,
+    "bank_reserves": 5239.0,
+    "total": 16047.0
+  },
+  {
+    "date": "2024-10-11",
+    "sbp_reserves": 11022.7,
+    "bank_reserves": 5088.6,
+    "total": 16111.300000000001
+  },
+  {
+    "date": "2024-10-18",
+    "sbp_reserves": 11040.7,
+    "bank_reserves": 4976.4,
+    "total": 16017.1
+  },
+  {
+    "date": "2024-10-25",
+    "sbp_reserves": 11156.4,
+    "bank_reserves": 4892.6,
+    "total": 16049.0
+  },
+  {
+    "date": "2024-11-01",
+    "sbp_reserves": 11174.6,
+    "bank_reserves": 4757.2,
+    "total": 15931.8
+  },
+  {
+    "date": "2024-11-08",
+    "sbp_reserves": 11258.6,
+    "bank_reserves": 4706.9,
+    "total": 15965.5
+  },
+  {
+    "date": "2024-11-15",
+    "sbp_reserves": 11288.0,
+    "bank_reserves": 4679.7,
+    "total": 15967.7
+  },
+  {
+    "date": "2024-11-22",
+    "sbp_reserves": 11418.5,
+    "bank_reserves": 4657.7,
+    "total": 16076.2
+  },
+  {
+    "date": "2024-11-29",
+    "sbp_reserves": 12037.9,
+    "bank_reserves": 4090.6,
+    "total": 16128.5
+  },
+  {
+    "date": "2024-12-06",
+    "sbp_reserves": 12050.8,
+    "bank_reserves": 4550.1,
+    "total": 16600.9
+  },
+  {
+    "date": "2024-12-13",
+    "sbp_reserves": 12081.5,
+    "bank_reserves": 4551.2,
+    "total": 16632.7
+  },
+  {
+    "date": "2024-12-20",
+    "sbp_reserves": 11853.5,
+    "bank_reserves": 4518.0,
+    "total": 16371.5
+  },
+  {
+    "date": "2024-12-27",
+    "sbp_reserves": 11710.5,
+    "bank_reserves": 4698.2,
+    "total": 16408.7
+  },
+  {
+    "date": "2025-01-03",
+    "sbp_reserves": 11695.2,
+    "bank_reserves": 4682.6,
+    "total": 16377.800000000001
+  },
+  {
+    "date": "2025-01-10",
+    "sbp_reserves": 11725.0,
+    "bank_reserves": 4725.9,
+    "total": 16450.9
+  },
+  {
+    "date": "2025-01-17",
+    "sbp_reserves": 11448.7,
+    "bank_reserves": 4740.6,
+    "total": 16189.300000000001
+  },
+  {
+    "date": "2025-01-24",
+    "sbp_reserves": 11372.4,
+    "bank_reserves": 4679.7,
+    "total": 16052.099999999999
+  },
+  {
+    "date": "2025-01-31",
+    "sbp_reserves": 11418.2,
+    "bank_reserves": 4180.5,
+    "total": 15598.7
+  },
+  {
+    "date": "2025-02-07",
+    "sbp_reserves": 11166.6,
+    "bank_reserves": 4696.0,
+    "total": 15862.6
+  },
+  {
+    "date": "2025-02-14",
+    "sbp_reserves": 11201.5,
+    "bank_reserves": 4746.4,
+    "total": 15947.9
+  },
+  {
+    "date": "2025-02-21",
+    "sbp_reserves": 11222.4,
+    "bank_reserves": 4703.3,
+    "total": 15925.7
+  },
+  {
+    "date": "2025-02-28",
+    "sbp_reserves": 11249.5,
+    "bank_reserves": 4147.8,
+    "total": 15397.3
+  },
+  {
+    "date": "2025-03-07",
+    "sbp_reserves": 11097.9,
+    "bank_reserves": 4831.0,
+    "total": 15928.9
+  },
+  {
+    "date": "2025-03-14",
+    "sbp_reserves": 11146.8,
+    "bank_reserves": 4869.0,
+    "total": 16015.8
+  },
+  {
+    "date": "2025-03-21",
+    "sbp_reserves": 10606.8,
+    "bank_reserves": 4944.2,
+    "total": 15551.0
+  },
+  {
+    "date": "2025-03-28",
+    "sbp_reserves": 10676.3,
+    "bank_reserves": 4903.4,
+    "total": 15579.699999999999
+  },
+  {
+    "date": "2025-04-04",
+    "sbp_reserves": 10699.4,
+    "bank_reserves": 5053.3,
+    "total": 15752.7
+  },
+  {
+    "date": "2025-04-11",
+    "sbp_reserves": 10572.4,
+    "bank_reserves": 5089.6,
+    "total": 15662.0
+  },
+  {
+    "date": "2025-04-18",
+    "sbp_reserves": 10205.9,
+    "bank_reserves": 5230.1,
+    "total": 15436.0
+  },
+  {
+    "date": "2025-04-25",
+    "sbp_reserves": 10214.4,
+    "bank_reserves": 5037.4,
+    "total": 15251.8
+  },
+  {
+    "date": "2025-05-02",
+    "sbp_reserves": 10332.5,
+    "bank_reserves": 5150.1,
+    "total": 15482.6
+  },
+  {
+    "date": "2025-05-09",
+    "sbp_reserves": 10403.1,
+    "bank_reserves": 5210.7,
+    "total": 15613.8
+  },
+  {
+    "date": "2025-05-16",
+    "sbp_reserves": 11446.5,
+    "bank_reserves": 5202.0,
+    "total": 16648.5
+  },
+  {
+    "date": "2025-05-23",
+    "sbp_reserves": 11516.0,
+    "bank_reserves": 5120.7,
+    "total": 16636.7
+  },
+  {
+    "date": "2025-05-30",
+    "sbp_reserves": 11516.9,
+    "bank_reserves": 4559.6,
+    "total": 16076.5
+  },
+  {
+    "date": "2025-06-06",
+    "sbp_reserves": 11675.6,
+    "bank_reserves": 5199.4,
+    "total": 16875.0
+  },
+  {
+    "date": "2025-06-13",
+    "sbp_reserves": 11721.9,
+    "bank_reserves": 5282.6,
+    "total": 17004.5
+  },
+  {
+    "date": "2025-06-20",
+    "sbp_reserves": 9064.5,
+    "bank_reserves": 5332.9,
+    "total": 14397.4
+  },
+  {
+    "date": "2025-06-27",
+    "sbp_reserves": 12727.8,
+    "bank_reserves": 5363.3,
+    "total": 18091.1
+  },
+  {
+    "date": "2025-07-04",
+    "sbp_reserves": 14502.2,
+    "bank_reserves": 5526.5,
+    "total": 20028.7
+  },
+  {
+    "date": "2025-07-11",
+    "sbp_reserves": 14525.6,
+    "bank_reserves": 5431.5,
+    "total": 19957.1
+  },
+  {
+    "date": "2025-07-18",
+    "sbp_reserves": 14456.6,
+    "bank_reserves": 5460.9,
+    "total": 19917.5
+  },
+  {
+    "date": "2025-07-25",
+    "sbp_reserves": 14303.9,
+    "bank_reserves": 5303.1,
+    "total": 19607.0
+  },
+  {
+    "date": "2025-08-01",
+    "sbp_reserves": 14231.9,
+    "bank_reserves": 5263.7,
+    "total": 19495.6
+  },
+  {
+    "date": "2025-08-08",
+    "sbp_reserves": 14243.2,
+    "bank_reserves": 5253.5,
+    "total": 19496.7
+  },
+  {
+    "date": "2025-08-15",
+    "sbp_reserves": 14256.2,
+    "bank_reserves": 5314.6,
+    "total": 19570.800000000003
+  },
+  {
+    "date": "2025-08-22",
+    "sbp_reserves": 14274.3,
+    "bank_reserves": 5343.5,
+    "total": 19617.8
+  },
+  {
+    "date": "2025-09-05",
+    "sbp_reserves": 14336.3,
+    "bank_reserves": 5344.6,
+    "total": 19680.9
+  },
+  {
+    "date": "2025-09-12",
+    "sbp_reserves": 14357.2,
+    "bank_reserves": 5378.5,
+    "total": 19735.7
+  },
+  {
+    "date": "2025-09-19",
+    "sbp_reserves": 14379.5,
+    "bank_reserves": 5413.8,
+    "total": 19793.3
+  },
+  {
+    "date": "2025-09-26",
+    "sbp_reserves": 14400.4,
+    "bank_reserves": 5396.3,
+    "total": 19796.7
+  },
+  {
+    "date": "2025-10-03",
+    "sbp_reserves": 14420.1,
+    "bank_reserves": 5390.3,
+    "total": 19810.4
+  },
+  {
+    "date": "2025-10-10",
+    "sbp_reserves": 14440.8,
+    "bank_reserves": 5369.7,
+    "total": 19810.5
+  },
+  {
+    "date": "2025-10-17",
+    "sbp_reserves": 14455.2,
+    "bank_reserves": 5398.3,
+    "total": 19853.5
+  },
+  {
+    "date": "2025-10-24",
+    "sbp_reserves": 14471.6,
+    "bank_reserves": 5216.0,
+    "total": 19687.6
+  },
+  {
+    "date": "2025-11-07",
+    "sbp_reserves": 14524.632895018494,
+    "bank_reserves": 5199.3,
+    "total": 19723.932895018494
+  },
+  {
+    "date": "2025-11-14",
+    "sbp_reserves": 14551.5,
+    "bank_reserves": 5186.7,
+    "total": 19738.2
+  },
+  {
+    "date": "2025-11-21",
+    "sbp_reserves": 14560.673168828442,
+    "bank_reserves": 5044.3,
+    "total": 19604.97316882844
+  },
+  {
+    "date": "2025-11-28",
+    "sbp_reserves": 14574.8,
+    "bank_reserves": 5013.7,
+    "total": 19588.5
+  },
+  {
+    "date": "2025-12-05",
+    "sbp_reserves": 14586.494532177958,
+    "bank_reserves": 5025.7,
+    "total": 19612.194532177957
+  },
+  {
+    "date": "2025-12-12",
+    "sbp_reserves": 15886.8,
+    "bank_reserves": 5202.2,
+    "total": 21089.0
+  },
+  {
+    "date": "2025-12-19",
+    "sbp_reserves": 15902.483156818369,
+    "bank_reserves": 5120.1,
+    "total": 21022.58315681837
+  },
+  {
+    "date": "2026-01-02",
+    "sbp_reserves": 16055.741748724224,
+    "bank_reserves": 5136.7,
+    "total": 21192.441748724224
+  },
+  {
+    "date": "2026-01-09",
+    "sbp_reserves": 16071.8,
+    "bank_reserves": 5176.6,
+    "total": 21248.4
+  },
+  {
+    "date": "2026-01-16",
+    "sbp_reserves": 16087.71721028495,
+    "bank_reserves": 5170.5,
+    "total": 21258.21721028495
+  },
+  {
+    "date": "2026-01-23",
+    "sbp_reserves": 16101.1,
+    "bank_reserves": 5192.2,
+    "total": 21293.3
+  },
+  {
+    "date": "2026-01-30",
+    "sbp_reserves": 16157.2,
+    "bank_reserves": 4814.5,
+    "total": 20971.7
+  },
+  {
+    "date": "2026-02-06",
+    "sbp_reserves": 16177.8,
+    "bank_reserves": 5196.9,
+    "total": 21374.699999999997
+  },
+  {
+    "date": "2026-02-13",
+    "sbp_reserves": 16196.9,
+    "bank_reserves": 5104.6,
+    "total": 21301.5
+  },
+  {
+    "date": "2026-02-20",
+    "sbp_reserves": 16212.9,
+    "bank_reserves": 5194.8,
+    "total": 21407.7
+  },
+  {
+    "date": "2026-02-27",
+    "sbp_reserves": 16300.0,
+    "bank_reserves": 5133.9,
+    "total": 21433.9
+  }
+]
