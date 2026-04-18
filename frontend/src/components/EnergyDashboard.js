@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import useSocket from '../hooks/useSocket';
 import MapSection from './MapSection';
 import EnergyNewsPanel from './EnergyNewsPanel';
 import PowerGenerationPanel from './PowerGenerationPanel';
@@ -13,6 +14,7 @@ const EnergyDashboard = () => {
   const [security, setSecurity]   = useState([]);
   const [energyReport, setReport] = useState(null);
   const [loading, setLoading]     = useState(true);
+  const { isConnected, on, off }  = useSocket();
 
   useEffect(() => {
     const load = async () => {
@@ -32,9 +34,19 @@ const EnergyDashboard = () => {
       }
     };
     load();
-    const iv = setInterval(load, 120000);
+    const pollInterval = isConnected ? 300000 : 120000;
+    const iv = setInterval(load, pollInterval);
     return () => clearInterval(iv);
-  }, []);
+  }, [isConnected]);
+
+  // Listen for real-time security updates
+  useEffect(() => {
+    const secHandler = (data) => {
+      if (data.alerts) setSecurity(data.alerts);
+    };
+    on('security_update', secHandler);
+    return () => off('security_update', secHandler);
+  }, [on, off]);
 
   return (
     <div className="energy-dashboard">

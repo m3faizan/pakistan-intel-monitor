@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Zap, ExternalLink } from 'lucide-react';
 import axios from 'axios';
+import useSocket from '../hooks/useSocket';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -32,22 +33,26 @@ const EnergyNewsPanel = () => {
   const [news, setNews]       = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTag, setActiveTag] = useState('all');
+  const { isConnected, on, off } = useSocket();
+
+  const filterEnergy = (all) => {
+    return all.filter(n => {
+      const text = `${n.title || ''} ${n.summary || ''} ${n.category || ''}`.toLowerCase();
+      const energyKw = [
+        'energy', 'power', 'electricity', 'gas', 'oil', 'petroleum', 'coal',
+        'hydro', 'solar', 'wind', 'renewable', 'wapda', 'nepra', 'load shedding',
+        'fuel', 'lng', 'rlng', 'refinery', 'thar', 'nuclear'
+      ];
+      return energyKw.some(kw => text.includes(kw));
+    });
+  };
 
   useEffect(() => {
     const load = async () => {
       try {
         const res = await axios.get(`${API_BASE}/api/news`);
         const all = res.data?.news || [];
-        const energy = all.filter(n => {
-          const text = `${n.title || ''} ${n.summary || ''} ${n.category || ''}`.toLowerCase();
-          const energyKw = [
-            'energy', 'power', 'electricity', 'gas', 'oil', 'petroleum', 'coal',
-            'hydro', 'solar', 'wind', 'renewable', 'wapda', 'nepra', 'load shedding',
-            'fuel', 'lng', 'rlng', 'refinery', 'thar', 'nuclear'
-          ];
-          return energyKw.some(kw => text.includes(kw));
-        });
-        setNews(energy);
+        setNews(filterEnergy(all));
       } catch (e) {
         console.error('EnergyNewsPanel error:', e);
       } finally {
@@ -55,9 +60,22 @@ const EnergyNewsPanel = () => {
       }
     };
     load();
-    const iv = setInterval(load, 120000);
+    const pollInterval = isConnected ? 300000 : 120000;
+    const iv = setInterval(load, pollInterval);
     return () => clearInterval(iv);
-  }, []);
+  }, [isConnected]);
+
+  // Listen for real-time news updates
+  useEffect(() => {
+    const handler = (data) => {
+      if (data.news) {
+        setNews(filterEnergy(data.news));
+        setLoading(false);
+      }
+    };
+    on('news_update', handler);
+    return () => off('news_update', handler);
+  }, [on, off]);
 
   const filtered = activeTag === 'all'
     ? news

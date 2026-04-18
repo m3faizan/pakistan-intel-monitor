@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Globe, RefreshCw, Clock, MapPin } from 'lucide-react';
+import { Globe, RefreshCw, Clock, MapPin, Wifi, WifiOff } from 'lucide-react';
 import axios from 'axios';
+import useSocket from './hooks/useSocket';
 import NewsPanel from './components/NewsPanel';
 import DailyBriefingPanel from './components/DailyBriefingPanel';
 import EconomicPanel from './components/EconomicPanel';
@@ -36,6 +37,35 @@ function App() {
   const [lastUpdate, setLastUpdate] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
+  // Real-time WebSocket connection
+  const { isConnected, clientCount, on, off } = useSocket();
+
+  // Listen for real-time pushes
+  useEffect(() => {
+    const newsHandler = (data) => {
+      if (data.news) {
+        setNews(data.news);
+        setLastUpdate(new Date());
+      }
+    };
+    const securityHandler = (data) => {
+      if (data.alerts) setSecurity(data.alerts);
+    };
+    const weatherHandler = (data) => {
+      if (data.cities) setWeather(data.cities);
+    };
+
+    on('news_update', newsHandler);
+    on('security_update', securityHandler);
+    on('weather_update', weatherHandler);
+
+    return () => {
+      off('news_update', newsHandler);
+      off('security_update', securityHandler);
+      off('weather_update', weatherHandler);
+    };
+  }, [on, off]);
+
   const fetchData = useCallback(async () => {
     try {
       const [newsRes, economicRes, securityRes, weatherRes, regionalRes, infraRes, mapRes, energyRes] = 
@@ -69,9 +99,12 @@ function App() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 60000); // Refresh every minute
+    // With WebSocket connected, reduce polling to 5 min (fallback only)
+    // Without WS, keep 60s polling
+    const pollInterval = isConnected ? 300000 : 60000;
+    const interval = setInterval(fetchData, pollInterval);
     return () => clearInterval(interval);
-  }, [fetchData]);
+  }, [fetchData, isConnected]);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -119,8 +152,19 @@ function App() {
             </h1>
           </div>
           <div className="header-status">
-            <span className="status-dot"></span>
-            <span>LIVE</span>
+            <span className="status-dot" style={{ background: isConnected ? 'var(--color-primary)' : 'var(--color-warning)' }}></span>
+            <span>{isConnected ? 'LIVE' : 'POLLING'}</span>
+            {isConnected && (
+              <Wifi size={12} style={{ color: 'var(--color-primary)', marginLeft: '0.25rem' }} />
+            )}
+            {!isConnected && (
+              <WifiOff size={12} style={{ color: 'var(--color-warning)', marginLeft: '0.25rem' }} />
+            )}
+            {isConnected && clientCount > 0 && (
+              <span style={{ fontSize: '0.6rem', color: 'var(--color-muted)', marginLeft: '0.35rem' }}>
+                {clientCount} viewer{clientCount !== 1 ? 's' : ''}
+              </span>
+            )}
           </div>
         </div>
         <div className="header-right">

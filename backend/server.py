@@ -22,6 +22,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+import socketio
 
 load_dotenv()
 
@@ -4634,10 +4635,106 @@ async def lifespan(app: FastAPI):
         data_cache["security"]["updated"] = datetime.now(timezone.utc)
     except Exception as e:
         print(f"Error during startup: {e}")
+    # Start the background push loop
+    push_task = asyncio.create_task(realtime_push_loop())
     yield
     # Shutdown
+    push_task.cancel()
     print("Pakistan Intelligence Monitor shutting down...")
 
+# ── Socket.IO server ────────────────────────────────────────────────────────
+sio = socketio.AsyncServer(async_mode="asgi", cors_allowed_origins="*")
+connected_clients = set()
+
+@sio.event
+async def connect(sid, environ):
+    connected_clients.add(sid)
+    print(f"[WS] Client connected: {sid} (total: {len(connected_clients)})")
+    await sio.emit("connection_ack", {
+        "status": "connected",
+        "clients": len(connected_clients),
+        "server_time": datetime.now(timezone.utc).isoformat()
+    }, to=sid)
+
+@sio.event
+async def disconnect(sid):
+    connected_clients.discard(sid)
+    print(f"[WS] Client disconnected: {sid} (total: {len(connected_clients)})")
+
+# Track last-pushed hashes to only send when data actually changed
+_push_hashes: dict[str, str] = {}
+
+def _quick_hash(data) -> str:
+    """Fast fingerprint of data to detect changes."""
+    import hashlib
+    raw = json.dumps(data, sort_keys=True, default=str)
+    return hashlib.md5(raw.encode()).hexdigest()
+
+async def _push_if_changed(event: str, cache_key: str, payload_builder):
+    """Emit event to all clients only when cached data has actually changed."""
+    if not connected_clients:
+        return
+    data = data_cache[cache_key].get("data")
+    if not data:
+        return
+    h = _quick_hash(data)
+    if _push_hashes.get(event) == h:
+        return  # no change
+    _push_hashes[event] = h
+    payload = payload_builder(data)
+    await sio.emit(event, payload)
+    print(f"[WS] Pushed '{event}' to {len(connected_clients)} client(s)")
+
+async def realtime_push_loop():
+    """Background loop: refresh caches and push changes to connected WS clients."""
+    await asyncio.sleep(5)  # let startup finish
+    while True:
+        try:
+            if connected_clients:
+                # Refresh fast-changing caches
+                news = await fetch_all_news()
+                if news:
+                    data_cache["news"]["data"] = news
+                    data_cache["news"]["updated"] = datetime.now(timezone.utc)
+
+                energy_news = await fetch_energy_news()
+                if energy_news:
+                    data_cache["energy"]["data"] = energy_news
+                    data_cache["energy"]["updated"] = datetime.now(timezone.utc)
+
+                security_data = await fetch_security_data()
+                if security_data:
+                    data_cache["security"]["data"] = security_data
+                    data_cache["security"]["updated"] = datetime.now(timezone.utc)
+
+                weather_data = await fetch_weather_data()
+                if weather_data:
+                    data_cache["weather"]["data"] = weather_data
+                    data_cache["weather"]["updated"] = datetime.now(timezone.utc)
+
+                # Push only what changed
+                await _push_if_changed("news_update", "news",
+                    lambda d: {"news": d[:100], "count": len(d), "updated": datetime.now(timezone.utc).isoformat()})
+                await _push_if_changed("energy_news_update", "energy",
+                    lambda d: {"news": d, "count": len(d), "updated": datetime.now(timezone.utc).isoformat()})
+                await _push_if_changed("security_update", "security",
+                    lambda d: {"alerts": d, "count": len(d), "updated": datetime.now(timezone.utc).isoformat()})
+                await _push_if_changed("weather_update", "weather",
+                    lambda d: {"cities": d, "updated": datetime.now(timezone.utc).isoformat()})
+
+                # Emit heartbeat so frontend knows connection is alive
+                await sio.emit("heartbeat", {
+                    "server_time": datetime.now(timezone.utc).isoformat(),
+                    "clients": len(connected_clients)
+                })
+
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            print(f"[WS] Push loop error: {e}")
+        await asyncio.sleep(30)  # push cycle every 30 seconds
+
+# ── FastAPI + Socket.IO combined app ────────────────────────────────────────
 app = FastAPI(
     title="Pakistan Intelligence Monitor API",
     description="Real-time intelligence dashboard for Pakistan",
@@ -4652,6 +4749,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount Socket.IO under /api/ws path (ingress routes /api/* to backend)
+# Note: actual wrapping happens at bottom of file after all routes
 
 # Pydantic models
 class HealthResponse(BaseModel):
@@ -4699,6 +4799,16 @@ async def health_check():
         "status": "healthy",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "version": "1.0.0"
+    }
+
+@app.get("/api/ws-status")
+async def ws_status():
+    """WebSocket connection status"""
+    return {
+        "connected_clients": len(connected_clients),
+        "ws_path": "/api/ws/socket.io/",
+        "push_interval_seconds": 30,
+        "events": ["news_update", "energy_news_update", "security_update", "weather_update", "heartbeat"]
     }
 
 @app.get("/api/news")
@@ -6131,6 +6241,10 @@ async def get_energy_payments():
     }
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Wrap FastAPI with Socket.IO so WS upgrade requests are handled
+# This MUST be after all @app routes are registered
+_fastapi_app = app
+app = socketio.ASGIApp(sio, other_asgi_app=_fastapi_app, socketio_path="/api/ws/socket.io")
 
 if __name__ == "__main__":
     import uvicorn

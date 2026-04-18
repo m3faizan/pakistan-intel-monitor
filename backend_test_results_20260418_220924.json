@@ -1,0 +1,151 @@
+{
+  "summary": {
+    "tests_run": 28,
+    "tests_passed": 28,
+    "success_rate": 100.0,
+    "timestamp": "2026-04-18T22:09:24.922118"
+  },
+  "failed_tests": [],
+  "detailed_results": {
+    "API GET /health": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'status': 'healthy', 'timestamp': '2026-04-18T22:09:22.240476+00:00', 'version': '1.0.0'}"
+    },
+    "API GET /ws-status": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'connected_clients': 0, 'ws_path': '/api/ws/socket.io/', 'push_interval_seconds': 30, 'events': ['news_update', 'energy_news_update', 'security_update', 'weather_update', 'heartbeat']}"
+    },
+    "WS Status - Client Count": {
+      "success": true,
+      "error": null,
+      "response_sample": "Connected clients: 0"
+    },
+    "WS Status - Path": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "WS Status - Events": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found events: ['news_update', 'energy_news_update', 'security_update', 'weather_update', 'heartbeat']"
+    },
+    "API GET /news": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'news': [{'title': 'Iran says tightening control of Strait', 'link': 'https://www.brecorder.com/news/40417167/iran-says-tightening-control-of-strait', 'published': 'Sun, 19 Apr 2026 02:29:45 +0500', "
+    },
+    "News Count Check": {
+      "success": true,
+      "error": null,
+      "response_sample": "Returned 90 news items"
+    },
+    "News Item Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "News Categories Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 4 categories: ['general', 'business', 'tech', 'international']"
+    },
+    "News Sources Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 9 different news sources"
+    },
+    "API GET /economic": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'pkr_usd': {'rate': 278.5, 'change': -0.25, 'change_percent': -0.09, 'updated': '2026-04-18T22:08:43.548283+00:00'}, 'pkr_eur': {'rate': 302.15, 'change': 0.45, 'change_percent': 0.15, 'upda"
+    },
+    "Economic Data Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /weather": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'temp': 28, 'condition': 'Partly Cloudy', 'humidity': 65}, {'name': 'Lahore', 'lat': 31.5204, 'lon': 74.3587, 'temp': 18, 'condition': '"
+    },
+    "Weather City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /security": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'alerts': [{'type': 'security', 'severity': 'high', 'title': \"Cow's tongue severed in fresh animal cruelty case in Punjab's Muzaffargarh\", 'description': '<img src=\"https://www.geo.tv/assets/uploads/"
+    },
+    "Security Alert Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /regional-relations": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'countries': [{'code': 'india', 'name': 'India', 'group': 'Neighbor', 'embassy_url': 'https://pakhcnewdelhi.org.pk', 'status': 'TENSE / SUSPENDED', 'tag': 'SUSPENDED', 'recent_visit': 'No hi"
+    },
+    "Regional Relations Countries": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 25 countries"
+    },
+    "API GET /infrastructure": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'power': {'national_grid_status': 'Stable', 'load_shedding': {'urban': '2-3 hours', 'rural': '4-6 hours'}, 'generation_capacity': '85%', 'demand': '22,500 MW', 'supply': '21,000 MW'}, 'internet': {'n"
+    },
+    "Infrastructure Sections": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /map-data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Islamabad', 'lat': 33.6844, 'lon': 73.0479, 'type': 'capital', 'population': '1.1M'}, {'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'type': 'major', 'population': '14.9M'},"
+    },
+    "Map City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /daily-energy-report": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'report_date': 'March 13, 2026', 'entries': [{'id': 'energy-0', 'region': 'Asia', 'country': 'China', 'headline': 'Full text: Report on the Work of the Government', 'items': ['Full text: Rep"
+    },
+    "API GET /daily-briefing": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'briefing': {'executive_summary': 'Middle East conflict continues to intensify, with reported Israeli strikes in south Lebanon and US-Iran escalation indicators, while Tehran links Islamabad talks to"
+    },
+    "API GET /power-generation": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Total': {'unit': 'GWh', 'latest': {'value': 7695.74, 'date': '2026-02-28', 'month': 'February 2026'}, 'mom_change_pct': -15.8, 'yoy_change': 10.99, 'history': [{'date': '2012-07-31', 'value"
+    },
+    "API GET /energy-payments": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Petroleum Group': {'unit': 'Thousand USD', 'latest': {'value': 983013.012, 'date': '2026-03-31', 'month': 'March 2026'}, 'mom_change_pct': -18.04, 'yoy_change': -19.54, 'history': [{'date':"
+    },
+    "API GET /minerals-metals": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Silica Sand': {'unit': '000 Tonnes', 'latest': {'date': '2025-06-01', 'value': 44.7}, 'previous': {'date': '2025-05-01', 'value': 51.2}, 'mom_change_pct': -12.7, 'history': [{'date': '2004-"
+    },
+    "API GET /psx-data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'value': 173939.01, 'change': 4027.06, 'change_percent': 2.37, 'high': 174404.03, 'low': 170758.25, 'volume': 704336535, 'yoy_change': 48.79, 'ytd_change': -0.07, 'previous_close': 169911.95"
+    }
+  }
+}

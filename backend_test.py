@@ -301,6 +301,51 @@ class PakistanIntelAPITester:
         """Test Pakistan Stock Exchange data endpoint"""
         return self.test_endpoint("psx-data", ["data", "updated"])
 
+    def test_ws_status(self):
+        """Test WebSocket status endpoint"""
+        success = self.test_endpoint("ws-status", ["connected_clients", "ws_path", "events"])
+        if success:
+            # Additional validation for WebSocket status
+            url = f"{self.base_url}/api/ws-status"
+            try:
+                response = requests.get(url, timeout=10)
+                data = response.json()
+                
+                # Check if connected_clients is a number
+                clients = data.get("connected_clients")
+                if not isinstance(clients, int) or clients < 0:
+                    return self.log_result("WS Status - Client Count", False, 
+                                        error=f"Invalid client count: {clients}")
+                else:
+                    self.log_result("WS Status - Client Count", True, 
+                                 response_data=f"Connected clients: {clients}")
+                
+                # Check if ws_path is correct
+                ws_path = data.get("ws_path")
+                expected_paths = ["/api/ws/socket.io", "/api/ws/socket.io/"]
+                if ws_path not in expected_paths:
+                    return self.log_result("WS Status - Path", False, 
+                                        error=f"Unexpected WS path: {ws_path}")
+                else:
+                    self.log_result("WS Status - Path", True)
+                
+                # Check if events list contains expected events
+                events = data.get("events", [])
+                expected_events = ["news_update", "security_update", "weather_update", "energy_news_update"]
+                missing_events = [event for event in expected_events if event not in events]
+                if missing_events:
+                    return self.log_result("WS Status - Events", False, 
+                                        error=f"Missing events: {missing_events}")
+                else:
+                    self.log_result("WS Status - Events", True, 
+                                 response_data=f"Found events: {events}")
+                
+                return True
+                
+            except Exception as e:
+                return self.log_result("WS Status Validation", False, error=str(e))
+        return success
+
 def main():
     print("🇵🇰 Pakistan Intelligence Monitor - Backend API Testing")
     print("=" * 60)
@@ -310,6 +355,7 @@ def main():
     # Test all endpoints
     print("\n📡 Testing API Endpoints...")
     tester.test_health()
+    tester.test_ws_status()  # Test WebSocket status endpoint
     tester.test_news()
     tester.test_economic()
     tester.test_weather()

@@ -13,7 +13,8 @@
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.6",
     "react-scripts": "5.0.1",
-    "recharts": "^2.10.0"
+    "recharts": "^2.10.0",
+    "socket.io-client": "^4.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
