@@ -44,12 +44,15 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - [x] Energy Dashboard with power generation, energy payments
 - [x] Energy News with tag filtering (OIL, GAS, POWER, RENEW, COAL)
 - [x] News ticker with breaking news
+- [x] **WebSocket real-time push** (Socket.IO) for news, security, weather, energy news (Apr 2026)
+- [x] **LIVE/POLLING status indicator** in header with viewer count
+- [x] **Adaptive polling** — 5min with WS connected, 60s fallback
 - [x] All API tests passing (100%)
 
 ## Testing Status
-- Backend: 100% (24/24 tests passed)
-- Frontend: 100% (all UI components working)
-- Integration: 100% (frontend consuming all backend APIs)
+- Backend: 100% (28/28 tests passed)
+- Frontend: 100% (all UI + WebSocket components working)
+- Integration: 100% (real-time updates, status indicators, fallback working)
 
 ## Prioritized Backlog
 ### P0 (Critical) - None remaining
@@ -57,6 +60,7 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - Add user authentication for admin features
 - Historical data export functionality
 - Alert notification system (push/email)
+- Push economic indicator updates via WebSocket
 ### P2 (Medium)
 - Dark/light theme toggle
 - Customizable dashboard layout (drag-and-drop panels)
