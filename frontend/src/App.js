@@ -20,6 +20,7 @@ import EnergyComplexPanel from './components/EnergyComplexPanel';
 import MapSection from './components/MapSection';
 import NewsTicker from './components/NewsTicker';
 import EnergyDashboard from './components/EnergyDashboard';
+import LNGDashboard from './components/LNGDashboard';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -204,7 +205,14 @@ function App() {
           className={`tab-btn ${activeTab === 'energy' ? 'active' : ''}`}
           onClick={() => setActiveTab('energy')}
         >
-          ⚡ ENERGY
+          ENERGY
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'lng' ? 'active' : ''}`}
+          onClick={() => setActiveTab('lng')}
+          data-testid="lng-tab-btn"
+        >
+          LNG
         </button>
       </div>
 
@@ -215,6 +223,8 @@ function App() {
       <main className="main-content" data-testid="main-content">
         {activeTab === 'energy' ? (
           <EnergyDashboard />
+        ) : activeTab === 'lng' ? (
+          <LNGDashboard />
         ) : (
           <div className="bento-grid">
             {/* Map Section */}

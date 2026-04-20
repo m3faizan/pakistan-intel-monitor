@@ -346,6 +346,158 @@ class PakistanIntelAPITester:
                 return self.log_result("WS Status Validation", False, error=str(e))
         return success
 
+    def test_lng_news(self):
+        """Test LNG news endpoint"""
+        success = self.test_endpoint("lng/news", ["news", "updated", "count"])
+        if success:
+            # Additional validation for LNG news structure
+            url = f"{self.base_url}/api/lng/news"
+            try:
+                response = requests.get(url, timeout=10)
+                data = response.json()
+                news_items = data.get("news", [])
+                
+                # Test 1: Check if LNG news items exist
+                if not news_items:
+                    return self.log_result("LNG News Data", False, error="No LNG news items returned")
+                
+                # Test 2: Check LNG news item structure
+                news_item = news_items[0]
+                required_fields = ["title", "link", "source", "published"]
+                missing_fields = [field for field in required_fields if field not in news_item]
+                if missing_fields:
+                    return self.log_result("LNG News Item Structure", False, 
+                                        error=f"Missing fields in LNG news items: {missing_fields}")
+                else:
+                    self.log_result("LNG News Item Structure", True)
+                
+                # Test 3: Check LNG-specific sources
+                sources = set(item.get("source", "") for item in news_items if item.get("source"))
+                lng_sources = ["LNG Prime", "Offshore Energy", "LNG Journal", "LNG Expert", "LNG Industry", "Energy Intel"]
+                found_lng_sources = [src for src in lng_sources if any(src.lower() in s.lower() for s in sources)]
+                
+                if len(found_lng_sources) < 2:
+                    self.log_result("LNG News Sources", False, 
+                                 error=f"Expected LNG-specific sources, found: {list(sources)}")
+                else:
+                    self.log_result("LNG News Sources", True, 
+                                 response_data=f"Found LNG sources: {found_lng_sources}")
+                
+                return True
+                
+            except Exception as e:
+                return self.log_result("LNG News Validation", False, error=str(e))
+        return success
+
+    def test_lng_data(self):
+        """Test LNG data endpoint"""
+        success = self.test_endpoint("lng/data", ["summary", "history", "updated"])
+        if success:
+            # Additional validation for LNG data structure
+            url = f"{self.base_url}/api/lng/data"
+            try:
+                response = requests.get(url, timeout=10)
+                data = response.json()
+                summary = data.get("summary", {})
+                history = data.get("history", {})
+                
+                # Test 1: Check if summary contains expected metrics
+                expected_metrics = ["import_payment", "brent_avg", "import_volume", "power_generation", 
+                                  "cargo_distribution", "lng_price", "des_slope", "contract_volume"]
+                missing_metrics = [metric for metric in expected_metrics if metric not in summary]
+                if missing_metrics:
+                    return self.log_result("LNG Data Summary Metrics", False, 
+                                        error=f"Missing metrics in summary: {missing_metrics}")
+                else:
+                    self.log_result("LNG Data Summary Metrics", True, 
+                                 response_data=f"Found all {len(expected_metrics)} metrics")
+                
+                # Test 2: Check if history contains expected data tables
+                expected_tables = ["power_gen", "information", "port_price"]
+                missing_tables = [table for table in expected_tables if table not in history]
+                if missing_tables:
+                    return self.log_result("LNG Data History Tables", False, 
+                                        error=f"Missing history tables: {missing_tables}")
+                else:
+                    self.log_result("LNG Data History Tables", True, 
+                                 response_data=f"Found all {len(expected_tables)} history tables")
+                
+                # Test 3: Check if summary metrics have proper structure
+                if summary.get("import_payment"):
+                    metric = summary["import_payment"]
+                    required_fields = ["value", "date", "unit"]
+                    missing_fields = [field for field in required_fields if field not in metric]
+                    if missing_fields:
+                        return self.log_result("LNG Metric Structure", False, 
+                                            error=f"Missing fields in metric: {missing_fields}")
+                    else:
+                        self.log_result("LNG Metric Structure", True)
+                
+                return True
+                
+            except Exception as e:
+                return self.log_result("LNG Data Validation", False, error=str(e))
+        return success
+
+    def test_lng_terminals(self):
+        """Test LNG terminals endpoint"""
+        success = self.test_endpoint("lng/terminals", ["terminals"])
+        if success:
+            # Additional validation for LNG terminals structure
+            url = f"{self.base_url}/api/lng/terminals"
+            try:
+                response = requests.get(url, timeout=10)
+                data = response.json()
+                terminals = data.get("terminals", [])
+                
+                # Test 1: Check if terminals exist
+                if not terminals:
+                    return self.log_result("LNG Terminals Data", False, error="No LNG terminals returned")
+                
+                # Test 2: Check expected number of terminals (should be 3: EETL, PGPCL, and proposed)
+                if len(terminals) < 2:
+                    return self.log_result("LNG Terminals Count", False, 
+                                        error=f"Expected at least 2 terminals, got {len(terminals)}")
+                else:
+                    self.log_result("LNG Terminals Count", True, 
+                                 response_data=f"Found {len(terminals)} terminals")
+                
+                # Test 3: Check terminal structure
+                terminal = terminals[0]
+                required_fields = ["name", "lat", "lon", "operator", "location", "status"]
+                missing_fields = [field for field in required_fields if field not in terminal]
+                if missing_fields:
+                    return self.log_result("LNG Terminal Structure", False, 
+                                        error=f"Missing fields in terminal: {missing_fields}")
+                else:
+                    self.log_result("LNG Terminal Structure", True)
+                
+                # Test 4: Check if terminals are in Port Qasim area (lat ~24.8, lon ~67.3)
+                port_qasim_terminals = [t for t in terminals if 24.7 <= t.get("lat", 0) <= 25.2 and 67.2 <= t.get("lon", 0) <= 67.5]
+                if len(port_qasim_terminals) < 2:
+                    return self.log_result("LNG Terminals Location", False, 
+                                        error=f"Expected terminals in Port Qasim area, found {len(port_qasim_terminals)}")
+                else:
+                    self.log_result("LNG Terminals Location", True, 
+                                 response_data=f"Found {len(port_qasim_terminals)} terminals in Port Qasim area")
+                
+                # Test 5: Check for expected terminal names (EETL, PGPCL)
+                terminal_names = [t.get("name", "").upper() for t in terminals]
+                expected_names = ["EETL", "PGPCL"]
+                found_names = [name for name in expected_names if any(name in tn for tn in terminal_names)]
+                if len(found_names) < 2:
+                    return self.log_result("LNG Terminal Names", False, 
+                                        error=f"Expected EETL and PGPCL terminals, found: {terminal_names}")
+                else:
+                    self.log_result("LNG Terminal Names", True, 
+                                 response_data=f"Found expected terminals: {found_names}")
+                
+                return True
+                
+            except Exception as e:
+                return self.log_result("LNG Terminals Validation", False, error=str(e))
+        return success
+
 def main():
     print("🇵🇰 Pakistan Intelligence Monitor - Backend API Testing")
     print("=" * 60)
@@ -369,6 +521,12 @@ def main():
     tester.test_energy_payments()
     tester.test_minerals_metals()
     tester.test_psx_data()
+    
+    # Test new LNG endpoints
+    print("\n🔥 Testing LNG Dashboard Endpoints...")
+    tester.test_lng_news()
+    tester.test_lng_data()
+    tester.test_lng_terminals()
     
     # Print summary
     print("\n" + "=" * 60)

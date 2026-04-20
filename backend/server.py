@@ -6241,6 +6241,344 @@ async def get_energy_payments():
     }
 
 # ─────────────────────────────────────────────────────────────────────────────
+# ── LNG DASHBOARD  ──────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+
+SUPABASE_URL = "https://hvfcfxpqdmlndvlzetyq.supabase.co"
+SUPABASE_KEY = "sb_publishable_WjufaSl-gFZV-_FUNHjTsw_R0TIAmNk"
+SUPABASE_HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+}
+
+LNG_NEWS_FEEDS = [
+    {"name": "LNG Prime", "url": "https://lngprime.com/feed/", "category": "lng"},
+    {"name": "Offshore Energy", "url": "https://www.offshore-energy.biz/alternativefuels/feed/", "category": "lng"},
+    {"name": "LNG Journal", "url": "https://lngjournal.com/index.php?format=feed&type=rss", "category": "lng"},
+]
+
+LNG_SCRAPE_SITES = [
+    {"name": "LNG Industry", "url": "https://www.lngindustry.com/", "category": "lng"},
+    {"name": "Energy Intel", "url": "https://www.energyintel.com/gas-and-lng-news", "category": "lng"},
+    {"name": "LNG Expert", "url": "https://lng.expert/", "category": "lng"},
+]
+
+LNG_KEYWORDS = [
+    "lng", "liquefied natural gas", "regasification", "liquefaction",
+    "fsru", "floating storage", "gas terminal", "cargo", "tanker",
+    "spot lng", "long-term lng", "gas supply", "gas import", "gas export",
+    "methane", "natural gas", "gas carrier", "lng vessel", "lng plant",
+    "gas pipeline", "gas market", "gas price", "gas demand",
+]
+
+lng_data_cache = {
+    "news": {"data": [], "updated": None},
+    "port_price": {"data": [], "updated": None},
+    "power_gen": {"data": [], "updated": None},
+    "information": {"data": [], "updated": None},
+}
+
+
+def _is_lng_relevant(title: str, summary: str = "") -> bool:
+    text = f"{title} {summary}".lower()
+    return any(kw in text for kw in LNG_KEYWORDS)
+
+
+async def _fetch_lng_rss_feed(feed_info: dict) -> list:
+    try:
+        async with httpx.AsyncClient(timeout=12.0) as client:
+            r = await client.get(feed_info["url"], headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            })
+            if r.status_code == 200:
+                feed = feedparser.parse(r.text)
+                articles = []
+                for entry in feed.entries[:15]:
+                    title = entry.get("title", "")
+                    raw_summary = (entry.get("summary", "") or "")[:500]
+                    clean_summary = html_lib.unescape(re.sub(r"<[^>]+>", "", raw_summary)).strip()[:200]
+                    if not _is_lng_relevant(title, clean_summary):
+                        continue
+                    articles.append({
+                        "title": html_lib.unescape(re.sub(r"<[^>]+>", "", title)).strip(),
+                        "link": entry.get("link", ""),
+                        "published": entry.get("published", ""),
+                        "summary": clean_summary,
+                        "source": feed_info["name"],
+                        "category": "lng",
+                    })
+                return articles
+    except Exception as e:
+        print(f"[LNG] RSS error {feed_info['name']}: {e}")
+    return []
+
+
+async def _scrape_lng_site(site_info: dict) -> list:
+    try:
+        async with httpx.AsyncClient(timeout=12.0, follow_redirects=True) as client:
+            r = await client.get(site_info["url"], headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            })
+            if r.status_code != 200:
+                return []
+            html_text = r.text
+            articles = []
+            # Extract links and titles from anchor tags
+            links = re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html_text, re.DOTALL)
+            seen = set()
+            for href, text_raw in links:
+                text = re.sub(r'<[^>]+>', '', text_raw).strip()
+                if len(text) < 20 or len(text) > 200:
+                    continue
+                if not _is_lng_relevant(text):
+                    continue
+                if href.startswith("/"):
+                    href = site_info["url"].rstrip("/") + href
+                if href in seen:
+                    continue
+                seen.add(href)
+                articles.append({
+                    "title": text,
+                    "link": href,
+                    "published": "",
+                    "summary": "",
+                    "source": site_info["name"],
+                    "category": "lng",
+                })
+                if len(articles) >= 10:
+                    break
+            return articles
+    except Exception as e:
+        print(f"[LNG] Scrape error {site_info['name']}: {e}")
+    return []
+
+
+async def fetch_lng_news():
+    tasks_rss = [_fetch_lng_rss_feed(f) for f in LNG_NEWS_FEEDS]
+    tasks_scrape = [_scrape_lng_site(s) for s in LNG_SCRAPE_SITES]
+    results = await asyncio.gather(*(tasks_rss + tasks_scrape))
+    all_news = []
+    for articles in results:
+        all_news.extend(articles)
+    # Deduplicate
+    seen = set()
+    deduped = []
+    for a in all_news:
+        key = (a.get("link") or a.get("title", "")).strip().lower()
+        if key and key not in seen:
+            seen.add(key)
+            deduped.append(a)
+    deduped.sort(key=lambda x: x.get("published", ""), reverse=True)
+    return deduped[:60]
+
+
+async def _supabase_query(table: str, params: str = "") -> list:
+    url = f"{SUPABASE_URL}/rest/v1/{table}{params}"
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            r = await client.get(url, headers=SUPABASE_HEADERS)
+            if r.status_code == 200:
+                return r.json()
+    except Exception as e:
+        print(f"[LNG] Supabase error ({table}): {e}")
+    return []
+
+
+async def fetch_lng_supabase_data():
+    port_price = await _supabase_query("LNG%20Port_Price_Import", "?select=*&order=date.asc")
+    power_gen = await _supabase_query("LNG%20Power%20Gen", "?select=*&order=date.asc")
+    information = await _supabase_query("LNG%20Information", "?select=*&order=date.asc")
+    return port_price, power_gen, information
+
+
+def _build_lng_summary(port_price: list, power_gen: list, information: list) -> dict:
+    summary = {}
+
+    if power_gen:
+        latest_pg = power_gen[-1]
+        prev_pg = power_gen[-2] if len(power_gen) > 1 else {}
+        summary["import_payment"] = {
+            "value": latest_pg.get("importPayment"),
+            "prev": prev_pg.get("importPayment"),
+            "date": latest_pg.get("date"),
+            "unit": "thousand USD",
+        }
+        summary["brent_avg"] = {
+            "value": latest_pg.get("brentAvg"),
+            "prev": prev_pg.get("brentAvg"),
+            "date": latest_pg.get("date"),
+            "unit": "$/bbl",
+        }
+        summary["power_generation"] = {
+            "value": latest_pg.get("powerGeneration"),
+            "prev": prev_pg.get("powerGeneration"),
+            "date": latest_pg.get("date"),
+            "unit": "GWh",
+            "rlng_share": latest_pg.get("rlngShare"),
+            "total_power_gen": latest_pg.get("total_power_gen"),
+        }
+        summary["power_gen_cost"] = {
+            "value": latest_pg.get("powerGenCost"),
+            "prev": prev_pg.get("powerGenCost"),
+            "date": latest_pg.get("date"),
+            "unit": "$/MMBtu",
+        }
+
+    if port_price:
+        latest_pp = port_price[-1]
+        prev_pp = port_price[-2] if len(port_price) > 1 else {}
+        summary["lng_price"] = {
+            "value": latest_pp.get("wAvg_DES"),
+            "prev": prev_pp.get("wAvg_DES"),
+            "date": latest_pp.get("date"),
+            "unit": "$/MMBtu",
+            "pso": latest_pp.get("PSO_DES"),
+            "pll": latest_pp.get("PLL_DES"),
+        }
+        summary["des_slope"] = {
+            "value": latest_pp.get("DES_Slope"),
+            "prev": prev_pp.get("DES_Slope"),
+            "date": latest_pp.get("date"),
+            "unit": "%",
+        }
+        summary["spot_des"] = {
+            "value": latest_pp.get("Spot_DES"),
+            "prev": prev_pp.get("Spot_DES"),
+            "date": latest_pp.get("date"),
+            "unit": "$/MMBtu",
+        }
+        summary["lt_des"] = {
+            "value": latest_pp.get("Long_Term_DES"),
+            "prev": prev_pp.get("Long_Term_DES"),
+            "date": latest_pp.get("date"),
+            "unit": "$/MMBtu",
+        }
+
+    if information:
+        latest_info = information[-1]
+        prev_info = information[-2] if len(information) > 1 else {}
+        summary["import_volume"] = {
+            "value": latest_info.get("import_Volume"),
+            "prev": prev_info.get("import_Volume"),
+            "date": latest_info.get("date"),
+            "unit": "MMBtu",
+        }
+        summary["cargo_distribution"] = {
+            "total": latest_info.get("Total_Cargoes"),
+            "spot": latest_info.get("num_Spot_Cargoes"),
+            "long_term": latest_info.get("num_Long_Term_Cargoes"),
+            "spot_volume": latest_info.get("Spot_Volume"),
+            "lt_volume": latest_info.get("LT_Volume"),
+            "eetl": latest_info.get("EETL_cargo"),
+            "pgpcl": latest_info.get("PGPCL_cargo"),
+            "date": latest_info.get("date"),
+        }
+        summary["contract_volume"] = {
+            "lt_volume": latest_info.get("LT_Volume"),
+            "spot_volume": latest_info.get("Spot_Volume"),
+            "prev_lt": prev_info.get("LT_Volume"),
+            "prev_spot": prev_info.get("Spot_Volume"),
+            "date": latest_info.get("date"),
+            "unit": "MMBtu",
+        }
+
+    return summary
+
+
+# ── LNG API endpoints ───────────────────────────────────────────────────────
+
+@app.get("/api/lng/news")
+async def get_lng_news():
+    if not lng_data_cache["news"]["updated"] or \
+       (datetime.now(timezone.utc) - lng_data_cache["news"]["updated"]).total_seconds() > 900:
+        lng_data_cache["news"]["data"] = await fetch_lng_news()
+        lng_data_cache["news"]["updated"] = datetime.now(timezone.utc)
+    news = lng_data_cache["news"]["data"]
+    return {"news": news, "count": len(news), "updated": lng_data_cache["news"]["updated"].isoformat() if lng_data_cache["news"]["updated"] else None}
+
+
+@app.get("/api/lng/data")
+async def get_lng_data():
+    needs_refresh = False
+    if not lng_data_cache["port_price"]["updated"]:
+        needs_refresh = True
+    elif (datetime.now(timezone.utc) - lng_data_cache["port_price"]["updated"]).total_seconds() > 3600:
+        needs_refresh = True
+
+    if needs_refresh:
+        port_price, power_gen, information = await fetch_lng_supabase_data()
+        lng_data_cache["port_price"]["data"] = port_price
+        lng_data_cache["port_price"]["updated"] = datetime.now(timezone.utc)
+        lng_data_cache["power_gen"]["data"] = power_gen
+        lng_data_cache["power_gen"]["updated"] = datetime.now(timezone.utc)
+        lng_data_cache["information"]["data"] = information
+        lng_data_cache["information"]["updated"] = datetime.now(timezone.utc)
+
+    port_price = lng_data_cache["port_price"]["data"]
+    power_gen = lng_data_cache["power_gen"]["data"]
+    information = lng_data_cache["information"]["data"]
+
+    summary = _build_lng_summary(port_price, power_gen, information)
+
+    return {
+        "summary": summary,
+        "history": {
+            "port_price": port_price,
+            "power_gen": power_gen,
+            "information": information,
+        },
+        "updated": lng_data_cache["port_price"]["updated"].isoformat() if lng_data_cache["port_price"]["updated"] else None,
+    }
+
+
+@app.get("/api/lng/terminals")
+async def get_lng_terminals():
+    return {
+        "terminals": [
+            {
+                "name": "EETL (Engro Elengy Terminal)",
+                "operator": "Engro Elengy Terminal Ltd",
+                "location": "Port Qasim, Karachi",
+                "lat": 24.7867,
+                "lon": 67.3250,
+                "capacity": "600 MMcfd",
+                "type": "FSRU",
+                "vessel": "Exquisite",
+                "status": "operational",
+                "commissioned": "2015",
+                "notes": "Pakistan's first LNG import terminal. Handles long-term Qatar contract cargoes."
+            },
+            {
+                "name": "PGPCL (Pakistan GasPort)",
+                "operator": "Pakistan GasPort Consortium Ltd",
+                "location": "Port Qasim, Karachi",
+                "lat": 24.7830,
+                "lon": 67.3400,
+                "capacity": "750 MMcfd",
+                "type": "FSRU",
+                "vessel": "BW Integrity",
+                "status": "operational",
+                "commissioned": "2017",
+                "notes": "Second LNG terminal. Handles both spot and long-term cargoes."
+            },
+            {
+                "name": "Proposed Third Terminal",
+                "operator": "TBD",
+                "location": "Port Qasim / Gwadar",
+                "lat": 25.1264,
+                "lon": 62.3225,
+                "capacity": "TBD",
+                "type": "Land-based (proposed)",
+                "vessel": "N/A",
+                "status": "proposed",
+                "commissioned": "TBD",
+                "notes": "Multiple proposals for a third LNG terminal under consideration."
+            }
+        ]
+    }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Wrap FastAPI with Socket.IO so WS upgrade requests are handled
 # This MUST be after all @app routes are registered
 _fastapi_app = app

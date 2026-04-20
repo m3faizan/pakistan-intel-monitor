@@ -1,0 +1,211 @@
+{
+  "summary": {
+    "tests_run": 40,
+    "tests_passed": 40,
+    "success_rate": 100.0,
+    "timestamp": "2026-04-20T07:33:48.163915"
+  },
+  "failed_tests": [],
+  "detailed_results": {
+    "API GET /health": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'status': 'healthy', 'timestamp': '2026-04-20T07:33:44.676790+00:00', 'version': '1.0.0'}"
+    },
+    "API GET /ws-status": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'connected_clients': 1, 'ws_path': '/api/ws/socket.io/', 'push_interval_seconds': 30, 'events': ['news_update', 'energy_news_update', 'security_update', 'weather_update', 'heartbeat']}"
+    },
+    "WS Status - Client Count": {
+      "success": true,
+      "error": null,
+      "response_sample": "Connected clients: 1"
+    },
+    "WS Status - Path": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "WS Status - Events": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found events: ['news_update', 'energy_news_update', 'security_update', 'weather_update', 'heartbeat']"
+    },
+    "API GET /news": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'news': [{'title': 'Trump sends negotiators for Islamabad Round 2', 'link': 'https://tribune.com.pk/story/2603725/trump-sends-negotiators-for-islamabad-round-2', 'published': 'Sun, 19 Apr 26 22:20:44"
+    },
+    "News Count Check": {
+      "success": true,
+      "error": null,
+      "response_sample": "Returned 100 news items"
+    },
+    "News Item Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "News Categories Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 4 categories: ['general', 'business', 'tech', 'international']"
+    },
+    "News Sources Diversity": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 11 different news sources"
+    },
+    "API GET /economic": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'pkr_usd': {'rate': 278.5, 'change': -0.25, 'change_percent': -0.09, 'updated': '2026-04-20T07:33:12.786631+00:00'}, 'pkr_eur': {'rate': 302.15, 'change': 0.45, 'change_percent': 0.15, 'upda"
+    },
+    "Economic Data Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /weather": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'temp': 28, 'condition': 'Partly Cloudy', 'humidity': 65}, {'name': 'Lahore', 'lat': 31.5204, 'lon': 74.3587, 'temp': 18, 'condition': '"
+    },
+    "Weather City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /security": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'alerts': [{'type': 'security', 'severity': 'high', 'title': 'Two India-backed terrorists, including ring leader, killed in Bannu IBO: ISPR', 'description': '<img src=\"https://www.geo.tv/assets/uploa"
+    },
+    "Security Alert Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /regional-relations": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'countries': [{'code': 'india', 'name': 'India', 'group': 'Neighbor', 'embassy_url': 'https://pakhcnewdelhi.org.pk', 'status': 'TENSE / SUSPENDED', 'tag': 'SUSPENDED', 'recent_visit': 'No hi"
+    },
+    "Regional Relations Countries": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 25 countries"
+    },
+    "API GET /infrastructure": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'power': {'national_grid_status': 'Stable', 'load_shedding': {'urban': '2-3 hours', 'rural': '4-6 hours'}, 'generation_capacity': '85%', 'demand': '22,500 MW', 'supply': '21,000 MW'}, 'internet': {'n"
+    },
+    "Infrastructure Sections": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /map-data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'cities': [{'name': 'Islamabad', 'lat': 33.6844, 'lon': 73.0479, 'type': 'capital', 'population': '1.1M'}, {'name': 'Karachi', 'lat': 24.8607, 'lon': 67.0011, 'type': 'major', 'population': '14.9M'},"
+    },
+    "Map City Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /daily-energy-report": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'report_date': 'March 13, 2026', 'entries': [{'id': 'energy-0', 'region': 'Asia', 'country': 'China', 'headline': 'Full text: Report on the Work of the Government', 'items': ['Full text: Rep"
+    },
+    "API GET /daily-briefing": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'briefing': {'executive_summary': 'Middle East conflict continues to intensify, with reported Israeli strikes in south Lebanon and US-Iran escalation indicators, while Tehran links Islamabad talks to"
+    },
+    "API GET /power-generation": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Total': {'unit': 'GWh', 'latest': {'value': 7695.74, 'date': '2026-02-28', 'month': 'February 2026'}, 'mom_change_pct': -15.8, 'yoy_change': 10.99, 'history': [{'date': '2012-07-31', 'value"
+    },
+    "API GET /energy-payments": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Petroleum Group': {'unit': 'Thousand USD', 'latest': {'value': 983013.012, 'date': '2026-03-31', 'month': 'March 2026'}, 'mom_change_pct': -18.04, 'yoy_change': -19.54, 'history': [{'date':"
+    },
+    "API GET /minerals-metals": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'Silica Sand': {'unit': '000 Tonnes', 'latest': {'date': '2025-06-01', 'value': 44.7}, 'previous': {'date': '2025-05-01', 'value': 51.2}, 'mom_change_pct': -12.7, 'history': [{'date': '2004-"
+    },
+    "API GET /psx-data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'data': {'value': 173771.86, 'change': -167.15, 'change_percent': -0.1, 'high': 174523.76, 'low': 170625.96, 'volume': 291102941, 'yoy_change': 48.12, 'ytd_change': -0.16, 'previous_close': 173939.01"
+    },
+    "API GET /lng/news": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'news': [{'title': 'China\u2019s LNG imports down 19.2 percent in March', 'link': 'https://lngprime.com/asia/chinas-lng-imports-down-19-2-percent-in-march/183859/', 'published': 'Mon, 20 Apr 2026 06:27:56"
+    },
+    "LNG News Item Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "LNG News Sources": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found LNG sources: ['LNG Prime', 'LNG Industry', 'Energy Intel']"
+    },
+    "API GET /lng/data": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'summary': {'import_payment': {'value': 729325.2, 'prev': 663022.91, 'date': '2024-12-15T00:00:00+00:00', 'unit': 'thousand USD'}, 'brent_avg': {'value': 73.86, 'prev': 75.67, 'date': '2024-12-15T00:"
+    },
+    "LNG Data Summary Metrics": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found all 8 metrics"
+    },
+    "LNG Data History Tables": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found all 3 history tables"
+    },
+    "LNG Metric Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "API GET /lng/terminals": {
+      "success": true,
+      "error": null,
+      "response_sample": "{'terminals': [{'name': 'EETL (Engro Elengy Terminal)', 'operator': 'Engro Elengy Terminal Ltd', 'location': 'Port Qasim, Karachi', 'lat': 24.7867, 'lon': 67.325, 'capacity': '600 MMcfd', 'type': 'FSR"
+    },
+    "LNG Terminals Count": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 3 terminals"
+    },
+    "LNG Terminal Structure": {
+      "success": true,
+      "error": null,
+      "response_sample": null
+    },
+    "LNG Terminals Location": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found 2 terminals in Port Qasim area"
+    },
+    "LNG Terminal Names": {
+      "success": true,
+      "error": null,
+      "response_sample": "Found expected terminals: ['EETL', 'PGPCL']"
+    }
+  }
+}
