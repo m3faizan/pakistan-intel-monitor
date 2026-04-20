@@ -47,12 +47,16 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - [x] **WebSocket real-time push** (Socket.IO) for news, security, weather, energy news (Apr 2026)
 - [x] **LIVE/POLLING status indicator** in header with viewer count
 - [x] **Adaptive polling** — 5min with WS connected, 60s fallback
+- [x] **LNG Dashboard** — new tab with map, news, and 8 Supabase-powered metrics (Apr 2026)
+- [x] **LNG Map** — Port Qasim terminals (EETL, PGPCL) with interactive info popups
+- [x] **LNG News** — Real-time from LNG Prime, Offshore Energy, LNG Journal + scraped sites
+- [x] **LNG Data Modals** — Clickable metrics open historical charts (area/bar/line) with time range selectors
 - [x] All API tests passing (100%)
 
 ## Testing Status
-- Backend: 100% (28/28 tests passed)
-- Frontend: 100% (all UI + WebSocket components working)
-- Integration: 100% (real-time updates, status indicators, fallback working)
+- Backend: 100% (40/40 tests passed)
+- Frontend: 100% (all UI + WebSocket + LNG components working)
+- Integration: 100% (Supabase, RSS feeds, WebSocket all working)
 
 ## Prioritized Backlog
 ### P0 (Critical) - None remaining
