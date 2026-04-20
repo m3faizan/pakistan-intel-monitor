@@ -149,26 +149,38 @@ const PriceTrendTooltip = ({ active, payload, label }) => {
 };
 
 const ClickableLegend = ({ fields, hiddenSeries, onToggle }) => (
-  <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', padding: '0.5rem 0', flexWrap: 'wrap' }}>
+  <>
     {fields.map(f => {
       const hidden = hiddenSeries.has(f.key);
       return (
         <button
           key={f.key}
           onClick={() => onToggle(f.key)}
-          className="pol-legend-chip"
           style={{
-            opacity: hidden ? 0.35 : 1,
-            borderColor: hidden ? 'var(--color-border)' : f.color,
-            color: hidden ? 'var(--color-muted)' : f.color,
+            background: hidden ? 'transparent' : 'var(--color-primary)',
+            border: hidden ? '1px solid var(--color-border)' : '1px solid var(--color-primary)',
+            color: hidden ? 'var(--color-muted)' : 'var(--color-background)',
+            padding: '0.5rem 1rem',
+            fontSize: '0.75rem',
+            fontFamily: 'var(--font-mono)',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            transition: 'all 0.15s',
+            fontWeight: 600,
           }}
         >
-          <span className="pol-legend-dot" style={{ background: f.color, width: 7, height: 7, borderRadius: '50%', display: 'inline-block' }} />
+          <span style={{
+            width: 8, height: 8, borderRadius: '50%', display: 'inline-block',
+            background: f.color,
+            border: hidden ? `1px solid ${f.color}` : 'none',
+          }} />
           {f.label}
         </button>
       );
     })}
-  </div>
+  </>
 );
 
 const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
@@ -309,19 +321,18 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
           </div>
         )}
 
-        {/* Range Selector */}
-        <div className="time-range-selector">
+        {/* Range Selector + Clickable Legend — same row */}
+        <div className="time-range-selector" style={{ flexWrap: 'wrap', alignItems: 'center' }}>
           {RANGES.map(r => (
             <button key={r} className={`range-btn ${range === r ? 'active' : ''}`} onClick={() => setRange(r)}>{r}</button>
           ))}
+          <span style={{ width: '1px', height: '24px', background: 'var(--color-border)', margin: '0 0.25rem' }} />
+          <ClickableLegend
+            fields={showPriceTrend && config.hasPriceTrend ? priceTrendFields : config.fields}
+            hiddenSeries={hiddenSeries}
+            onToggle={toggleSeries}
+          />
         </div>
-
-        {/* Clickable Legend */}
-        <ClickableLegend
-          fields={showPriceTrend && config.hasPriceTrend ? priceTrendFields : config.fields}
-          hiddenSeries={hiddenSeries}
-          onToggle={toggleSeries}
-        />
 
         {/* Chart */}
         <div className="chart-container" style={{ padding: '1rem' }}>
