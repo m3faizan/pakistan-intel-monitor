@@ -4,6 +4,7 @@ import LNGMap from './LNGMap';
 import LNGNewsPanel from './LNGNewsPanel';
 import LNGDataPanel from './LNGDataPanel';
 import LNGTerminalPanel from './LNGTerminalPanel';
+import LNGGenerationPanel from './LNGGenerationPanel';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -44,14 +45,19 @@ const LNGDashboard = () => {
         </div>
       </div>
 
-      {/* Bottom row: Pakistan LNG Metrics + Terminal Activity */}
+      {/* Middle row: LNG Generation Panel + Terminal Activity */}
       <div className="energy-bottom-row" style={{ gridTemplateColumns: '2fr 1fr' }}>
-        <LNGDataPanel
+        <LNGGenerationPanel />
+        <LNGTerminalPanel
           summary={lngData?.summary}
           history={lngData?.history}
           loading={loading}
         />
-        <LNGTerminalPanel
+      </div>
+
+      {/* Bottom row: Pakistan LNG Metrics (full width) */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+        <LNGDataPanel
           summary={lngData?.summary}
           history={lngData?.history}
           loading={loading}

@@ -6546,6 +6546,7 @@ async def get_lng_terminals():
                 "vessel": "Exquisite",
                 "status": "operational",
                 "commissioned": "2015",
+                "category": "terminal",
                 "notes": "Pakistan's first LNG import terminal. Handles long-term Qatar contract cargoes."
             },
             {
@@ -6559,6 +6560,7 @@ async def get_lng_terminals():
                 "vessel": "BW Integrity",
                 "status": "operational",
                 "commissioned": "2017",
+                "category": "terminal",
                 "notes": "Second LNG terminal. Handles both spot and long-term cargoes."
             },
             {
@@ -6572,10 +6574,220 @@ async def get_lng_terminals():
                 "vessel": "N/A",
                 "status": "proposed",
                 "commissioned": "TBD",
+                "category": "terminal",
                 "notes": "Multiple proposals for a third LNG terminal under consideration."
+            },
+            {
+                "name": "Haveli Bahadur Shah RLNG",
+                "operator": "QATPL (Quaid-e-Azam Thermal)",
+                "location": "Jhang, Punjab",
+                "lat": 31.1500,
+                "lon": 72.3200,
+                "capacity": "1,230 MW",
+                "type": "CCGT (RLNG)",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2018",
+                "category": "plant",
+                "notes": "Combined-cycle gas turbine power plant operating on RLNG. One of the largest RLNG-based plants in Pakistan."
+            },
+            {
+                "name": "Balloki RLNG Power Plant",
+                "operator": "QATPL (Quaid-e-Azam Thermal)",
+                "location": "Kasur, Punjab",
+                "lat": 31.2200,
+                "lon": 73.8600,
+                "capacity": "1,223 MW",
+                "type": "CCGT (RLNG)",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2018",
+                "category": "plant",
+                "notes": "RLNG-fired combined-cycle plant near Balloki Headworks. Part of CPEC early harvest energy projects."
+            },
+            {
+                "name": "Bhikki RLNG Power Plant",
+                "operator": "NPL (National Power Parks)",
+                "location": "Sheikhupura, Punjab",
+                "lat": 31.6100,
+                "lon": 73.9600,
+                "capacity": "1,180 MW",
+                "type": "CCGT (RLNG)",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2018",
+                "category": "plant",
+                "notes": "RLNG-based combined-cycle power plant under National Power Parks Management Company."
+            },
+            {
+                "name": "Trimmu RLNG Power Plant",
+                "operator": "NPL (National Power Parks)",
+                "location": "Jhang, Punjab",
+                "lat": 31.1600,
+                "lon": 72.1500,
+                "capacity": "1,263 MW",
+                "type": "CCGT (RLNG)",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2019",
+                "category": "plant",
+                "notes": "Fourth large RLNG combined-cycle plant. Provides base-load power to the national grid."
+            },
+            {
+                "name": "RLNG Pipeline (SSGC)",
+                "operator": "SSGC",
+                "location": "Port Qasim to Sindh",
+                "lat": 24.8500,
+                "lon": 67.2700,
+                "capacity": "1,200 MMcfd",
+                "type": "Pipeline Infrastructure",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2015",
+                "category": "infrastructure",
+                "notes": "SSGC pipeline connects LNG terminals at Port Qasim to the southern gas network."
+            },
+            {
+                "name": "RLNG Pipeline (SNGPL)",
+                "operator": "SNGPL",
+                "location": "Lahore, Punjab",
+                "lat": 31.5204,
+                "lon": 74.3587,
+                "capacity": "1,200 MMcfd",
+                "type": "Pipeline Infrastructure",
+                "vessel": "N/A",
+                "status": "operational",
+                "commissioned": "2017",
+                "category": "infrastructure",
+                "notes": "SNGPL pipeline carries RLNG from south to northern Punjab for power plants and industrial use."
             }
         ]
     }
+
+
+# ── LNG Generation (SBP) + Import Payments (SBP) ───────────────────────────
+
+lng_gen_cache = {"data": None, "updated": None}
+lng_import_pmt_cache = {"data": None, "updated": None}
+
+
+async def fetch_lng_generation_data():
+    """Fetch RLNG generation and Total generation from SBP."""
+    try:
+        async with httpx.AsyncClient(timeout=30) as client:
+            rlng_task = _fetch_power_gen_series(client, POWER_GEN_SERIES["RLNG"])
+            total_task = _fetch_power_gen_series(client, POWER_GEN_SERIES["Total"])
+            rlng_history, total_history = await asyncio.gather(rlng_task, total_task)
+
+        if not rlng_history or not total_history:
+            return None
+
+        # Build combined history
+        total_map = {pt["date"]: pt["value"] for pt in total_history}
+        combined = []
+        for pt in rlng_history:
+            total_val = total_map.get(pt["date"])
+            share = (pt["value"] / total_val * 100) if total_val and total_val > 0 else None
+            combined.append({
+                "date": pt["date"],
+                "rlng": pt["value"],
+                "total": total_val,
+                "share": round(share, 1) if share is not None else None,
+            })
+
+        if len(combined) < 2:
+            return None
+
+        latest = combined[-1]
+        prev = combined[-2]
+
+        mom_rlng = ((latest["rlng"] - prev["rlng"]) / prev["rlng"] * 100) if prev["rlng"] else None
+        mom_total = ((latest["total"] - prev["total"]) / prev["total"] * 100) if prev.get("total") else None
+
+        return {
+            "latest": {
+                "rlng": latest["rlng"],
+                "total": latest["total"],
+                "share": latest["share"],
+                "date": latest["date"],
+            },
+            "mom_rlng": round(mom_rlng, 2) if mom_rlng is not None else None,
+            "mom_total": round(mom_total, 2) if mom_total is not None else None,
+            "history": combined,
+        }
+    except Exception as e:
+        print(f"[LNG] Generation fetch error: {e}")
+        return None
+
+
+async def fetch_lng_import_payments():
+    """Fetch LNG-specific import payment series from SBP energy payments."""
+    try:
+        async with httpx.AsyncClient(timeout=30) as client:
+            lng_series_id = ENERGY_PMT_SERIES["LNG"]
+            petro_series_id = ENERGY_PMT_SERIES["Petroleum Group"]
+            lng_task = _fetch_energy_pmt_series(client, lng_series_id)
+            petro_task = _fetch_energy_pmt_series(client, petro_series_id)
+            lng_history, petro_history = await asyncio.gather(lng_task, petro_task)
+
+        if not lng_history:
+            return None
+
+        petro_map = {pt["date"]: pt["value"] for pt in petro_history} if petro_history else {}
+
+        latest = lng_history[-1]
+        prev = lng_history[-2] if len(lng_history) > 1 else None
+
+        mom_change = None
+        if prev and prev["value"] and prev["value"] != 0:
+            mom_change = ((latest["value"] - prev["value"]) / prev["value"]) * 100
+
+        latest_dt = datetime.strptime(latest["date"], "%Y-%m-%d")
+
+        return {
+            "latest": {
+                "value": round(latest["value"], 3),
+                "date": latest["date"],
+                "month": latest_dt.strftime("%B %Y"),
+            },
+            "mom_change_pct": round(mom_change, 2) if mom_change is not None else None,
+            "unit": "Thousand USD",
+            "history": lng_history,
+            "petro_history": petro_history,
+        }
+    except Exception as e:
+        print(f"[LNG] Import payments fetch error: {e}")
+        return None
+
+
+@app.get("/api/lng/generation")
+async def get_lng_generation():
+    global lng_gen_cache
+    now = datetime.now(timezone.utc)
+    age = (now - lng_gen_cache["updated"]).total_seconds() if lng_gen_cache["updated"] else 9999999
+    if lng_gen_cache["data"] is None or age > 3600:
+        data = await fetch_lng_generation_data()
+        if data:
+            lng_gen_cache["data"] = data
+            lng_gen_cache["updated"] = now
+    if not lng_gen_cache["data"]:
+        raise HTTPException(status_code=503, detail="LNG generation data unavailable")
+    return {"data": lng_gen_cache["data"], "updated": lng_gen_cache["updated"].isoformat() if lng_gen_cache["updated"] else None}
+
+
+@app.get("/api/lng/import-payments")
+async def get_lng_import_payments():
+    global lng_import_pmt_cache
+    now = datetime.now(timezone.utc)
+    age = (now - lng_import_pmt_cache["updated"]).total_seconds() if lng_import_pmt_cache["updated"] else 9999999
+    if lng_import_pmt_cache["data"] is None or age > 3600:
+        data = await fetch_lng_import_payments()
+        if data:
+            lng_import_pmt_cache["data"] = data
+            lng_import_pmt_cache["updated"] = now
+    if not lng_import_pmt_cache["data"]:
+        raise HTTPException(status_code=503, detail="LNG import payments data unavailable")
+    return {"data": lng_import_pmt_cache["data"], "updated": lng_import_pmt_cache["updated"].isoformat() if lng_import_pmt_cache["updated"] else None}
 
 
 # ─────────────────────────────────────────────────────────────────────────────

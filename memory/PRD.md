@@ -54,7 +54,10 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - [x] **LNG Price (DES)** — Composed chart: Long-Term + Spot as bars, wAvg DES as line
 - [x] **DES Slope** — Overall slope view + Price Trend toggle (grouped bar chart for LT/Spot)
 - [x] **Terminal Activity panel** — Total Cargoes, EETL/PGPCL share, terminal share bar, port charges
-- [x] All API tests passing (100%)
+- [x] **LNG Generation Panel** — RLNG Generation (728.64 GWh), RLNG in Mix (9.5%), LNG Import Payment ($173.0M) from SBP API
+- [x] **RLNG Plants on Map** — Haveli Bahadur Shah, Balloki, Bhikki, Trimmu + pipeline infrastructure (SSGC/SNGPL)
+- [x] **LNG Import Payments (SBP)** — Uses same SBP BOP dataset as Energy Payments panel (TS_GP_BOP_MRECCG_M.IMP00400)
+- [x] **RLNG Generation (SBP)** — Uses same SBP power gen dataset (TS_GP_RLS_ELECGEN_M.E_007000 + E_001000)
 
 ## Testing Status
 - Backend: 100% (40/40 tests passed)
