@@ -55,7 +55,7 @@ const LNGDataPanel = ({ summary, history, loading }) => {
       <div className="panel" data-testid="lng-data-panel">
         <div className="panel-header">
           <div className="panel-title"><Flame size={16} /> Pakistan LNG Metrics</div>
-          <span className="panel-badge">SUPABASE</span>
+          <span className="panel-badge">PakESDA</span>
         </div>
         <div className="panel-content"><div className="loading"><div className="spinner"></div></div></div>
       </div>
@@ -135,7 +135,7 @@ const LNGDataPanel = ({ summary, history, loading }) => {
       <div className="panel" data-testid="lng-data-panel">
         <div className="panel-header">
           <div className="panel-title"><Flame size={16} /> Pakistan LNG Metrics</div>
-          <span className="panel-badge">SUPABASE</span>
+          <span className="panel-badge">PakESDA</span>
         </div>
         <div className="panel-content" style={{ maxHeight: 'none', padding: '0.75rem' }}>
           <div className="economic-grid-8">
