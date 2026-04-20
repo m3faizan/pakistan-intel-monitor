@@ -50,7 +50,8 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - [x] **LNG Dashboard** — new tab with map, news, and 8 Supabase-powered metrics (Apr 2026)
 - [x] **LNG Map** — Port Qasim terminals (EETL, PGPCL) with interactive info popups
 - [x] **LNG News** — Real-time from LNG Prime, Offshore Energy, LNG Journal + scraped sites
-- [x] **LNG Data Modals** — Clickable metrics with historical charts, clickable legend chips, YTD/6M/1Y/2Y/3Y/ALL ranges
+- [x] **LNG Data Modals** — Clickable metrics with historical charts, POL-Sales-style legends, YTD/6M/1Y/2Y/3Y/ALL ranges, % Change bar charts, unit display
+- [x] **LNG Price (DES)** — Composed chart: Long-Term + Spot as bars, wAvg DES as line
 - [x] **DES Slope** — Overall slope view + Price Trend toggle (grouped bar chart for LT/Spot)
 - [x] **Terminal Activity panel** — Total Cargoes, EETL/PGPCL share, terminal share bar, port charges
 - [x] All API tests passing (100%)
