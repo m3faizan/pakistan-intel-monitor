@@ -219,8 +219,8 @@ function App() {
         </button>
       </div>
 
-      {/* News Ticker - includes LNG news */}
-      <NewsTicker news={[...news, ...lngNews]} />
+      {/* News Ticker - LNG-only on LNG tab */}
+      <NewsTicker news={activeTab === 'lng' ? lngNews : [...news, ...lngNews]} />
 
       {/* Main Content */}
       <main className="main-content" data-testid="main-content">

@@ -4,6 +4,7 @@ import LNGMap from './LNGMap';
 import LNGNewsPanel from './LNGNewsPanel';
 import LNGDataPanel from './LNGDataPanel';
 import LNGTerminalPanel from './LNGTerminalPanel';
+import LNGBenchmarkPanel from './LNGBenchmarkPanel';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -50,8 +51,8 @@ const LNGDashboard = () => {
         </div>
       </div>
 
-      {/* Bottom row: Pakistan LNG Metrics + Terminal Activity */}
-      <div className="energy-bottom-row" style={{ gridTemplateColumns: '2fr 1fr' }}>
+      {/* Middle row: Pakistan LNG Metrics + Terminal Activity + World Benchmarks */}
+      <div className="energy-bottom-row" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
         <LNGDataPanel
           summary={lngData?.summary}
           history={lngData?.history}
@@ -64,6 +65,7 @@ const LNGDashboard = () => {
           history={lngData?.history}
           loading={loading}
         />
+        <LNGBenchmarkPanel />
       </div>
     </div>
   );

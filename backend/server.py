@@ -6583,6 +6583,165 @@ async def get_lng_data():
     }
 
 
+# ── World LNG Benchmark Prices ──────────────────────────────────────────────
+
+BENCHMARK_URLS = [
+    "https://globallnghub.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-6-april-2026.html",
+    "https://globallnghub.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-30-march-2026.html",
+    "https://globallnghub.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-16-march-2026.html",
+    "https://globallnghub.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-9-march-2026.html",
+    "https://www.canadalnggroup.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-30-march-2026",
+]
+
+lng_benchmark_cache = {"data": None, "updated": None}
+
+
+def _parse_benchmark_prices(html_text: str, url: str) -> dict:
+    """Parse JKM, TTF, Henry Hub prices from Global LNG Hub / Canada LNG articles."""
+    text = re.sub(r"<[^>]+>", " ", html_text)
+    text = re.sub(r"\s+", " ", text).strip()
+    text_lower = text.lower()
+
+    result = {"jkm": None, "ttf": None, "henry_hub": None, "date": None, "source": url}
+
+    # Extract date from URL
+    date_match = re.search(r"(\d{1,2})-(\w+)-(\d{4})", url)
+    if date_match:
+        result["date"] = f"{date_match.group(1)} {date_match.group(2).title()} {date_match.group(3)}"
+
+    # Find article body — look for "assessed spot lng" or "spot lng price" as body start
+    body_start = text_lower.find("assessed spot lng")
+    if body_start < 0:
+        body_start = text_lower.find("spot lng price")
+    if body_start < 0:
+        body_start = text_lower.find("lng price jkm")
+    if body_start < 0:
+        body_start = len(text) // 3  # fallback to middle third
+    body = text[body_start:]
+    bl = body.lower()
+
+    # JKM
+    jkm_idx = bl.find("jkm")
+    if jkm_idx >= 0:
+        jkm_sec = body[jkm_idx:jkm_idx + 500]
+        m = re.search(r"USD\s*([\d.]+)\s*/?\s*MBtu", jkm_sec)
+        if m:
+            result["jkm"] = float(m.group(1))
+        else:
+            m = re.search(r"high-USD\s*([\d.]+)", jkm_sec)
+            if m:
+                result["jkm"] = float(m.group(1))
+            else:
+                m = re.search(r"mid-USD\s*([\d.]+)", jkm_sec)
+                if m:
+                    result["jkm"] = float(m.group(1))
+
+    # TTF
+    ttf_idx = bl.find("ttf", jkm_idx + 100 if jkm_idx >= 0 else 0)
+    if ttf_idx < 0:
+        ttf_idx = bl.find("european gas price")
+    if ttf_idx >= 0:
+        ttf_sec = body[ttf_idx:ttf_idx + 500]
+        m = re.search(r"USD\s*([\d.]+)\s*/?\s*MBtu", ttf_sec)
+        if m:
+            result["ttf"] = float(m.group(1))
+
+    # Henry Hub
+    hh_idx = bl.find("henry hub", ttf_idx + 50 if ttf_idx >= 0 else 0)
+    if hh_idx < 0:
+        hh_idx = bl.find("henry hub")
+    if hh_idx >= 0:
+        hh_sec = body[hh_idx:hh_idx + 500]
+        m = re.search(r"USD\s*([\d.]+)\s*/?\s*MBtu", hh_sec)
+        if m:
+            result["henry_hub"] = float(m.group(1))
+
+    return result
+
+
+async def fetch_world_lng_benchmarks():
+    """Scrape multiple weekly reports for benchmark prices."""
+    weekly_data = []
+    async with httpx.AsyncClient(timeout=15.0, follow_redirects=True) as client:
+        for url in BENCHMARK_URLS:
+            try:
+                r = await client.get(url, headers={
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                })
+                if r.status_code == 200:
+                    parsed = _parse_benchmark_prices(r.text, url)
+                    if parsed.get("jkm") or parsed.get("ttf") or parsed.get("henry_hub"):
+                        weekly_data.append(parsed)
+            except Exception as e:
+                print(f"[LNG] Benchmark scrape error {url[:50]}: {e}")
+
+    if not weekly_data:
+        return None
+
+    latest = weekly_data[0]
+
+    # Build comparison data
+    benchmarks = {
+        "jkm": {
+            "name": "JKM (Asia Spot)",
+            "region": "Northeast Asia",
+            "value": latest.get("jkm"),
+            "unit": "$/MMBtu",
+            "delivery": "May 2026",
+            "description": "Japan Korea Marker — Platts assessed spot LNG price for Northeast Asian delivery.",
+        },
+        "ttf": {
+            "name": "TTF (Europe)",
+            "region": "Europe",
+            "value": latest.get("ttf"),
+            "unit": "$/MMBtu",
+            "delivery": "May 2026",
+            "description": "Title Transfer Facility — European natural gas benchmark at the Dutch virtual trading hub.",
+        },
+        "henry_hub": {
+            "name": "Henry Hub (US)",
+            "region": "North America",
+            "value": latest.get("henry_hub"),
+            "unit": "$/MMBtu",
+            "delivery": "Spot",
+            "description": "Henry Hub — US natural gas pricing point in Erath, Louisiana.",
+        },
+    }
+
+    # Historical weekly snapshots for chart
+    history = []
+    for w in reversed(weekly_data):
+        if w.get("date"):
+            history.append({
+                "date": w["date"],
+                "jkm": w.get("jkm"),
+                "ttf": w.get("ttf"),
+                "henry_hub": w.get("henry_hub"),
+            })
+
+    return {
+        "benchmarks": benchmarks,
+        "latest_date": latest.get("date"),
+        "history": history,
+        "source": "Global LNG Hub / Canada LNG Group",
+    }
+
+
+@app.get("/api/lng/benchmarks")
+async def get_lng_benchmarks():
+    global lng_benchmark_cache
+    now = datetime.now(timezone.utc)
+    age = (now - lng_benchmark_cache["updated"]).total_seconds() if lng_benchmark_cache["updated"] else 9999999
+    if lng_benchmark_cache["data"] is None or age > 3600:
+        data = await fetch_world_lng_benchmarks()
+        if data:
+            lng_benchmark_cache["data"] = data
+            lng_benchmark_cache["updated"] = now
+    if not lng_benchmark_cache["data"]:
+        raise HTTPException(status_code=503, detail="Benchmark data unavailable")
+    return {"data": lng_benchmark_cache["data"], "updated": lng_benchmark_cache["updated"].isoformat() if lng_benchmark_cache["updated"] else None}
+
+
 @app.get("/api/lng/terminals")
 async def get_lng_terminals():
     return {
