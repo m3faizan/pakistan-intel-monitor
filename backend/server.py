@@ -6258,9 +6258,18 @@ LNG_NEWS_FEEDS = [
 ]
 
 LNG_SCRAPE_SITES = [
-    {"name": "LNG Industry", "url": "https://www.lngindustry.com/", "category": "lng"},
+    {"name": "LNG Industry", "url": "https://www.lngindustry.com/news/", "category": "lng"},
     {"name": "Energy Intel", "url": "https://www.energyintel.com/gas-and-lng-news", "category": "lng"},
     {"name": "LNG Expert", "url": "https://lng.expert/", "category": "lng"},
+]
+
+# Words that indicate proper news (not research/ads/magazines/forums)
+LNG_NON_NEWS_PATTERNS = [
+    "register", "subscribe", "magazine", "sign up", "spotlight", "webinar",
+    "forum", "conference", "event", "advertis", "brochure", "download",
+    "newsletter", "more lng news", "research report", "white paper",
+    "cookie", "privacy policy", "terms of use", "contact us",
+    "log in", "sign in", "your account", "© ", "all rights",
 ]
 
 LNG_KEYWORDS = [
@@ -6284,6 +6293,17 @@ def _is_lng_relevant(title: str, summary: str = "") -> bool:
     return any(kw in text for kw in LNG_KEYWORDS)
 
 
+def _is_proper_news(title: str) -> bool:
+    """Filter out ads, magazines, forums, research — keep only actual news."""
+    text = title.lower().strip()
+    if len(text) < 25:
+        return False
+    if any(p in text for p in LNG_NON_NEWS_PATTERNS):
+        return False
+    # Must have some verb-like news pattern or entity
+    return True
+
+
 async def _fetch_lng_rss_feed(feed_info: dict) -> list:
     try:
         async with httpx.AsyncClient(timeout=12.0) as client:
@@ -6293,14 +6313,17 @@ async def _fetch_lng_rss_feed(feed_info: dict) -> list:
             if r.status_code == 200:
                 feed = feedparser.parse(r.text)
                 articles = []
-                for entry in feed.entries[:15]:
+                for entry in feed.entries[:20]:
                     title = entry.get("title", "")
                     raw_summary = (entry.get("summary", "") or "")[:500]
                     clean_summary = html_lib.unescape(re.sub(r"<[^>]+>", "", raw_summary)).strip()[:200]
-                    if not _is_lng_relevant(title, clean_summary):
+                    clean_title = html_lib.unescape(re.sub(r"<[^>]+>", "", title)).strip()
+                    if not _is_lng_relevant(clean_title, clean_summary):
+                        continue
+                    if not _is_proper_news(clean_title):
                         continue
                     articles.append({
-                        "title": html_lib.unescape(re.sub(r"<[^>]+>", "", title)).strip(),
+                        "title": clean_title,
                         "link": entry.get("link", ""),
                         "published": entry.get("published", ""),
                         "summary": clean_summary,
@@ -6323,17 +6346,20 @@ async def _scrape_lng_site(site_info: dict) -> list:
                 return []
             html_text = r.text
             articles = []
-            # Extract links and titles from anchor tags
-            links = re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html_text, re.DOTALL)
             seen = set()
-            for href, text_raw in links:
+
+            # Strategy 1: Extract from <h2>/<h3> headings with links (lngindustry.com style)
+            heading_links = re.findall(
+                r'<h[23][^>]*>\s*<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>\s*</h[23]>',
+                html_text, re.DOTALL
+            )
+            for href, text_raw in heading_links:
                 text = re.sub(r'<[^>]+>', '', text_raw).strip()
-                if len(text) < 20 or len(text) > 200:
-                    continue
-                if not _is_lng_relevant(text):
+                text = html_lib.unescape(text).replace('\xa0', ' ')
+                if not _is_proper_news(text):
                     continue
                 if href.startswith("/"):
-                    href = site_info["url"].rstrip("/") + href
+                    href = site_info["url"].rstrip("/").split("/news")[0] + href
                 if href in seen:
                     continue
                 seen.add(href)
@@ -6345,9 +6371,35 @@ async def _scrape_lng_site(site_info: dict) -> list:
                     "source": site_info["name"],
                     "category": "lng",
                 })
-                if len(articles) >= 10:
-                    break
-            return articles
+
+            # Strategy 2: General anchor tag parsing (fallback)
+            if len(articles) < 3:
+                links = re.findall(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html_text, re.DOTALL)
+                for href, text_raw in links:
+                    text = re.sub(r'<[^>]+>', '', text_raw).strip()
+                    text = html_lib.unescape(text).replace('\xa0', ' ')
+                    if len(text) < 25 or len(text) > 200:
+                        continue
+                    if not _is_lng_relevant(text):
+                        continue
+                    if not _is_proper_news(text):
+                        continue
+                    if href.startswith("/"):
+                        href = site_info["url"].rstrip("/").split("/news")[0] + href
+                    if href in seen:
+                        continue
+                    seen.add(href)
+                    articles.append({
+                        "title": text,
+                        "link": href,
+                        "published": "",
+                        "summary": "",
+                        "source": site_info["name"],
+                        "category": "lng",
+                    })
+                    if len(articles) >= 12:
+                        break
+            return articles[:12]
     except Exception as e:
         print(f"[LNG] Scrape error {site_info['name']}: {e}")
     return []

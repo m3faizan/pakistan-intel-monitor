@@ -7,8 +7,23 @@ const NewsTicker = ({ news }) => {
 
   if (!news || news.length === 0) return null;
 
-  // Take top 20 news for ticker
-  const tickerItems = news.slice(0, 20);
+  // Take top 20 news for ticker — interleave LNG if present
+  const hasLng = news.some(n => n.category === 'lng');
+  let tickerItems;
+  if (hasLng) {
+    const regular = news.filter(n => n.category !== 'lng').slice(0, 15);
+    const lng = news.filter(n => n.category === 'lng').slice(0, 5);
+    tickerItems = [];
+    let ri = 0, li = 0;
+    while (tickerItems.length < 20 && (ri < regular.length || li < lng.length)) {
+      if (ri < regular.length) tickerItems.push(regular[ri++]);
+      if (ri < regular.length) tickerItems.push(regular[ri++]);
+      if (ri < regular.length) tickerItems.push(regular[ri++]);
+      if (li < lng.length) tickerItems.push(lng[li++]);
+    }
+  } else {
+    tickerItems = news.slice(0, 20);
+  }
   // Duplicate for seamless loop
   const allItems = [...tickerItems, ...tickerItems];
 

@@ -27,6 +27,7 @@ const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 function App() {
   const [activeTab, setActiveTab] = useState('pakistan');
   const [news, setNews] = useState([]);
+  const [lngNews, setLngNews] = useState([]);
   const [economic, setEconomic] = useState(null);
   const [security, setSecurity] = useState([]);
   const [weather, setWeather] = useState([]);
@@ -69,7 +70,7 @@ function App() {
 
   const fetchData = useCallback(async () => {
     try {
-      const [newsRes, economicRes, securityRes, weatherRes, regionalRes, infraRes, mapRes, energyRes] = 
+      const [newsRes, economicRes, securityRes, weatherRes, regionalRes, infraRes, mapRes, energyRes, lngNewsRes] = 
         await Promise.allSettled([
           axios.get(`${API_BASE}/api/news`),
           axios.get(`${API_BASE}/api/economic`),
@@ -78,10 +79,12 @@ function App() {
           axios.get(`${API_BASE}/api/regional-relations`),
           axios.get(`${API_BASE}/api/infrastructure`),
           axios.get(`${API_BASE}/api/map-data`),
-          axios.get(`${API_BASE}/api/daily-energy-report`)
+          axios.get(`${API_BASE}/api/daily-energy-report`),
+          axios.get(`${API_BASE}/api/lng/news`)
         ]);
 
       if (newsRes.status === 'fulfilled') setNews(newsRes.value.data.news || []);
+      if (lngNewsRes.status === 'fulfilled') setLngNews(lngNewsRes.value.data.news || []);
       if (economicRes.status === 'fulfilled') setEconomic(economicRes.value.data.data);
       if (securityRes.status === 'fulfilled') setSecurity(securityRes.value.data.alerts || []);
       if (weatherRes.status === 'fulfilled') setWeather(weatherRes.value.data.cities || []);
@@ -216,8 +219,8 @@ function App() {
         </button>
       </div>
 
-      {/* News Ticker */}
-      <NewsTicker news={news} />
+      {/* News Ticker - includes LNG news */}
+      <NewsTicker news={[...news, ...lngNews]} />
 
       {/* Main Content */}
       <main className="main-content" data-testid="main-content">
