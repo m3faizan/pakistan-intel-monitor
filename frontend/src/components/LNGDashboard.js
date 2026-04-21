@@ -4,7 +4,6 @@ import LNGMap from './LNGMap';
 import LNGNewsPanel from './LNGNewsPanel';
 import LNGDataPanel from './LNGDataPanel';
 import LNGTerminalPanel from './LNGTerminalPanel';
-import LNGGenerationPanel from './LNGGenerationPanel';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -12,19 +11,22 @@ const LNGDashboard = () => {
   const [terminals, setTerminals] = useState([]);
   const [lngData, setLngData] = useState(null);
   const [sbpPayments, setSbpPayments] = useState(null);
+  const [sbpGeneration, setSbpGeneration] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [termRes, dataRes, pmtRes] = await Promise.allSettled([
+        const [termRes, dataRes, pmtRes, genRes] = await Promise.allSettled([
           axios.get(`${API_BASE}/api/lng/terminals`),
           axios.get(`${API_BASE}/api/lng/data`),
           axios.get(`${API_BASE}/api/lng/import-payments`),
+          axios.get(`${API_BASE}/api/lng/generation`),
         ]);
         if (termRes.status === 'fulfilled') setTerminals(termRes.value.data.terminals || []);
         if (dataRes.status === 'fulfilled') setLngData(dataRes.value.data);
         if (pmtRes.status === 'fulfilled') setSbpPayments(pmtRes.value.data.data);
+        if (genRes.status === 'fulfilled') setSbpGeneration(genRes.value.data.data);
       } catch (e) {
         console.error('LNG Dashboard error:', e);
       } finally {
@@ -48,23 +50,19 @@ const LNGDashboard = () => {
         </div>
       </div>
 
-      {/* Middle row: LNG Generation Panel + Terminal Activity */}
+      {/* Bottom row: Pakistan LNG Metrics + Terminal Activity */}
       <div className="energy-bottom-row" style={{ gridTemplateColumns: '2fr 1fr' }}>
-        <LNGGenerationPanel />
-        <LNGTerminalPanel
-          summary={lngData?.summary}
-          history={lngData?.history}
-          loading={loading}
-        />
-      </div>
-
-      {/* Bottom row: Pakistan LNG Metrics (full width) */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
         <LNGDataPanel
           summary={lngData?.summary}
           history={lngData?.history}
           loading={loading}
           sbpPayments={sbpPayments}
+          sbpGeneration={sbpGeneration}
+        />
+        <LNGTerminalPanel
+          summary={lngData?.summary}
+          history={lngData?.history}
+          loading={loading}
         />
       </div>
     </div>
