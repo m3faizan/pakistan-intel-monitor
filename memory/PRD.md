@@ -80,3 +80,5 @@ A real-time intelligence dashboard for Pakistan — economic data, energy, secur
 - Performance optimization for initial load
 - Add loading skeletons for better UX
 - Implement WebSocket for real-time updates
+- [x] **LNG % of Imports metric** — 3.53% of total Pakistan imports from SBP BOP data
+- [x] **Fixed unit labels** — Import Payment shows "Million USD" across all panels/modals

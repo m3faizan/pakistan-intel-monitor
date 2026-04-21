@@ -11,17 +11,20 @@ const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 const LNGDashboard = () => {
   const [terminals, setTerminals] = useState([]);
   const [lngData, setLngData] = useState(null);
+  const [sbpPayments, setSbpPayments] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [termRes, dataRes] = await Promise.allSettled([
+        const [termRes, dataRes, pmtRes] = await Promise.allSettled([
           axios.get(`${API_BASE}/api/lng/terminals`),
           axios.get(`${API_BASE}/api/lng/data`),
+          axios.get(`${API_BASE}/api/lng/import-payments`),
         ]);
         if (termRes.status === 'fulfilled') setTerminals(termRes.value.data.terminals || []);
         if (dataRes.status === 'fulfilled') setLngData(dataRes.value.data);
+        if (pmtRes.status === 'fulfilled') setSbpPayments(pmtRes.value.data.data);
       } catch (e) {
         console.error('LNG Dashboard error:', e);
       } finally {
@@ -61,6 +64,7 @@ const LNGDashboard = () => {
           summary={lngData?.summary}
           history={lngData?.history}
           loading={loading}
+          sbpPayments={sbpPayments}
         />
       </div>
     </div>

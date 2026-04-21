@@ -42,7 +42,7 @@ const MODAL_CONFIG = {
     valueKey: 'importPayment',
     fields: [{ key: 'importPayment', label: 'Import Payment', color: '#F59E0B', format: v => `$${(v/1000).toFixed(1)}M` }],
     chartType: 'area',
-    unit: 'Thousand USD',
+    unit: 'Million USD',
     hasPctChange: true,
     formatSummary: v => `$${(v/1000).toFixed(1)}M`,
   },

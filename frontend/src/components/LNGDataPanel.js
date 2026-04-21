@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DollarSign, TrendingUp, TrendingDown, Flame, BarChart3, Percent, Ship, FileText } from 'lucide-react';
+import { DollarSign, TrendingUp, TrendingDown, Flame, BarChart3, Percent, Ship, FileText, PieChart } from 'lucide-react';
 import LNGDataModal from './LNGDataModal';
 
 const formatVal = (v, dec = 2) => {
@@ -47,7 +47,7 @@ const MetricCard = ({ icon: Icon, label, value, unit, change, sublabel, date, on
   );
 };
 
-const LNGDataPanel = ({ summary, history, loading }) => {
+const LNGDataPanel = ({ summary, history, loading, sbpPayments }) => {
   const [modal, setModal] = useState(null);
 
   if (loading || !summary) {
@@ -68,8 +68,17 @@ const LNGDataPanel = ({ summary, history, loading }) => {
       icon: DollarSign, label: 'LNG Import Payment',
       value: s.import_payment ? `$${formatVal(s.import_payment.value * 1000, 1)}` : 'N/A',
       change: pctChange(s.import_payment?.value, s.import_payment?.prev),
-      sublabel: s.import_payment?.unit === 'thousand USD' ? 'Thousand USD' : '',
+      sublabel: 'Million USD',
       date: formatDate(s.import_payment?.date),
+      modalKey: 'import_payment',
+    },
+    {
+      icon: PieChart, label: 'LNG % of Imports',
+      value: sbpPayments?.lng_pct_of_imports != null ? `${sbpPayments.lng_pct_of_imports}%` : 'N/A',
+      change: sbpPayments?.lng_pct_of_imports != null && sbpPayments?.prev_lng_pct_of_imports != null
+        ? pctChange(sbpPayments.lng_pct_of_imports, sbpPayments.prev_lng_pct_of_imports) : null,
+      sublabel: 'of total Pakistan imports',
+      date: sbpPayments?.latest?.month || '',
       modalKey: 'import_payment',
     },
     {

@@ -6726,14 +6726,17 @@ async def fetch_lng_import_payments():
         async with httpx.AsyncClient(timeout=30) as client:
             lng_series_id = ENERGY_PMT_SERIES["LNG"]
             petro_series_id = ENERGY_PMT_SERIES["Petroleum Group"]
+            total_series_id = ENERGY_PMT_SERIES["Total Imports"]
             lng_task = _fetch_energy_pmt_series(client, lng_series_id)
             petro_task = _fetch_energy_pmt_series(client, petro_series_id)
-            lng_history, petro_history = await asyncio.gather(lng_task, petro_task)
+            total_task = _fetch_energy_pmt_series(client, total_series_id)
+            lng_history, petro_history, total_history = await asyncio.gather(lng_task, petro_task, total_task)
 
         if not lng_history:
             return None
 
         petro_map = {pt["date"]: pt["value"] for pt in petro_history} if petro_history else {}
+        total_map = {pt["date"]: pt["value"] for pt in total_history} if total_history else {}
 
         latest = lng_history[-1]
         prev = lng_history[-2] if len(lng_history) > 1 else None
@@ -6744,6 +6747,14 @@ async def fetch_lng_import_payments():
 
         latest_dt = datetime.strptime(latest["date"], "%Y-%m-%d")
 
+        # Compute LNG % of total imports
+        total_val = total_map.get(latest["date"])
+        lng_pct_of_imports = round((latest["value"] / total_val) * 100, 2) if total_val and total_val > 0 else None
+
+        # Compute previous month % for MoM of the percentage
+        prev_total_val = total_map.get(prev["date"]) if prev else None
+        prev_pct = round((prev["value"] / prev_total_val) * 100, 2) if prev and prev_total_val and prev_total_val > 0 else None
+
         return {
             "latest": {
                 "value": round(latest["value"], 3),
@@ -6752,8 +6763,11 @@ async def fetch_lng_import_payments():
             },
             "mom_change_pct": round(mom_change, 2) if mom_change is not None else None,
             "unit": "Thousand USD",
+            "lng_pct_of_imports": lng_pct_of_imports,
+            "prev_lng_pct_of_imports": prev_pct,
             "history": lng_history,
             "petro_history": petro_history,
+            "total_history": total_history,
         }
     except Exception as e:
         print(f"[LNG] Import payments fetch error: {e}")

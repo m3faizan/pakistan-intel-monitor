@@ -146,7 +146,7 @@ const PaymentModal = ({ pmtData, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">${(pmtData.latest.value / 1000).toFixed(1)}M</div>
               <div className="summary-period"><Calendar size={14} /> {pmtData.latest.month}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>Thousand USD</div>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>Million USD</div>
             </div>
             {pmtData.mom_change_pct !== null && (
               <div className="summary-changes">
@@ -199,7 +199,7 @@ const PaymentModal = ({ pmtData, onClose }) => {
             )}
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: Thousand USD</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: Million USD</span></div>
       </div>
     </div>
   );
