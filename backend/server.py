@@ -6593,7 +6593,11 @@ BENCHMARK_URLS = [
     "https://www.canadalnggroup.com/natural-gas-prices-weekly-update-jkm-ttf-and-henry-hub-30-march-2026",
 ]
 
+OILPRICE_API_KEY = "8ddcab4cf28725921efd74000a1f7c7469fcef00d5d055f38acec38720cd0272"
+OILPRICE_CODES = ["BRENT_CRUDE_USD", "WTI_USD", "NATURAL_GAS_USD", "DIESEL_USD", "GASOLINE_USD"]
+
 lng_benchmark_cache = {"data": None, "updated": None}
+oilprice_cache = {"data": None, "updated": None}
 
 
 def _parse_benchmark_prices(html_text: str, url: str) -> dict:
@@ -6724,6 +6728,58 @@ async def fetch_world_lng_benchmarks():
         "latest_date": latest.get("date"),
         "history": history,
         "source": "Global LNG Hub / Canada LNG Group",
+    }
+
+
+async def fetch_oilprice_data():
+    """Fetch latest oil & gas prices from OilPriceAPI."""
+    results = {}
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        for code in OILPRICE_CODES:
+            try:
+                r = await client.get(
+                    f"https://api.oilpriceapi.com/v1/prices/latest?by_code={code}",
+                    headers={
+                        "Authorization": f"Token {OILPRICE_API_KEY}",
+                        "Content-Type": "application/json",
+                    },
+                )
+                if r.status_code == 200:
+                    d = r.json()
+                    if d.get("status") == "success" and d.get("data"):
+                        item = d["data"]
+                        results[code] = {
+                            "price": item.get("price"),
+                            "formatted": item.get("formatted"),
+                            "currency": item.get("currency", "USD"),
+                            "unit": item.get("unit"),
+                            "code": code,
+                            "timestamp": item.get("created_at"),
+                            "source": item.get("metadata", {}).get("source_description", ""),
+                            "freshness": item.get("freshness", {}).get("status"),
+                            "changes_24h": item.get("changes", {}).get("24h"),
+                        }
+            except Exception as e:
+                print(f"[OilPrice] Error fetching {code}: {e}")
+    return results if results else None
+
+
+@app.get("/api/lng/oil-prices")
+async def get_oil_prices():
+    """Get latest oil & energy prices from OilPriceAPI."""
+    global oilprice_cache
+    now = datetime.now(timezone.utc)
+    age = (now - oilprice_cache["updated"]).total_seconds() if oilprice_cache["updated"] else 9999999
+    if oilprice_cache["data"] is None or age > 300:  # Refresh every 5 min
+        data = await fetch_oilprice_data()
+        if data:
+            oilprice_cache["data"] = data
+            oilprice_cache["updated"] = now
+    if not oilprice_cache["data"]:
+        raise HTTPException(status_code=503, detail="Oil price data unavailable")
+    return {
+        "data": oilprice_cache["data"],
+        "updated": oilprice_cache["updated"].isoformat() if oilprice_cache["updated"] else None,
     }
 
 
