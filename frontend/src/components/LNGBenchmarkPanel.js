@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Globe, TrendingUp, TrendingDown, Droplets, Flame, X } from 'lucide-react';
 import axios from 'axios';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -14,9 +14,37 @@ const BENCH_COLORS = {
 const OIL_META = {
   BRENT_CRUDE_USD: { label: 'Brent Crude', color: '#EF4444', icon: Droplets },
   WTI_USD:         { label: 'WTI Crude', color: '#F97316', icon: Droplets },
-  NATURAL_GAS_USD: { label: 'Natural Gas (HH)', color: '#22C55E', icon: Flame },
-  DIESEL_USD:      { label: 'Diesel', color: '#64748B', icon: Droplets },
-  GASOLINE_USD:    { label: 'Gasoline', color: '#EC4899', icon: Droplets },
+  NATURAL_GAS_USD: { label: 'Nat Gas (HH)', color: '#22C55E', icon: Flame },
+};
+
+const PriceCard = ({ label, value, unit, change, color, icon: Icon, onClick }) => {
+  const chg = change !== null && change !== undefined;
+  const isPos = chg && change >= 0;
+  return (
+    <div
+      className={`economic-item ${onClick ? 'clickable' : ''}`}
+      onClick={onClick}
+      style={{ textAlign: 'center', padding: '0.6rem 0.35rem', borderLeft: `3px solid ${color}` }}
+    >
+      <div className="economic-label" style={{
+        justifyContent: 'center', fontSize: '0.5rem', color,
+        display: 'flex', alignItems: 'center', gap: '0.2rem',
+      }}>
+        {Icon && <Icon size={9} />}
+        {label}
+      </div>
+      <div className="economic-value" style={{ fontSize: '1.1rem', justifyContent: 'center' }}>
+        {value}
+      </div>
+      {chg && (
+        <div className={`economic-change ${isPos ? 'positive' : 'negative'}`} style={{ justifyContent: 'center', fontSize: '0.55rem' }}>
+          {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
+          {isPos ? '+' : ''}{typeof change === 'number' ? change.toFixed(1) : change}%
+        </div>
+      )}
+      <div className="economic-sublabel" style={{ textAlign: 'center', fontSize: '0.45rem' }}>{unit}</div>
+    </div>
+  );
 };
 
 const BenchmarkModal = ({ benchmarks, history, onClose }) => {
@@ -110,17 +138,18 @@ const LNGBenchmarkPanel = () => {
   const benchmarks = benchData?.benchmarks;
   const history = benchData?.history || [];
 
+  const oilCards = oilData
+    ? ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'].filter(k => oilData[k]).map(k => ({
+        ...oilData[k],
+        meta: OIL_META[k],
+      }))
+    : [];
+
   const benchCards = [
     { key: 'jkm', label: 'JKM (Asia)', color: BENCH_COLORS.jkm },
     { key: 'ttf', label: 'TTF (Europe)', color: BENCH_COLORS.ttf },
     { key: 'henry_hub', label: 'Henry Hub', color: BENCH_COLORS.henry_hub },
   ];
-
-  // Oil price cards - only show the key ones
-  const oilCards = oilData ? ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'].filter(k => oilData[k]).map(k => ({
-    ...oilData[k],
-    meta: OIL_META[k],
-  })) : [];
 
   return (
     <>
@@ -134,88 +163,59 @@ const LNGBenchmarkPanel = () => {
             <div className="loading"><div className="spinner"></div></div>
           ) : (
             <>
-              {/* Oil Prices row */}
+              {/* Oil & Gas section */}
               {oilCards.length > 0 && (
-                <div style={{ marginBottom: '0.6rem' }}>
-                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.35rem' }}>
+                <div style={{ marginBottom: '0.65rem' }}>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.4rem' }}>
                     Oil & Gas (OilPriceAPI)
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: `repeat(${oilCards.length}, 1fr)`, gap: '0.4rem' }}>
-                    {oilCards.map(c => {
-                      const chg = c.changes_24h;
-                      const isPos = chg && chg.percent >= 0;
-                      const Icon = c.meta.icon;
-                      return (
-                        <div key={c.code} className="economic-item" data-testid={`oil-${c.code.toLowerCase()}`}
-                          style={{ textAlign: 'center', padding: '0.5rem 0.3rem', borderLeft: `3px solid ${c.meta.color}` }}>
-                          <div className="economic-label" style={{ justifyContent: 'center', fontSize: '0.5rem', color: c.meta.color, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                            <Icon size={9} />{c.meta.label}
-                          </div>
-                          <div className="economic-value" style={{ fontSize: '1.1rem', justifyContent: 'center' }}>{c.formatted}</div>
-                          {chg && (
-                            <div className={`economic-change ${isPos ? 'positive' : 'negative'}`} style={{ justifyContent: 'center', fontSize: '0.55rem' }}>
-                              {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
-                              {isPos ? '+' : ''}{chg.percent}%
-                            </div>
-                          )}
-                          <div className="economic-sublabel" style={{ textAlign: 'center', fontSize: '0.45rem' }}>/{c.unit}</div>
-                        </div>
-                      );
-                    })}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
+                    {oilCards.map(c => (
+                      <PriceCard
+                        key={c.code}
+                        label={c.meta.label}
+                        value={c.formatted}
+                        unit={`/${c.unit}`}
+                        change={c.changes_24h?.percent}
+                        color={c.meta.color}
+                        icon={c.meta.icon}
+                      />
+                    ))}
                   </div>
                 </div>
               )}
 
-              {/* LNG Benchmarks row */}
+              {/* LNG Benchmarks section */}
               {benchmarks && (
                 <div>
-                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.35rem' }}>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.4rem' }}>
                     LNG Benchmarks (Weekly)
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem', marginBottom: '0.5rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
                     {benchCards.map(c => {
                       const b = benchmarks[c.key];
                       if (!b) return null;
                       const prev = history.length > 1 ? history[history.length - 2]?.[c.key] : null;
                       const chg = b.value && prev && prev !== 0 ? ((b.value - prev) / prev * 100) : null;
-                      const isPos = chg !== null && chg >= 0;
                       return (
-                        <div key={c.key} className="economic-item clickable" data-testid={`lng-bench-${c.key}`} onClick={() => setShowModal(true)}
-                          style={{ textAlign: 'center', padding: '0.5rem 0.3rem', borderLeft: `3px solid ${c.color}` }}>
-                          <div className="economic-label" style={{ justifyContent: 'center', fontSize: '0.5rem', color: c.color }}>{c.label}</div>
-                          <div className="economic-value" style={{ fontSize: '1.1rem', justifyContent: 'center' }}>${b.value?.toFixed(1)}</div>
-                          {chg !== null && (
-                            <div className={`economic-change ${isPos ? 'positive' : 'negative'}`} style={{ justifyContent: 'center', fontSize: '0.55rem' }}>
-                              {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
-                              {isPos ? '+' : ''}{chg.toFixed(1)}% WoW
-                            </div>
-                          )}
-                          <div className="economic-sublabel" style={{ textAlign: 'center', fontSize: '0.45rem' }}>$/MMBtu</div>
-                        </div>
+                        <PriceCard
+                          key={c.key}
+                          label={c.label}
+                          value={`$${b.value?.toFixed(1)}`}
+                          unit="$/MMBtu"
+                          change={chg}
+                          color={c.color}
+                          onClick={() => setShowModal(true)}
+                        />
                       );
                     })}
                   </div>
-
-                  {/* Mini sparkline */}
-                  {history.length > 1 && (
-                    <div style={{ height: 60 }}>
-                      <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={history}>
-                          <XAxis dataKey="date" hide />
-                          <YAxis hide domain={['dataMin - 1', 'dataMax + 1']} />
-                          <Line dataKey="jkm" stroke={BENCH_COLORS.jkm} strokeWidth={2} dot={false} connectNulls />
-                          <Line dataKey="ttf" stroke={BENCH_COLORS.ttf} strokeWidth={2} dot={false} connectNulls />
-                          <Line dataKey="henry_hub" stroke={BENCH_COLORS.henry_hub} strokeWidth={2} dot={false} connectNulls />
-                        </LineChart>
-                      </ResponsiveContainer>
-                    </div>
-                  )}
                 </div>
               )}
 
-              {/* Footer */}
-              <div style={{ fontSize: '0.45rem', color: '#475569', textAlign: 'right', marginTop: '0.3rem' }}>
-                Oil: OilPriceAPI (live) - LNG: Global LNG Hub ({benchData?.latest_date || 'weekly'})
+              {/* Source footer */}
+              <div style={{ fontSize: '0.45rem', color: '#475569', textAlign: 'right', marginTop: '0.5rem', lineHeight: 1.6 }}>
+                Oil: OilPriceAPI (live) | LNG: Global LNG Hub ({benchData?.latest_date || 'weekly'})
               </div>
             </>
           )}
