@@ -28,6 +28,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('pakistan');
   const [news, setNews] = useState([]);
   const [lngNews, setLngNews] = useState([]);
+  const [oilPrices, setOilPrices] = useState(null);
   const [economic, setEconomic] = useState(null);
   const [security, setSecurity] = useState([]);
   const [weather, setWeather] = useState([]);
@@ -70,7 +71,7 @@ function App() {
 
   const fetchData = useCallback(async () => {
     try {
-      const [newsRes, economicRes, securityRes, weatherRes, regionalRes, infraRes, mapRes, energyRes, lngNewsRes] = 
+      const [newsRes, economicRes, securityRes, weatherRes, regionalRes, infraRes, mapRes, energyRes, lngNewsRes, oilPricesRes] = 
         await Promise.allSettled([
           axios.get(`${API_BASE}/api/news`),
           axios.get(`${API_BASE}/api/economic`),
@@ -80,11 +81,13 @@ function App() {
           axios.get(`${API_BASE}/api/infrastructure`),
           axios.get(`${API_BASE}/api/map-data`),
           axios.get(`${API_BASE}/api/daily-energy-report`),
-          axios.get(`${API_BASE}/api/lng/news`)
+          axios.get(`${API_BASE}/api/lng/news`),
+          axios.get(`${API_BASE}/api/lng/oil-prices`)
         ]);
 
       if (newsRes.status === 'fulfilled') setNews(newsRes.value.data.news || []);
       if (lngNewsRes.status === 'fulfilled') setLngNews(lngNewsRes.value.data.news || []);
+      if (oilPricesRes.status === 'fulfilled') setOilPrices(oilPricesRes.value.data.data);
       if (economicRes.status === 'fulfilled') setEconomic(economicRes.value.data.data);
       if (securityRes.status === 'fulfilled') setSecurity(securityRes.value.data.alerts || []);
       if (weatherRes.status === 'fulfilled') setWeather(weatherRes.value.data.cities || []);
@@ -202,7 +205,7 @@ function App() {
           className={`tab-btn ${activeTab === 'pakistan' ? 'active' : ''}`}
           onClick={() => setActiveTab('pakistan')}
         >
-          🇵🇰 PAKISTAN
+          PAKISTAN
         </button>
         <button
           className={`tab-btn ${activeTab === 'energy' ? 'active' : ''}`}
@@ -217,6 +220,33 @@ function App() {
         >
           LNG
         </button>
+
+        {/* Oil prices — right side */}
+        {oilPrices && (
+          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1.25rem' }} data-testid="nav-oil-prices">
+            {['BRENT_CRUDE_USD', 'WTI_USD'].map(code => {
+              const d = oilPrices[code];
+              if (!d) return null;
+              const chg = d.changes_24h;
+              const isPos = chg && chg.percent >= 0;
+              return (
+                <div key={code} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.7rem' }}>
+                  <span style={{ color: '#64748b', fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: '0.6rem', letterSpacing: '0.06em' }}>
+                    {code === 'BRENT_CRUDE_USD' ? 'BRENT' : 'WTI'}
+                  </span>
+                  <span style={{ color: '#F8FAFC', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                    {d.formatted}
+                  </span>
+                  {chg && (
+                    <span style={{ color: isPos ? 'var(--color-primary)' : '#EF4444', fontSize: '0.6rem', fontFamily: 'var(--font-mono)' }}>
+                      {isPos ? '+' : ''}{chg.percent}%
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* News Ticker - LNG-only on LNG tab */}
