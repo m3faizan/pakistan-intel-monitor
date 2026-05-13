@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Globe, TrendingUp, TrendingDown, Droplets, Flame, X } from 'lucide-react';
+import { Globe, TrendingUp, TrendingDown, X } from 'lucide-react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -12,39 +12,9 @@ const BENCH_COLORS = {
 };
 
 const OIL_META = {
-  BRENT_CRUDE_USD: { label: 'Brent Crude', color: '#EF4444', icon: Droplets },
-  WTI_USD:         { label: 'WTI Crude', color: '#F97316', icon: Droplets },
-  NATURAL_GAS_USD: { label: 'Nat Gas (HH)', color: '#22C55E', icon: Flame },
-};
-
-const PriceCard = ({ label, value, unit, change, color, icon: Icon, onClick }) => {
-  const chg = change !== null && change !== undefined;
-  const isPos = chg && change >= 0;
-  return (
-    <div
-      className={`economic-item ${onClick ? 'clickable' : ''}`}
-      onClick={onClick}
-      style={{ textAlign: 'center', padding: '0.6rem 0.35rem', borderLeft: `3px solid ${color}` }}
-    >
-      <div className="economic-label" style={{
-        justifyContent: 'center', fontSize: '0.5rem', color,
-        display: 'flex', alignItems: 'center', gap: '0.2rem',
-      }}>
-        {Icon && <Icon size={9} />}
-        {label}
-      </div>
-      <div className="economic-value" style={{ fontSize: '1.1rem', justifyContent: 'center' }}>
-        {value}
-      </div>
-      {chg && (
-        <div className={`economic-change ${isPos ? 'positive' : 'negative'}`} style={{ justifyContent: 'center', fontSize: '0.55rem' }}>
-          {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
-          {isPos ? '+' : ''}{typeof change === 'number' ? change.toFixed(1) : change}%
-        </div>
-      )}
-      <div className="economic-sublabel" style={{ textAlign: 'center', fontSize: '0.45rem' }}>{unit}</div>
-    </div>
-  );
+  BRENT_CRUDE_USD: { label: 'Brent', color: '#EF4444' },
+  WTI_USD:         { label: 'WTI', color: '#F97316' },
+  NATURAL_GAS_USD: { label: 'Nat Gas', color: '#22C55E' },
 };
 
 const BenchmarkModal = ({ benchmarks, history, onClose }) => {
@@ -103,7 +73,7 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: Global LNG Hub</span><span style={{ color: '#94a3b8' }}>Unit: $/MMBtu</span></div>
+        <div className="modal-footer"><span>Source: Global LNG Hub</span><span style={{ color: '#94a3b8' }}>$/MMBtu</span></div>
       </div>
     </div>
   );
@@ -138,18 +108,23 @@ const LNGBenchmarkPanel = () => {
   const benchmarks = benchData?.benchmarks;
   const history = benchData?.history || [];
 
-  const oilCards = oilData
-    ? ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'].filter(k => oilData[k]).map(k => ({
-        ...oilData[k],
-        meta: OIL_META[k],
-      }))
-    : [];
-
-  const benchCards = [
+  const oilCodes = ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'];
+  const benchKeys = [
     { key: 'jkm', label: 'JKM (Asia)', color: BENCH_COLORS.jkm },
     { key: 'ttf', label: 'TTF (Europe)', color: BENCH_COLORS.ttf },
     { key: 'henry_hub', label: 'Henry Hub', color: BENCH_COLORS.henry_hub },
   ];
+
+  const renderChange = (pct) => {
+    if (pct === null || pct === undefined) return null;
+    const isPos = pct >= 0;
+    return (
+      <span style={{ color: isPos ? 'var(--color-primary)' : '#EF4444', fontSize: '0.6rem', fontFamily: 'var(--font-mono)', display: 'inline-flex', alignItems: 'center', gap: '0.15rem' }}>
+        {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
+        {isPos ? '+' : ''}{typeof pct === 'number' ? pct.toFixed(1) : pct}%
+      </span>
+    );
+  };
 
   return (
     <>
@@ -158,66 +133,89 @@ const LNGBenchmarkPanel = () => {
           <div className="panel-title"><Globe size={16} /> World LNG & Oil Prices</div>
           <span className="panel-badge">LIVE</span>
         </div>
-        <div className="panel-content" style={{ maxHeight: 'none', padding: '0.75rem' }}>
+        <div className="panel-content" style={{ maxHeight: 'none', padding: '0' }}>
           {loading ? (
-            <div className="loading"><div className="spinner"></div></div>
+            <div className="loading" style={{ padding: '2rem' }}><div className="spinner"></div></div>
           ) : (
-            <>
-              {/* Oil & Gas section */}
-              {oilCards.length > 0 && (
-                <div style={{ marginBottom: '0.65rem' }}>
-                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.4rem' }}>
-                    Oil & Gas (OilPriceAPI)
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
-                    {oilCards.map(c => (
-                      <PriceCard
-                        key={c.code}
-                        label={c.meta.label}
-                        value={c.formatted}
-                        unit={`/${c.unit}`}
-                        change={c.changes_24h?.percent}
-                        color={c.meta.color}
-                        icon={c.meta.icon}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.7rem' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'left', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Commodity</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Price</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Change</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Unit</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Oil & Gas rows */}
+                {oilData && oilCodes.map(code => {
+                  const d = oilData[code];
+                  if (!d) return null;
+                  const meta = OIL_META[code];
+                  const chg = d.changes_24h;
+                  return (
+                    <tr key={code} style={{ borderBottom: '1px solid rgba(30,41,59,0.5)' }}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <span style={{ width: 4, height: 16, background: meta.color, borderRadius: 1, flexShrink: 0 }} />
+                          <span style={{ color: '#E2E8F0', fontWeight: 600 }}>{meta.label}</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        <span style={{ color: '#F8FAFC', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
+                          {d.formatted}
+                        </span>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        {renderChange(chg?.percent)}
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
+                        /{d.unit}
+                      </td>
+                    </tr>
+                  );
+                })}
 
-              {/* LNG Benchmarks section */}
-              {benchmarks && (
-                <div>
-                  <div style={{ fontSize: '0.5rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.4rem' }}>
-                    LNG Benchmarks (Weekly)
-                  </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.4rem' }}>
-                    {benchCards.map(c => {
-                      const b = benchmarks[c.key];
-                      if (!b) return null;
-                      const prev = history.length > 1 ? history[history.length - 2]?.[c.key] : null;
-                      const chg = b.value && prev && prev !== 0 ? ((b.value - prev) / prev * 100) : null;
-                      return (
-                        <PriceCard
-                          key={c.key}
-                          label={c.label}
-                          value={`$${b.value?.toFixed(1)}`}
-                          unit="$/MMBtu"
-                          change={chg}
-                          color={c.color}
-                          onClick={() => setShowModal(true)}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+                {/* Separator */}
+                <tr>
+                  <td colSpan={4} style={{ padding: '0.15rem 0.75rem' }}>
+                    <div style={{ borderTop: '1px solid var(--color-border)', marginTop: '0.1rem' }} />
+                    <div style={{ fontSize: '0.45rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', paddingTop: '0.35rem' }}>
+                      LNG Benchmarks (Weekly)
+                    </div>
+                  </td>
+                </tr>
 
-              {/* Source footer */}
-              <div style={{ fontSize: '0.45rem', color: '#475569', textAlign: 'right', marginTop: '0.5rem', lineHeight: 1.6 }}>
-                Oil: OilPriceAPI (live) | LNG: Global LNG Hub ({benchData?.latest_date || 'weekly'})
-              </div>
-            </>
+                {/* LNG Benchmark rows */}
+                {benchmarks && benchKeys.map(bk => {
+                  const b = benchmarks[bk.key];
+                  if (!b) return null;
+                  const prev = history.length > 1 ? history[history.length - 2]?.[bk.key] : null;
+                  const chg = b.value && prev && prev !== 0 ? ((b.value - prev) / prev * 100) : null;
+                  return (
+                    <tr key={bk.key} style={{ borderBottom: '1px solid rgba(30,41,59,0.5)', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <span style={{ width: 4, height: 16, background: bk.color, borderRadius: 1, flexShrink: 0 }} />
+                          <span style={{ color: '#E2E8F0', fontWeight: 600 }}>{bk.label}</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        <span style={{ color: '#F8FAFC', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
+                          ${b.value?.toFixed(1)}
+                        </span>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        {renderChange(chg)}
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
+                        /MMBtu
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           )}
         </div>
       </div>
