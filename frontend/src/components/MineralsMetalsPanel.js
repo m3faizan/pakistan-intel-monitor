@@ -64,7 +64,7 @@ const MineralsMetalsPanel = ({ loading: parentLoading }) => {
 
   const formatDate = (d) => {
     if (!d) return '';
-    return new Date(d).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
   };
 
   const activeData = activeMineral ? allData?.[activeMineral] : null;
