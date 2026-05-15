@@ -1,20 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { X, TrendingUp, TrendingDown, Calendar, Activity } from 'lucide-react';
+import { X, TrendingUp, TrendingDown, Calendar, Activity, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
-  AreaChart,
-  Area,
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-  Legend
+  AreaChart, Area, LineChart, Line, BarChart, Bar, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  ReferenceLine, Legend, ComposedChart
 } from 'recharts';
 
 const TIME_RANGES = [
@@ -34,10 +23,18 @@ const SERIES_CONFIG = {
   q5: { label: 'Q5', color: '#ef4444' }
 };
 
+const VIEW_MODES = [
+  { key: 'index', label: 'Index' },
+  { key: 'movement', label: 'Item Movement' },
+  { key: 'quintiles', label: 'Quintiles' },
+];
+
 const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
   const [selectedRange, setSelectedRange] = useState('ALL');
   const [showPctChange, setShowPctChange] = useState(false);
   const [selectedSeries, setSelectedSeries] = useState(['value']);
+  const [viewMode, setViewMode] = useState('index');
+  const [quintileWeekIdx, setQuintileWeekIdx] = useState(-1); // -1 = latest
 
   const modalFrequency = frequency || data?.frequency || 'Weekly';
   const isWeekly = modalFrequency.toLowerCase() === 'weekly';
@@ -45,40 +42,36 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
   const canToggleSeries = isWeekly && availableSeries.length > 1;
 
   useEffect(() => {
-    if (canToggleSeries) {
-      setSelectedSeries(['value']);
-    } else {
-      setSelectedSeries(['value']);
-    }
+    if (canToggleSeries) setSelectedSeries(['value']);
+    else setSelectedSeries(['value']);
   }, [canToggleSeries, data?.updated]);
+
+  // Reset quintile index when data changes
+  useEffect(() => {
+    if (data?.history) setQuintileWeekIdx(data.history.length - 1);
+  }, [data?.history]);
 
   const toggleSeries = (seriesKey) => {
     setSelectedSeries((current) => {
       if (current.includes(seriesKey)) {
-        if (current.length === 1) {
-          return current;
-        }
-        return current.filter((key) => key !== seriesKey);
+        return current.length === 1 ? current : current.filter(k => k !== seriesKey);
       }
-
       return [...current, seriesKey];
     });
   };
 
-  const filteredData = useMemo(() => {
+  const sortedHistory = useMemo(() => {
     if (!data?.history) return [];
+    return [...data.history].sort((a, b) => new Date(a.date) - new Date(b.date));
+  }, [data]);
 
-    const history = [...data.history].sort((a, b) => new Date(a.date) - new Date(b.date));
+  const filteredData = useMemo(() => {
     const range = TIME_RANGES.find(r => r.key === selectedRange);
-
-    if (selectedRange === 'ALL' || !range?.months) {
-      return history;
-    }
-
-    const cutoffDate = new Date();
-    cutoffDate.setMonth(cutoffDate.getMonth() - range.months);
-    return history.filter(item => new Date(item.date) >= cutoffDate);
-  }, [data, selectedRange]);
+    if (selectedRange === 'ALL' || !range?.months) return sortedHistory;
+    const cutoff = new Date();
+    cutoff.setMonth(cutoff.getMonth() - range.months);
+    return sortedHistory.filter(item => new Date(item.date) >= cutoff);
+  }, [sortedHistory, selectedRange]);
 
   if (!isOpen) return null;
 
@@ -90,67 +83,214 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
   const isIncrease = (primaryChange || 0) >= 0;
   const isFavorable = (primaryChange || 0) <= 0;
 
-  const formatTickDate = (dateStr) => {
-    const date = new Date(dateStr);
-    if (isWeekly) {
-      return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
-    }
+  const fmtTick = (d) => new Date(d).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+  const fmtTooltip = (d) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      year: '2-digit'
-    });
-  };
-
-  const formatTooltipDate = (dateStr) => {
-    const date = new Date(dateStr);
-
-    if (isWeekly) {
-      return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    }
-
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  };
-
-  const valuesForDomain = filteredData.flatMap((row) => (
-    selectedSeries
-      .map((seriesKey) => row?.[seriesKey])
-      .filter((value) => value !== null && value !== undefined)
-  ));
-
+  const valuesForDomain = filteredData.flatMap(row =>
+    selectedSeries.map(k => row?.[k]).filter(v => v !== null && v !== undefined)
+  );
   const minValue = valuesForDomain.length ? Math.min(...valuesForDomain, 0) : 0;
   const maxValue = valuesForDomain.length ? Math.max(...valuesForDomain, 0) : 0;
 
+  // Quintile navigator data
+  const qWeek = sortedHistory[quintileWeekIdx] || sortedHistory[sortedHistory.length - 1];
+  const qData = qWeek ? [
+    { name: 'Q1 (Lowest 20%)', value: qWeek.q1, color: '#22d3ee' },
+    { name: 'Q2', value: qWeek.q2, color: '#6366f1' },
+    { name: 'Q3', value: qWeek.q3, color: '#f59e0b' },
+    { name: 'Q4', value: qWeek.q4, color: '#ec4899' },
+    { name: 'Q5 (Highest 20%)', value: qWeek.q5, color: '#ef4444' },
+  ] : [];
+
+  const renderChart = () => {
+    // === ITEM MOVEMENT VIEW ===
+    if (viewMode === 'movement') {
+      return (
+        <ResponsiveContainer width="100%" height={320}>
+          <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={10} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis stroke="#64748b" fontSize={10} width={35} label={{ value: 'Items', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontSize: 10 } }} />
+            <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
+              <div className="remittances-tooltip" style={{ minWidth: 180 }}>
+                <p className="tooltip-date">{fmtTooltip(label)}</p>
+                {payload.map((p, i) => (
+                  <div key={i} style={{ color: p.fill, fontSize: '0.8rem', fontWeight: 600, margin: '0.15rem 0' }}>
+                    {p.name}: {p.value}
+                  </div>
+                ))}
+              </div>) : null} />
+            <Bar dataKey="decrease" name="Decreased" fill="#22C55E" stackId="stack" />
+            <Bar dataKey="stable" name="Stable" fill="#64748B" stackId="stack" />
+            <Bar dataKey="increase" name="Increased" fill="#EF4444" stackId="stack" />
+          </BarChart>
+        </ResponsiveContainer>
+      );
+    }
+
+    // === QUINTILES VIEW ===
+    if (viewMode === 'quintiles') {
+      return (
+        <div>
+          {/* Week navigator */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', padding: '0.5rem 0 1rem' }}>
+            <button onClick={() => setQuintileWeekIdx(i => Math.max(0, i - 1))}
+              disabled={quintileWeekIdx <= 0}
+              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx <= 0 ? '#334155' : '#E2E8F0', cursor: quintileWeekIdx <= 0 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
+              <ChevronLeft size={16} />
+            </button>
+            <div style={{ textAlign: 'center', minWidth: '200px' }}>
+              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#F8FAFC', fontFamily: 'var(--font-mono)' }}>
+                {qWeek?.week} — {qWeek?.week_ending_formatted || new Date(qWeek?.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </div>
+              <div style={{ fontSize: '0.6rem', color: '#64748b', marginTop: '0.15rem' }}>
+                Combined: {qWeek?.value?.toFixed(2)}
+              </div>
+            </div>
+            <button onClick={() => setQuintileWeekIdx(i => Math.min(sortedHistory.length - 1, i + 1))}
+              disabled={quintileWeekIdx >= sortedHistory.length - 1}
+              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx >= sortedHistory.length - 1 ? '#334155' : '#E2E8F0', cursor: quintileWeekIdx >= sortedHistory.length - 1 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
+              <ChevronRight size={16} />
+            </button>
+          </div>
+
+          {/* Quintile bar chart */}
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={qData} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={false} />
+              <XAxis type="number" stroke="#64748b" fontSize={10} domain={[0, 'dataMax + 20']} />
+              <YAxis type="category" dataKey="name" stroke="#64748b" fontSize={10} width={100} />
+              <Tooltip content={({ active, payload }) => active && payload?.length ? (
+                <div className="remittances-tooltip">
+                  <p style={{ color: payload[0]?.payload?.color, fontSize: '0.85rem', fontWeight: 700 }}>
+                    {payload[0]?.payload?.name}: {payload[0]?.value?.toFixed(2)}
+                  </p>
+                </div>) : null} />
+              <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={28}>
+                {qData.map((d, i) => <Cell key={i} fill={d.color} fillOpacity={0.85} />)}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+
+          {/* Item movement for this week */}
+          {qWeek && (
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#EF4444' }}>{qWeek.increase}</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Increased</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#64748B' }}>{qWeek.stable}</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Stable</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#22C55E' }}>{qWeek.decrease}</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Decreased</div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // === INDEX VIEW (default) ===
+    if (showPctChange) {
+      return (
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} domain={['auto', 'auto']} width={50} />
+            <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+            <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
+              <div className="remittances-tooltip">
+                <p className="tooltip-date">{fmtTooltip(label)}</p>
+                <p style={{ color: payload[0].value >= 0 ? '#EF4444' : '#22C55E', fontSize: '0.85rem' }}>
+                  {payload[0].value >= 0 ? '+' : ''}{payload[0].value.toFixed(2)}%
+                </p>
+              </div>) : null} />
+            <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
+              {filteredData.map((entry, i) => <Cell key={i} fill={entry.pct_change >= 0 ? '#EF4444' : '#22C55E'} fillOpacity={0.85} />)}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      );
+    }
+
+    if (canToggleSeries) {
+      return (
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={11} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis stroke="#64748b" fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
+            <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
+              <div className="remittances-tooltip" style={{ minWidth: 190 }}>
+                <p className="tooltip-date">{fmtTooltip(label)}</p>
+                {payload.map(e => (
+                  <p key={e.dataKey} style={{ color: e.color, fontSize: '0.8rem', margin: '0.2rem 0' }}>
+                    {SERIES_CONFIG[e.dataKey]?.label || e.name}: {(e.value || 0).toFixed(2)}
+                  </p>
+                ))}
+              </div>) : null} />
+            {selectedSeries.map(k => {
+              const cfg = SERIES_CONFIG[k] || { label: k, color: '#22C55E' };
+              return <Line key={k} type="monotone" dataKey={k} name={cfg.label} stroke={cfg.color} strokeWidth={k === 'value' ? 2.5 : 1.8} dot={false} connectNulls />;
+            })}
+          </LineChart>
+        </ResponsiveContainer>
+      );
+    }
+
+    return (
+      <ResponsiveContainer width="100%" height={300}>
+        <AreaChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <defs><linearGradient id="colorSPI" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#22C55E" stopOpacity={0.3} /><stop offset="95%" stopColor="#22C55E" stopOpacity={0} /></linearGradient></defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+          <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={11} interval="preserveStartEnd" minTickGap={50} />
+          <YAxis stroke="#64748b" fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
+          <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
+            <div className="remittances-tooltip">
+              <p className="tooltip-date">{fmtTooltip(label)}</p>
+              <p style={{ color: '#22C55E', fontSize: '0.85rem' }}>{(payload[0]?.payload?.value || 0).toFixed(2)}</p>
+              {payload[0]?.payload?.pct_change != null && (
+                <p style={{ fontSize: '0.72rem', color: payload[0].payload.pct_change >= 0 ? '#EF4444' : '#22C55E', marginTop: 4 }}>
+                  {payload[0].payload.pct_change >= 0 ? '+' : ''}{payload[0].payload.pct_change.toFixed(2)}%
+                </p>
+              )}
+            </div>) : null} />
+          <Area type="monotone" dataKey="value" stroke="#22C55E" strokeWidth={2} fillOpacity={1} fill="url(#colorSPI)" />
+        </AreaChart>
+      </ResponsiveContainer>
+    );
+  };
+
   return (
     <div className="modal-overlay" onClick={onClose} data-testid="spi-modal-overlay">
-      <div className="remittances-modal" onClick={(e) => e.stopPropagation()} data-testid="spi-modal">
+      <div className="remittances-modal" onClick={e => e.stopPropagation()} data-testid="spi-modal">
         <div className="modal-header">
           <div className="modal-title" data-testid="spi-modal-title">
             <Activity size={20} />
             <span>{title || data?.name || 'SPI Data'}</span>
           </div>
-          <button className="modal-close" onClick={onClose} data-testid="spi-modal-close">
-            <X size={20} />
-          </button>
+          <button className="modal-close" onClick={onClose}><X size={20} /></button>
         </div>
 
-        <div className="modal-summary" data-testid="spi-modal-summary">
+        {/* Summary */}
+        <div className="modal-summary">
           <div className="summary-main">
-            <div className="summary-value" data-testid="spi-summary-value">
-              {latestValue.toFixed(2)}
-            </div>
-            <div className="summary-period" data-testid="spi-summary-period">
+            <div className="summary-value">{latestValue.toFixed(2)}</div>
+            <div className="summary-period">
               <Calendar size={14} />
               {latest?.week_ending_formatted || latest?.month || 'N/A'}
             </div>
           </div>
-
-          {(primaryChange !== null && primaryChange !== undefined) && (
+          {primaryChange != null && (
             <div className="summary-changes">
-              <div className={`summary-change ${isFavorable ? 'positive' : 'negative'}`} data-testid="spi-summary-change">
+              <div className={`summary-change ${isFavorable ? 'positive' : 'negative'}`}>
                 {isIncrease ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                 <span>{isIncrease ? '+' : ''}{primaryChange.toFixed(2)} pts</span>
-                {(primaryChangePct !== null && primaryChangePct !== undefined) && (
+                {primaryChangePct != null && (
                   <span className="change-label">({isIncrease ? '+' : ''}{primaryChangePct.toFixed(2)}%) {primaryLabel}</span>
                 )}
               </div>
@@ -158,233 +298,74 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
           )}
         </div>
 
-        <div className="time-range-selector" data-testid="spi-time-range-selector">
-          {TIME_RANGES.map((range) => (
-            <button
-              key={range.key}
-              className={`range-btn ${selectedRange === range.key ? 'active' : ''}`}
-              onClick={() => setSelectedRange(range.key)}
-              data-testid={`spi-range-btn-${range.key}`}
-            >
-              {range.label}
-            </button>
-          ))}
+        {/* View Mode tabs */}
+        {isWeekly && (
+          <div style={{ display: 'flex', gap: '0.5rem', padding: '0.5rem 1.25rem', borderBottom: '1px solid var(--color-border)' }}>
+            {VIEW_MODES.map(m => (
+              <button key={m.key} className={`range-btn ${viewMode === m.key ? 'active' : ''}`}
+                onClick={() => { setViewMode(m.key); setShowPctChange(false); }}>
+                {m.label}
+              </button>
+            ))}
+          </div>
+        )}
 
-          <button
-            className={`range-btn ${showPctChange ? 'active' : ''}`}
-            onClick={() => setShowPctChange(!showPctChange)}
-            style={{ marginLeft: '1rem', borderLeft: '1px solid var(--color-border)', paddingLeft: '1rem' }}
-            data-testid="spi-pct-toggle"
-          >
-            {showPctChange ? 'Value' : '% Change'}
-          </button>
-        </div>
+        {/* Time range + toggles (for index and movement views) */}
+        {viewMode !== 'quintiles' && (
+          <div className="time-range-selector">
+            {TIME_RANGES.map(r => (
+              <button key={r.key} className={`range-btn ${selectedRange === r.key ? 'active' : ''}`}
+                onClick={() => setSelectedRange(r.key)}>{r.label}</button>
+            ))}
+            {viewMode === 'index' && (
+              <button className={`range-btn ${showPctChange ? 'active' : ''}`}
+                onClick={() => setShowPctChange(!showPctChange)}
+                style={{ marginLeft: '1rem', borderLeft: '1px solid var(--color-border)', paddingLeft: '1rem' }}>
+                {showPctChange ? 'Value' : '% Change'}
+              </button>
+            )}
+          </div>
+        )}
 
-        {canToggleSeries && !showPctChange && (
-          <div
-            className="spi-series-toggle-group"
-            data-testid="spi-series-toggle-group"
-          >
-            {availableSeries.map((seriesKey) => {
-              const isActive = selectedSeries.includes(seriesKey);
-              const config = SERIES_CONFIG[seriesKey] || { label: seriesKey.toUpperCase(), color: '#22C55E' };
+        {/* Series toggle (index view only) */}
+        {viewMode === 'index' && canToggleSeries && !showPctChange && (
+          <div className="time-range-selector" style={{ flexWrap: 'wrap', gap: '0.3rem' }}>
+            {availableSeries.map(k => {
+              const isActive = selectedSeries.includes(k);
+              const cfg = SERIES_CONFIG[k] || { label: k, color: '#22C55E' };
               return (
-                <button
-                  key={seriesKey}
-                  onClick={() => toggleSeries(seriesKey)}
-                  className="range-btn"
-                  data-testid={`spi-series-toggle-${seriesKey}`}
-                  style={{
-                    borderColor: isActive ? config.color : 'var(--color-border)',
-                    color: isActive ? config.color : 'var(--color-muted)',
-                    background: isActive ? `${config.color}22` : 'transparent'
-                  }}
-                >
-                  {config.label}
+                <button key={k} onClick={() => toggleSeries(k)} className={`range-btn ${isActive ? 'active' : ''}`}
+                  style={{ opacity: isActive ? 1 : 0.4, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: cfg.color, display: 'inline-block' }} />
+                  {cfg.label}
                 </button>
               );
             })}
           </div>
         )}
 
-        <div className="chart-container" data-testid="spi-chart-container">
-          <ResponsiveContainer width="100%" height={300}>
-            {showPctChange ? (
-              <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={formatTickDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  interval="preserveStartEnd"
-                  minTickGap={50}
-                />
-                <YAxis
-                  tickFormatter={(val) => `${val >= 0 ? '+' : ''}${val.toFixed(1)}%`}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  domain={['auto', 'auto']}
-                  width={50}
-                />
-                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
-                <Tooltip
-                  content={({ active, payload, label }) => {
-                    if (active && payload && payload.length) {
-                      const formattedDate = formatTooltipDate(label);
-                      const pct = payload[0].value || 0;
-                      const pctColor = pct >= 0 ? '#EF4444' : '#22C55E';
-                      return (
-                        <div className="remittances-tooltip">
-                          <p className="tooltip-date">{formattedDate}</p>
-                          <p className="tooltip-value" style={{ color: pctColor }}>
-                            {pct >= 0 ? '+' : ''}{pct.toFixed(2)}%
-                          </p>
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
-                  {filteredData.map((entry, index) => (
-                    <Cell key={`spi-pct-cell-${index}`} fill={entry.pct_change >= 0 ? '#EF4444' : '#22C55E'} fillOpacity={0.85} />
-                  ))}
-                </Bar>
-              </BarChart>
-            ) : canToggleSeries ? (
-              <LineChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={formatTickDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  interval="preserveStartEnd"
-                  minTickGap={50}
-                />
-                <YAxis
-                  tickFormatter={(val) => val.toFixed(0)}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]}
-                  width={50}
-                />
-                <Tooltip
-                  content={({ active, payload, label }) => {
-                    if (active && payload && payload.length) {
-                      const formattedDate = formatTooltipDate(label);
-                      return (
-                        <div className="remittances-tooltip" style={{ minWidth: '190px' }}>
-                          <p className="tooltip-date">{formattedDate}</p>
-                          {payload.map((entry) => (
-                            <p key={entry.dataKey} style={{ color: entry.color, fontSize: '0.8rem', margin: '0.2rem 0' }}>
-                              {(SERIES_CONFIG[entry.dataKey]?.label || entry.name)}: {(entry.value || 0).toFixed(2)}
-                            </p>
-                          ))}
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Legend
-                  wrapperStyle={{ paddingTop: '8px' }}
-                  formatter={(value) => <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>{value}</span>}
-                />
-                {selectedSeries.map((seriesKey) => {
-                  const config = SERIES_CONFIG[seriesKey] || { label: seriesKey.toUpperCase(), color: '#22C55E' };
-                  return (
-                    <Line
-                      key={seriesKey}
-                      type="monotone"
-                      dataKey={seriesKey}
-                      name={config.label}
-                      stroke={config.color}
-                      strokeWidth={seriesKey === 'value' ? 2.5 : 1.8}
-                      dot={false}
-                      connectNulls
-                    />
-                  );
-                })}
-              </LineChart>
-            ) : (
-              <AreaChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorSPI" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#22C55E" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#22C55E" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={formatTickDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  interval="preserveStartEnd"
-                  minTickGap={50}
-                />
-                <YAxis
-                  tickFormatter={(val) => val.toFixed(0)}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
-                  domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]}
-                  width={50}
-                />
-                <Tooltip
-                  content={({ active, payload, label }) => {
-                    if (active && payload && payload.length) {
-                      const point = payload[0]?.payload;
-                      const formattedDate = formatTooltipDate(label);
-                      return (
-                        <div className="remittances-tooltip">
-                          <p className="tooltip-date">{formattedDate}</p>
-                          <p className="tooltip-value" style={{ color: '#22C55E' }}>{(point?.value || 0).toFixed(2)}</p>
-                          {(point?.pct_change !== null && point?.pct_change !== undefined) && (
-                            <p style={{ fontSize: '0.72rem', color: point.pct_change >= 0 ? '#EF4444' : '#22C55E', marginTop: '4px' }}>
-                              {point.pct_change >= 0 ? '+' : ''}{point.pct_change.toFixed(2)}%
-                            </p>
-                          )}
-                        </div>
-                      );
-                    }
-                    return null;
-                  }}
-                />
-                <Area type="monotone" dataKey="value" stroke="#22C55E" strokeWidth={2} fillOpacity={1} fill="url(#colorSPI)" />
-              </AreaChart>
-            )}
-          </ResponsiveContainer>
+        {/* Item Movement legend */}
+        {viewMode === 'movement' && (
+          <div className="time-range-selector" style={{ gap: '0.3rem' }}>
+            {[{ label: 'Decreased', color: '#22C55E' }, { label: 'Stable', color: '#64748B' }, { label: 'Increased', color: '#EF4444' }].map(l => (
+              <span key={l.label} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.65rem', color: l.color, padding: '0.4rem 0.6rem' }}>
+                <span style={{ width: 10, height: 10, background: l.color, display: 'inline-block' }} />{l.label}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Chart */}
+        <div className="chart-container" style={{ padding: '1rem' }}>
+          {renderChart()}
         </div>
 
-        <div className="modal-footer" data-testid="spi-modal-footer">
-          <span className="data-source">
-            Source:{' '}
-            <a
-              href="https://spi.pakesda.com/"
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: 'var(--color-primary)', textDecoration: 'none' }}
-              data-testid="spi-source-link"
-            >
-              spi.pakesda.com
-            </a>
+        <div className="modal-footer">
+          <span>
+            Source: <a href="https://spi.pakesda.com/" target="_blank" rel="noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none' }}>spi.pakesda.com</a>
           </span>
-          <span className="data-updated">
-            Last updated: {new Date(data?.updated || Date.now()).toLocaleDateString()}
+          <span style={{ color: '#94a3b8' }}>
+            {data?.total_data_points || 0} weeks | {data?.date_range || ''}
           </span>
         </div>
       </div>
