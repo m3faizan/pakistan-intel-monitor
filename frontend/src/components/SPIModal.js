@@ -105,9 +105,10 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
   const renderChart = () => {
     // === ITEM MOVEMENT VIEW ===
     if (viewMode === 'movement') {
+      const movementData = filteredData.filter(r => (r.increase || 0) + (r.decrease || 0) + (r.stable || 0) > 0);
       return (
         <ResponsiveContainer width="100%" height={320}>
-          <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <BarChart data={movementData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
             <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={10} interval="preserveStartEnd" minTickGap={50} />
             <YAxis stroke="#64748b" fontSize={10} width={35} label={{ value: 'Items', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontSize: 10 } }} />
