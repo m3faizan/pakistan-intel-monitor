@@ -4404,17 +4404,55 @@ async def fetch_economic_data():
     }
 
 async def fetch_weather_data():
-    """Fetch weather alerts for major Pakistani cities"""
-    # Mock weather data for major cities
-    cities = [
-        {"name": "Karachi", "lat": 24.8607, "lon": 67.0011, "temp": 28, "condition": "Partly Cloudy", "humidity": 65},
-        {"name": "Lahore", "lat": 31.5204, "lon": 74.3587, "temp": 18, "condition": "Foggy", "humidity": 85},
-        {"name": "Islamabad", "lat": 33.6844, "lon": 73.0479, "temp": 12, "condition": "Clear", "humidity": 55},
-        {"name": "Peshawar", "lat": 34.0151, "lon": 71.5249, "temp": 14, "condition": "Clear", "humidity": 50},
-        {"name": "Quetta", "lat": 30.1798, "lon": 66.9750, "temp": 8, "condition": "Cold Wave", "humidity": 40},
-        {"name": "Multan", "lat": 30.1575, "lon": 71.5249, "temp": 20, "condition": "Sunny", "humidity": 45},
+    """Fetch live weather for major Pakistani cities from wttr.in"""
+    cities_config = [
+        {"name": "Karachi", "lat": 24.8607, "lon": 67.0011},
+        {"name": "Lahore", "lat": 31.5204, "lon": 74.3587},
+        {"name": "Islamabad", "lat": 33.6844, "lon": 73.0479},
+        {"name": "Peshawar", "lat": 34.0151, "lon": 71.5249},
+        {"name": "Quetta", "lat": 30.1798, "lon": 66.9750},
+        {"name": "Multan", "lat": 30.1575, "lon": 71.5249},
     ]
-    return cities
+    results = []
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        for city in cities_config:
+            try:
+                r = await client.get(
+                    f"https://wttr.in/{city['name']}?format=j1",
+                    headers={"User-Agent": "curl/7.68.0"}
+                )
+                if r.status_code == 200:
+                    d = r.json()
+                    cc = d.get("current_condition", [{}])[0]
+                    forecast = d.get("weather", [{}])[0]
+                    results.append({
+                        "name": city["name"],
+                        "lat": city["lat"],
+                        "lon": city["lon"],
+                        "temp": int(cc.get("temp_C", 0)),
+                        "feels_like": int(cc.get("FeelsLikeC", 0)),
+                        "condition": cc.get("weatherDesc", [{}])[0].get("value", "N/A"),
+                        "humidity": int(cc.get("humidity", 0)),
+                        "wind_speed": int(cc.get("windspeedKmph", 0)),
+                        "wind_dir": cc.get("winddir16Point", ""),
+                        "visibility": int(cc.get("visibility", 0)),
+                        "pressure": int(cc.get("pressure", 0)),
+                        "uv_index": int(cc.get("uvIndex", 0)),
+                        "high": int(forecast.get("maxtempC", 0)),
+                        "low": int(forecast.get("mintempC", 0)),
+                    })
+                else:
+                    results.append({
+                        "name": city["name"], "lat": city["lat"], "lon": city["lon"],
+                        "temp": 0, "condition": "Unavailable", "humidity": 0,
+                    })
+            except Exception as e:
+                print(f"[Weather] Error fetching {city['name']}: {e}")
+                results.append({
+                    "name": city["name"], "lat": city["lat"], "lon": city["lon"],
+                    "temp": 0, "condition": "Unavailable", "humidity": 0,
+                })
+    return results
 
 async def fetch_security_data():
     """Build live security/politics/energy alerts from latest Pakistan-related news."""
