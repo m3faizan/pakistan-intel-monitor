@@ -4,8 +4,9 @@ import useSocket from '../hooks/useSocket';
 import MapSection from './MapSection';
 import EnergyNewsPanel from './EnergyNewsPanel';
 import PowerGenerationPanel from './PowerGenerationPanel';
-import PowerGenDistributionPanel from './PowerGenDistributionPanel';
+import PowerGenerationDistributionPanel from './PowerGenDistributionPanel';
 import EnergyPaymentsPanel from './EnergyPaymentsPanel';
+import PowerGridMetricsPanel from './PowerGridMetricsPanel';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -67,8 +68,9 @@ const EnergyDashboard = () => {
 
       {/* Bottom row: Power Generation stat-cards (left) + Power Generation Profile sparklines (right) + Energy Payments (right) */}
       <div className="energy-bottom-row">
-        <PowerGenDistributionPanel />
+        <PowerGenerationDistributionPanel />
         <PowerGenerationPanel />
+        <PowerGridMetricsPanel />
         <EnergyPaymentsPanel />
       </div>
     </div>
