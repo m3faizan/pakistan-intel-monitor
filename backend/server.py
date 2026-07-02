@@ -750,10 +750,6 @@ REGIONAL_RELATIONSHIP_INTEL = {
         "sources": [
             {"title": "EU Trade Policy: Pakistan", "url": "https://policy.trade.ec.europa.eu/eu-trade-relationships-country-and-region/countries-and-regions/pakistan_en"}
         ]
-@app.get("/api/energy-generation-costs-mln-pkr")
-async def get_energy_generation_costs_mln_pkr():
-    return {"data": ENERGY_COSTS_MLN_PKR_DATA}
-
     },
     "france": {
         "status": "EU TRADE",
@@ -7089,6 +7085,10 @@ async def get_power_grid_metrics():
 @app.get("/api/energy-generation-costs")
 async def get_energy_generation_costs():
     return {"data": ENERGY_COSTS_DATA}
+
+@app.get("/api/energy-generation-costs-mln-pkr")
+async def get_energy_generation_costs_mln_pkr():
+    return {"data": ENERGY_COSTS_MLN_PKR_DATA}
 
 _fastapi_app = app
 app = socketio.ASGIApp(sio, other_asgi_app=_fastapi_app, socketio_path="/api/ws/socket.io")
