@@ -17,6 +17,7 @@ const TIME_RANGES = [
 const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
   const [selectedRange, setSelectedRange] = useState('ALL');
   const [showPctChange, setShowPctChange] = useState(false);
+  const [hiddenSeries, setHiddenSeries] = useState([]);
 
   // If metric is PPP_SUMMARY, we render a combined chart of Reference, Requested, Allowed
   const isCombined = metric === 'PPP_SUMMARY';
@@ -102,15 +103,41 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
   
   const chartColor = targetData.color || '#38BDF8';
 
+  const toggleSeries = (e) => {
+    const { dataKey } = e;
+    setHiddenSeries(prev => 
+      prev.includes(dataKey) ? prev.filter(k => k !== dataKey) : [...prev, dataKey]
+    );
+  };
+
+  const renderLegendText = (value, entry) => {
+    const isHidden = hiddenSeries.includes(value);
+    return (
+      <span style={{ 
+        color: isHidden ? '#64748b' : '#f8fafc', 
+        textDecoration: isHidden ? 'line-through' : 'none',
+        cursor: 'pointer',
+        transition: 'all 0.2s'
+      }}>
+        {value}
+      </span>
+    );
+  };
+
   const CustomTooltip = ({ active, payload }) => {
     if (!active || !payload?.length) return null;
     const d = payload[0];
     
     if (isCombined) {
+      // Filter out hidden series from the tooltip payload
+      const visiblePayload = payload.filter(p => !hiddenSeries.includes(p.dataKey));
+      
+      if (visiblePayload.length === 0) return null;
+
       return (
         <div className="remittances-tooltip" style={{ minWidth: 150 }}>
            <p className="tooltip-date" style={{ marginBottom: '8px', paddingBottom: '4px', borderBottom: '1px solid #334155' }}>{fmtMonthYr(d.payload.date)}</p>
-           {payload.map(p => (
+           {visiblePayload.map(p => (
                <div key={p.dataKey} style={{ display: 'flex', justifyContent: 'space-between', margin: '4px 0', fontSize: '0.8rem' }}>
                    <span style={{ color: p.color }}>{p.dataKey}:</span>
                    <span style={{ color: '#f8fafc', fontWeight: 'bold' }}>{fmt(p.value)} {unit}</span>
@@ -211,10 +238,14 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                     <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
                     <YAxis tickFormatter={v => v.toFixed(1)} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={45} />
                     <Tooltip content={<CustomTooltip />} />
-                    <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                    <Line type="monotone" dataKey="Reference PPP" stroke="#38bdf8" strokeWidth={2} dot={{ r: 3 }} />
-                    <Line type="monotone" dataKey="Requested PPP" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} />
-                    <Line type="monotone" dataKey="Allowed PPP" stroke="#22c55e" strokeWidth={3} dot={{ r: 4 }} />
+                    <Legend 
+                      onClick={toggleSeries} 
+                      formatter={renderLegendText} 
+                      wrapperStyle={{ fontSize: '11px', paddingTop: '10px', cursor: 'pointer' }} 
+                    />
+                    <Line type="monotone" dataKey="Reference PPP" stroke={hiddenSeries.includes("Reference PPP") ? "#334155" : "#38bdf8"} strokeWidth={2} dot={hiddenSeries.includes("Reference PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Reference PPP")} />
+                    <Line type="monotone" dataKey="Requested PPP" stroke={hiddenSeries.includes("Requested PPP") ? "#334155" : "#f59e0b"} strokeWidth={2} dot={hiddenSeries.includes("Requested PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Requested PPP")} />
+                    <Line type="monotone" dataKey="Allowed PPP" stroke={hiddenSeries.includes("Allowed PPP") ? "#334155" : "#22c55e"} strokeWidth={3} dot={hiddenSeries.includes("Allowed PPP") ? false : { r: 4 }} hide={hiddenSeries.includes("Allowed PPP")} />
                 </LineChart>
             ) : showPctChange ? (
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
