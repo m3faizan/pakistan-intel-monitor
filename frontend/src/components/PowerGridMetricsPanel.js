@@ -121,7 +121,8 @@ const PowerGridMetricsPanel = () => {
               const color = d.color;
               const spark = d.history.slice(-24);
               const pct = d.mom_change_pct;
-              const isPos = pct !== null && pct !== undefined && pct >= 0;
+              const isLoss = name === 'Transmission Loss';
+              const isPos = pct !== null && pct !== undefined && (isLoss ? pct <= 0 : pct >= 0);
 
               return (
                 <div

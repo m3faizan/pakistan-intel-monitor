@@ -322,7 +322,7 @@ const EnergyPaymentsPanel = () => {
 
               {/* Compact bar chart */}
               <ResponsiveContainer width="100%" height={110}>
-                <BarChart data={changeBarData} margin={{ top: 14, right: 4, left: 0, bottom: 0 }} barCategoryGap="25%">
+                <BarChart data={changeBarData} margin={{ top: 14, right: 4, left: 0, bottom: 5 }} barCategoryGap="25%">
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                   <XAxis
                     dataKey="name"
@@ -330,6 +330,7 @@ const EnergyPaymentsPanel = () => {
                     tick={{ fill: '#64748b', fontSize: 9 }}
                     axisLine={{ stroke: '#1e293b' }}
                     tickLine={false}
+                    tickMargin={10}
                   />
                   <YAxis
                     tickFormatter={v => chgMode === 'pct' ? `${v}%` : `$${v}M`}

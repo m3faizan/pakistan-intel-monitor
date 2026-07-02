@@ -1,14 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { X, TrendingUp, TrendingDown, Calendar, Activity } from 'lucide-react';
 import {
-  AreaChart, Area, BarChart, Bar, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine
+  AreaChart, Area,
+  BarChart, Bar, Cell,
+  XAxis, YAxis, CartesianGrid,
+  Tooltip, ResponsiveContainer, ReferenceLine
 } from 'recharts';
 
 const TIME_RANGES = [
   { key: 'YTD', label: 'YTD',  months: null },
   { key: '1Y',  label: '1Y',   months: 12   },
-  { key: '2Y',  label: '2Y',   months: 24   },
+  { key: '3Y',  label: '3Y',   months: 36   },
   { key: '5Y',  label: '5Y',   months: 60   },
   { key: '10Y', label: '10Y',  months: 120  },
   { key: 'ALL', label: 'All',  months: null },
@@ -66,162 +68,156 @@ const PowerGridMetricsModal = ({ isOpen, onClose, metric, data }) => {
 
   const latest   = data.latest;
   const momPct   = data.mom_change_pct;
+  const unit     = data.unit || '';
+  
+  const isLoss = metric === 'Transmission Loss';
+  
+  // Inverse logic for Transmission Loss:
+  // Transmission Loss MomPct < 0 means loss decreased (which is good -> positive).
+  // Transmission Loss MomPct > 0 means loss increased (which is bad -> negative).
+  const isMomPos = momPct !== null && momPct !== undefined && (isLoss ? momPct <= 0 : momPct >= 0);
+  const isYoyPos = yoyChange !== null && yoyChange !== undefined && (isLoss ? yoyChange <= 0 : yoyChange >= 0);
 
-  const isPosMom = momPct !== null && momPct >= 0;
-  const isPosYoy = yoyChange !== null && yoyChange >= 0;
-
-  const fmtVal = (v) => {
+  const fmt = (v) => {
     if (v === null || v === undefined) return '--';
     const n = Number(v);
-    if (n >= 10000) return `${(n / 1000).toFixed(1)}k`;
-    if (n >= 1000)  return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    return n.toFixed(1);
+    if (n >= 1000000) return `${(n / 1000000).toFixed(2)}M`;
+    if (n >= 1000)    return `${(n / 1000).toFixed(2)}k`;
+    return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  };
+  const fmtDate     = (d) => !d ? '' : new Date(d).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+  const fmtMonthYr  = (d) => !d ? '' : new Date(d).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const yAxisFmt    = (v) => {
+    if (Math.abs(v) >= 1000000) return `${(v / 1000000).toFixed(1)}M`;
+    if (Math.abs(v) >= 1000)    return `${(v / 1000).toFixed(0)}k`;
+    return v.toFixed(0);
   };
 
   const chartColor = data.color || '#38BDF8';
 
+  const CustomTooltip = ({ active, payload }) => {
+    if (!active || !payload?.length) return null;
+    const d = payload[0];
+    
+    let tooltipColor = chartColor;
+    if (showPctChange) {
+        const dPos = isLoss ? d.value <= 0 : d.value >= 0;
+        tooltipColor = dPos ? '#22C55E' : '#EF4444';
+    }
+    
+    return (
+      <div className="remittances-tooltip">
+        <p className="tooltip-date">{fmtMonthYr(d.payload.date)}</p>
+        <p className="tooltip-value" style={{ color: tooltipColor }}>
+          {showPctChange
+            ? `${d.value > 0 ? '+' : ''}${d.value.toFixed(2)}%`
+            : `${fmt(d.value)} ${unit}`}
+        </p>
+      </div>
+    );
+  };
+
   return (
-    <div className="modal-overlay" onClick={onClose} data-testid="power-grid-metrics-modal">
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: 850 }}>
-        <button className="modal-close" onClick={onClose}><X size={18} /></button>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="remittances-modal" onClick={e => e.stopPropagation()}>
 
-        <div className="modal-header" style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1.25rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div>
-              <h2 style={{ margin: '0 0 0.5rem 0', fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-text)' }}>
-                {metric}
-              </h2>
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'baseline' }}>
-                <div>
-                  <div style={{ fontSize: '2rem', fontWeight: 700, color: chartColor, lineHeight: 1 }}>
-                    {fmtVal(latest?.value)} <span style={{ fontSize: '1rem', color: '#64748b', fontWeight: 400 }}>{data.unit}</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.5rem', color: '#64748b', fontSize: '0.85rem' }}>
-                    <Calendar size={13} />
-                    {latest?.date ? new Date(latest.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '--'}
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  {momPct !== null && (
-                    <div style={{
-                      background: isPosMom ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                      color: isPosMom ? '#22c55e' : '#ef4444',
-                      padding: '0.4rem 0.75rem', borderRadius: '6px',
-                      display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: 600
-                    }}>
-                      {isPosMom ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-                      {isPosMom ? '+' : ''}{momPct.toFixed(2)}% <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 400 }}>MoM</span>
-                    </div>
-                  )}
-                  {yoyChange !== null && (
-                    <div style={{
-                      background: isPosYoy ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                      color: isPosYoy ? '#22c55e' : '#ef4444',
-                      padding: '0.4rem 0.75rem', borderRadius: '6px',
-                      display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem', fontWeight: 600
-                    }}>
-                      {isPosYoy ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-                      {isPosYoy ? '+' : ''}{yoyChange.toFixed(2)}% <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: 400 }}>YoY</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="panel-badge" style={{ alignSelf: 'flex-start' }}>NEPRA / NTDC</div>
+        <div className="modal-header">
+          <div className="modal-title">
+            <Activity size={20} />
+            <span style={{ textTransform: 'uppercase' }}>{metric} - POWER GRID METRICS</span>
           </div>
+          <button className="modal-close" onClick={onClose}><X size={20} /></button>
         </div>
 
-        <div className="modal-body" style={{ paddingTop: '1.25rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'center' }}>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              {TIME_RANGES.map(r => (
-                <button
-                  key={r.key}
-                  onClick={() => setSelectedRange(r.key)}
-                  style={{
-                    background: selectedRange === r.key ? '#22c55e' : 'transparent',
-                    color: selectedRange === r.key ? '#000' : '#64748b',
-                    border: `1px solid ${selectedRange === r.key ? '#22c55e' : '#334155'}`,
-                    padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer', transition: 'all 0.2s', fontWeight: selectedRange === r.key ? 600 : 400
-                  }}
-                >
-                  {r.label}
-                </button>
-              ))}
+        <div className="modal-summary">
+          <div className="summary-main">
+            <div className="summary-value">
+              {fmt(latest?.value)}
+              <span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>{unit}</span>
             </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={() => setShowPctChange(false)}
-                style={{
-                  background: !showPctChange ? '#1e293b' : 'transparent',
-                  color: !showPctChange ? '#f8fafc' : '#64748b',
-                  border: `1px solid ${!showPctChange ? '#475569' : '#334155'}`,
-                  padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer'
-                }}
-              >
-                Actuals
-              </button>
-              <button
-                onClick={() => setShowPctChange(true)}
-                style={{
-                  background: showPctChange ? '#1e293b' : 'transparent',
-                  color: showPctChange ? '#f8fafc' : '#64748b',
-                  border: `1px solid ${showPctChange ? '#475569' : '#334155'}`,
-                  padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer'
-                }}
-              >
-                % Chg
-              </button>
+            <div className="summary-period">
+              <Calendar size={14} />
+              {fmtMonthYr(latest?.date)}
             </div>
           </div>
-
-          <div style={{ height: 350 }}>
-            {filteredData.length === 0 ? (
-              <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b' }}>No data for selected range</div>
-            ) : showPctChange ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 10, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                  <XAxis dataKey="date" stroke="#64748b" fontSize={11} tickFormatter={d => new Date(d).toLocaleDateString('en-US', { month: 'short', year: '2-digit' })} tickMargin={10} minTickGap={30} />
-                  <YAxis stroke="#64748b" fontSize={11} tickFormatter={v => `${v}%`} width={50} />
-                  <Tooltip
-                    contentStyle={{ background: '#0f172a', border: '1px solid #334155', borderRadius: '6px' }}
-                    labelFormatter={d => new Date(d).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                    formatter={v => [`${v}%`, 'MoM Change']}
-                  />
-                  <ReferenceLine y={0} stroke="#475569" />
-                  <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
-                    {filteredData.map((entry, idx) => (
-                      <Cell key={`cell-${idx}`} fill={entry.pct_change >= 0 ? '#22c55e' : '#ef4444'} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={filteredData} margin={{ top: 10, right: 10, left: 10, bottom: 20 }}>
-                  <defs>
-                    <linearGradient id={`gradient-${metric}`} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={chartColor} stopOpacity={0.3} />
-                      <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                  <XAxis dataKey="date" stroke="#64748b" fontSize={11} tickFormatter={d => new Date(d).toLocaleDateString('en-US', { month: 'short', year: '2-digit' })} tickMargin={10} minTickGap={30} />
-                  <YAxis stroke="#64748b" fontSize={11} tickFormatter={v => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} width={50} />
-                  <Tooltip
-                    contentStyle={{ background: '#0f172a', border: '1px solid #334155', borderRadius: '6px' }}
-                    labelFormatter={d => new Date(d).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                    formatter={v => [v.toLocaleString(), data.unit]}
-                  />
-                  <Area type="monotone" dataKey="value" stroke={chartColor} strokeWidth={2} fillOpacity={1} fill={`url(#gradient-${metric})`} />
-                </AreaChart>
-              </ResponsiveContainer>
+          <div className="summary-changes">
+            {momPct !== null && momPct !== undefined && (
+              <div className={`summary-change ${isMomPos ? 'positive' : 'negative'}`}>
+                {isMomPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                <span>{momPct > 0 ? '+' : ''}{momPct.toFixed(2)}%</span>
+                <span className="change-label">MoM</span>
+              </div>
+            )}
+            {yoyChange !== null && yoyChange !== undefined && (
+              <div className={`summary-change ${isYoyPos ? 'positive' : 'negative'}`}>
+                {isYoyPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                <span>{yoyChange > 0 ? '+' : ''}{yoyChange.toFixed(2)}%</span>
+                <span className="change-label">YoY</span>
+              </div>
             )}
           </div>
         </div>
+
+        <div className="time-range-selector">
+          {TIME_RANGES.map(r => (
+            <button
+              key={r.key}
+              className={`range-btn ${selectedRange === r.key ? 'active' : ''}`}
+              onClick={() => setSelectedRange(r.key)}
+            >
+              {r.label}
+            </button>
+          ))}
+          <button
+            className={`range-btn ${showPctChange ? 'active' : ''}`}
+            onClick={() => setShowPctChange(p => !p)}
+            style={{ marginLeft: '1rem', borderLeft: '1px solid var(--color-border)', paddingLeft: '1rem' }}
+          >
+            {showPctChange ? '% Change' : '% Change'}
+          </button>
+        </div>
+
+        <div className="chart-container">
+          <ResponsiveContainer width="100%" height={300}>
+            {showPctChange ? (
+              <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={55} />
+                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                <Tooltip content={<CustomTooltip />} />
+                <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
+                  {filteredData.map((entry, i) => {
+                    const isBarPos = isLoss ? entry.pct_change <= 0 : entry.pct_change >= 0;
+                    return <Cell key={i} fill={isBarPos ? '#22C55E' : '#EF4444'} fillOpacity={0.8} />
+                  })}
+                </Bar>
+              </BarChart>
+            ) : (
+              <AreaChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id={`powerGridGrad-${metric}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor={chartColor} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={chartColor} stopOpacity={0}   />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={55} />
+                <Tooltip content={<CustomTooltip />} />
+                <Area type="monotone" dataKey="value" stroke={chartColor} strokeWidth={2} fillOpacity={1} fill={`url(#powerGridGrad-${metric})`} />
+              </AreaChart>
+            )}
+          </ResponsiveContainer>
+        </div>
+
+        <div className="modal-footer">
+          <span className="data-source">Source: NEPRA / NTDC</span>
+          <span className="data-updated">
+            Last updated: {latest?.date ? new Date(latest.date).toLocaleDateString() : 'N/A'}
+          </span>
+        </div>
+
       </div>
     </div>
   );
