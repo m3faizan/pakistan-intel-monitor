@@ -58,33 +58,46 @@ const EnergyGenerationCostsPanel = () => {
     // We also map the top PPP summary metrics directly for the modal reference
     const summaryMetrics = ['Requested PPP', 'Reference PPP', 'Allowed PPP'];
     
-    [...FUEL_SOURCES, ...summaryMetrics].forEach(metric => {
-      const history = data.map(d => ({
-        date: d.date,
-        value: d[metric]
-      })).filter(d => d.value !== undefined && d.value !== null);
-      
-      if (history.length === 0) return;
-      
+    // Create derived delta series
+    const reqDeltaHistory = [];
+    const allDeltaHistory = [];
+    
+    data.forEach(d => {
+        if (d['Requested PPP'] !== undefined && d['Reference PPP'] !== undefined) {
+            reqDeltaHistory.push({ date: d.date, value: d['Requested PPP'] - d['Reference PPP'] });
+        }
+        if (d['Allowed PPP'] !== undefined && d['Reference PPP'] !== undefined) {
+            allDeltaHistory.push({ date: d.date, value: d['Allowed PPP'] - d['Reference PPP'] });
+        }
+    });
+
+    const processSeries = (metricName, history, color) => {
+      if (!history || history.length === 0) return;
       const sorted = [...history].sort((a, b) => new Date(a.date) - new Date(b.date));
       const latest = sorted[sorted.length - 1];
       const previous = sorted.length > 1 ? sorted[sorted.length - 2] : null;
-      
       let mom_change_pct = null;
       if (previous && previous.value !== 0) {
         mom_change_pct = ((latest.value - previous.value) / Math.abs(previous.value)) * 100;
       } else if (previous && previous.value === 0 && latest.value === 0) {
         mom_change_pct = 0;
       }
-      
-      result[metric] = {
+      result[metricName] = {
         history: sorted,
         latest,
         mom_change_pct,
         unit: 'PKR/kWh',
-        color: SOURCE_COLORS[metric] || '#38BDF8'
+        color: color
       };
+    };
+
+    [...FUEL_SOURCES, ...summaryMetrics].forEach(metric => {
+      const history = data.map(d => ({ date: d.date, value: d[metric] })).filter(d => d.value !== undefined && d.value !== null);
+      processSeries(metric, history, SOURCE_COLORS[metric] || '#38BDF8');
     });
+    
+    processSeries('Requested Delta', reqDeltaHistory, '#f43f5e');
+    processSeries('Allowed Delta', allDeltaHistory, '#10b981');
     
     return result;
   }, [data]);
@@ -110,8 +123,10 @@ const EnergyGenerationCostsPanel = () => {
 
   // Top level card representation variables
   const reqPPP = formattedData['Requested PPP'];
+  const reqDelta = formattedData['Requested Delta'];
   const refPPP = formattedData['Reference PPP'];
   const allPPP = formattedData['Allowed PPP'];
+  const allDelta = formattedData['Allowed Delta'];
 
   return (
     <div className="panel" data-testid="energy-generation-costs-panel" style={{ gridColumn: 'span 2' }}>
@@ -132,13 +147,15 @@ const EnergyGenerationCostsPanel = () => {
           <>
             {/* Top Level Summary Cards */}
             <div 
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', cursor: 'pointer' }}
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem', cursor: 'pointer' }}
               onClick={() => setActive('PPP_SUMMARY')}
             >
               {[
-                { label: 'Reference PPP', data: refPPP, color: '#38bdf8' },
-                { label: 'Requested PPP', data: reqPPP, color: '#f59e0b' },
-                { label: 'Allowed PPP',   data: allPPP, color: '#22c55e' }
+                { label: 'Ref PPP', data: refPPP, color: '#38bdf8' },
+                { label: 'Req PPP', data: reqPPP, color: '#f59e0b' },
+                { label: 'Req Delta', data: reqDelta, color: '#f43f5e' },
+                { label: 'Allow PPP',   data: allPPP, color: '#22c55e' },
+                { label: 'Allow Delta', data: allDelta, color: '#10b981' }
               ].map(card => (
                 <div 
                   key={card.label} 

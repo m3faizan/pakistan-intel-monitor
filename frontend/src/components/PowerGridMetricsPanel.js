@@ -13,8 +13,8 @@ const METRICS_ORDER = [
 const METRICS_CONFIG = {
   'Dependable Capacity': { color: '#38BDF8', unit: 'MW' },
   'Net Delivered':       { color: '#22C55E', unit: 'GWh' },
-  'Transmission Loss':   { color: '#EF4444', unit: 'GWh' },
-  'Sale to IPPs':        { color: '#F59E0B', unit: 'GWh' },
+  'Transmission Loss':   { color: '#F97316', unit: 'GWh' },
+  'Sale to IPPs':        { color: '#A855F7', unit: 'GWh' },
 };
 
 const PowerGridMetricsPanel = () => {
@@ -113,7 +113,7 @@ const PowerGridMetricsPanel = () => {
             Data unavailable
           </div>
         ) : (
-          <div className="minerals-grid">
+          <div className="minerals-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
             {METRICS_ORDER.map(name => {
               const d = formattedData[name];
               if (!d) return null;
@@ -143,7 +143,7 @@ const PowerGridMetricsPanel = () => {
                           <Line
                             type="monotone"
                             dataKey="value"
-                            stroke={isPos ? color : '#EF4444'}
+                            stroke={isPos ? '#22C55E' : '#EF4444'}
                             strokeWidth={1.2}
                             dot={false}
                           />
