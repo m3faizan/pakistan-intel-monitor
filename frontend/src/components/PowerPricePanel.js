@@ -133,11 +133,11 @@ const PowerPricePanel = () => {
       });
   }
 
-  const reqPPP = formattedData['Requested PPP'];
-  const allPPP = formattedData['Allowed PPP'];
-  const reqDelta = formattedData['Requested Delta'];
-  const allDelta = formattedData['Allowed Delta'];
-  const netDelivered = formattedData['Net Delivered'];
+  const reqPPP = formattedData ? formattedData['Requested PPP'] : null;
+  const allPPP = formattedData ? formattedData['Allowed PPP'] : null;
+  const reqDelta = formattedData ? formattedData['Requested Delta'] : null;
+  const allDelta = formattedData ? formattedData['Allowed Delta'] : null;
+  const netDelivered = formattedData ? formattedData['Net Delivered'] : null;
 
   return (
     <div className="panel" data-testid="power-price-panel" style={{ gridColumn: 'span 2' }}>

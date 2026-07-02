@@ -21,10 +21,10 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
 
   // If metric is PPP_SUMMARY, we render a combined chart of Reference, Requested, Allowed
   const isCombined = metric === 'PPP_SUMMARY';
-  const targetData = isCombined ? data['Allowed PPP'] : data[metric];
+  const targetData = (data && metric) ? (isCombined ? data['Allowed PPP'] : data[metric]) : null;
 
   const filteredData = useMemo(() => {
-    if (!targetData?.history) return [];
+    if (!targetData?.history || !data) return [];
     
     // Base timeline filtering off the targetData (or Allowed PPP if combined)
     const history = [...targetData.history].sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -82,7 +82,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
     return ((latest.value - best.value) / Math.abs(best.value)) * 100;
   }, [targetData, isCombined]);
 
-  if (!isOpen || !data) return null;
+  if (!isOpen || !data || !targetData) return null;
 
   const latest   = targetData.latest;
   const momPct   = targetData.mom_change_pct;
