@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { X, TrendingUp, TrendingDown, Calendar, Coins } from 'lucide-react';
 import {
   AreaChart, Area, BarChart, Bar, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend, LineChart, Line
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend, LineChart, Line, ComposedChart
 } from 'recharts';
 
 const TIME_RANGES = [
@@ -233,7 +233,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
         <div className="chart-container">
           <ResponsiveContainer width="100%" height={300}>
             {isCombined ? (
-                <LineChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                     <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
                     <YAxis tickFormatter={v => v.toFixed(1)} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={45} />
@@ -243,10 +243,10 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                       formatter={renderLegendText} 
                       wrapperStyle={{ fontSize: '11px', paddingTop: '10px', cursor: 'pointer' }} 
                     />
-                    <Line type="monotone" dataKey="Reference PPP" stroke={hiddenSeries.includes("Reference PPP") ? "#334155" : "#38bdf8"} strokeWidth={2} dot={hiddenSeries.includes("Reference PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Reference PPP")} />
-                    <Line type="monotone" dataKey="Requested PPP" stroke={hiddenSeries.includes("Requested PPP") ? "#334155" : "#f59e0b"} strokeWidth={2} dot={hiddenSeries.includes("Requested PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Requested PPP")} />
-                    <Line type="monotone" dataKey="Allowed PPP" stroke={hiddenSeries.includes("Allowed PPP") ? "#334155" : "#22c55e"} strokeWidth={3} dot={hiddenSeries.includes("Allowed PPP") ? false : { r: 4 }} hide={hiddenSeries.includes("Allowed PPP")} />
-                </LineChart>
+                    <Bar dataKey="Requested PPP" fill="#f59e0b" radius={[2, 2, 0, 0]} barSize={20} hide={hiddenSeries.includes("Requested PPP")} />
+                    <Bar dataKey="Allowed PPP" fill="#22c55e" radius={[2, 2, 0, 0]} barSize={20} hide={hiddenSeries.includes("Allowed PPP")} />
+                    <Line type="monotone" dataKey="Reference PPP" stroke="#38bdf8" strokeWidth={2} dot={hiddenSeries.includes("Reference PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Reference PPP")} />
+                </ComposedChart>
             ) : showPctChange ? (
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
