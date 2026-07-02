@@ -107,7 +107,7 @@ const PowerGridMetricsPanel = () => {
         <div className="panel-badge">NEPRA / NTDC</div>
       </div>
 
-      <div className="panel-content">
+      <div className="panel-content" style={{ overflowY: 'hidden' }}>
         {!formattedData || Object.keys(formattedData).length === 0 ? (
           <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable

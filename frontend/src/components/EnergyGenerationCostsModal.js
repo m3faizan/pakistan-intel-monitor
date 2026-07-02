@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { X, TrendingUp, TrendingDown, Calendar, Coins } from 'lucide-react';
 import {
   AreaChart, Area, BarChart, Bar, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend, LineChart, Line, ComposedChart
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend, Line, ComposedChart
 } from 'recharts';
 
 const TIME_RANGES = [
@@ -95,7 +95,19 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
   const fmt = (v) => {
     if (v === null || v === undefined) return '--';
     const n = Number(v);
+    if (unit === 'Mln PKR') {
+        if (n >= 1000) return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        return n.toFixed(0);
+    }
     return n.toFixed(2);
+  };
+  
+  const yAxisFmt = (v) => {
+    if (unit === 'Mln PKR') {
+        if (v >= 1000) return `${(v / 1000).toFixed(1)}k`;
+        return v.toFixed(0);
+    }
+    return v.toFixed(1);
   };
   
   const fmtDate     = (d) => !d ? '' : new Date(d).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
@@ -236,7 +248,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                 <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                     <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                    <YAxis tickFormatter={v => v.toFixed(1)} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={45} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={45} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend 
                       onClick={toggleSeries} 
@@ -270,7 +282,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => v.toFixed(0)} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={40} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={40} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="value" stroke={chartColor} strokeWidth={2} fillOpacity={1} fill={`url(#powerCostGrad-${metric})`} />
               </AreaChart>

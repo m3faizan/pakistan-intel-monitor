@@ -39,6 +39,7 @@ else:
     print("[DB] No MONGO_URL set — using in-memory mongomock (data will not persist between restarts)")
 
 from energy_costs_mock_data import ENERGY_COSTS_DATA
+from energy_costs_mln_pkr_mock_data import ENERGY_COSTS_MLN_PKR_DATA
 from power_grid_mock_data import POWER_GRID_DATA
 
 db = client[DB_NAME]
@@ -749,6 +750,10 @@ REGIONAL_RELATIONSHIP_INTEL = {
         "sources": [
             {"title": "EU Trade Policy: Pakistan", "url": "https://policy.trade.ec.europa.eu/eu-trade-relationships-country-and-region/countries-and-regions/pakistan_en"}
         ]
+@app.get("/api/energy-generation-costs-mln-pkr")
+async def get_energy_generation_costs_mln_pkr():
+    return {"data": ENERGY_COSTS_MLN_PKR_DATA}
+
     },
     "france": {
         "status": "EU TRADE",
