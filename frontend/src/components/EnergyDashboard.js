@@ -7,6 +7,7 @@ import PowerGenerationPanel from './PowerGenerationPanel';
 import PowerGenerationDistributionPanel from './PowerGenDistributionPanel';
 import EnergyPaymentsPanel from './EnergyPaymentsPanel';
 import PowerGridMetricsPanel from './PowerGridMetricsPanel';
+import EnergyGenerationCostsPanel from './EnergyGenerationCostsPanel';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -70,6 +71,7 @@ const EnergyDashboard = () => {
       <div className="energy-bottom-row">
         <PowerGenerationDistributionPanel />
         <PowerGenerationPanel />
+        <EnergyGenerationCostsPanel />
         <PowerGridMetricsPanel />
         <EnergyPaymentsPanel />
       </div>

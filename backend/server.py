@@ -38,6 +38,7 @@ else:
     client = mongomock.MongoClient()
     print("[DB] No MONGO_URL set — using in-memory mongomock (data will not persist between restarts)")
 
+from energy_costs_mock_data import ENERGY_COSTS_DATA
 from power_grid_mock_data import POWER_GRID_DATA
 
 db = client[DB_NAME]
@@ -7079,6 +7080,10 @@ async def get_lng_import_payments():
 @app.get("/api/power-grid-metrics")
 async def get_power_grid_metrics():
     return {"data": POWER_GRID_DATA}
+
+@app.get("/api/energy-generation-costs")
+async def get_energy_generation_costs():
+    return {"data": ENERGY_COSTS_DATA}
 
 _fastapi_app = app
 app = socketio.ASGIApp(sio, other_asgi_app=_fastapi_app, socketio_path="/api/ws/socket.io")
