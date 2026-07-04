@@ -148,7 +148,7 @@ const EnergyGenerationCostProfilePanel = () => {
           </button>
         </div>
 
-        <div className="panel-badge">NEPRA</div>
+        <div className="panel-badge">PakESDA</div>
       </div>
 
       <div className="panel-content">

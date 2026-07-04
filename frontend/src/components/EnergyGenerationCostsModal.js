@@ -256,7 +256,14 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                       wrapperStyle={{ fontSize: '11px', paddingTop: '10px', cursor: 'pointer' }} 
                     />
                     <Bar dataKey="Requested PPP" fill="#f59e0b" radius={[2, 2, 0, 0]} barSize={20} hide={hiddenSeries.includes("Requested PPP")} />
-                    <Bar dataKey="Allowed PPP" fill="#22c55e" radius={[2, 2, 0, 0]} barSize={20} hide={hiddenSeries.includes("Allowed PPP")} />
+                    <Bar dataKey="Allowed PPP" radius={[2, 2, 0, 0]} barSize={20} hide={hiddenSeries.includes("Allowed PPP")}>
+                      {filteredData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry["Allowed PPP"] <= entry["Requested PPP"] ? '#22C55E' : '#EF4444'} 
+                        />
+                      ))}
+                    </Bar>
                     <Line type="monotone" dataKey="Reference PPP" stroke="#38bdf8" strokeWidth={2} dot={hiddenSeries.includes("Reference PPP") ? false : { r: 3 }} hide={hiddenSeries.includes("Reference PPP")} />
                 </ComposedChart>
             ) : showPctChange ? (
@@ -291,7 +298,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
         </div>
 
         <div className="modal-footer">
-          <span className="data-source">Source: NEPRA</span>
+          <span className="data-source">Source: PakESDA</span>
           <span className="data-updated">
             Last updated: {latest?.date ? new Date(latest.date).toLocaleDateString() : 'N/A'}
           </span>

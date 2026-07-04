@@ -146,7 +146,7 @@ const PowerPricePanel = () => {
           <Coins size={16} />
           Power Price
         </div>
-        <div className="panel-badge">NEPRA</div>
+        <div className="panel-badge">PakESDA</div>
       </div>
 
       <div className="panel-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
