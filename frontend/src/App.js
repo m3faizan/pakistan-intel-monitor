@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { RefreshCw, Clock, MapPin, Wifi, WifiOff, Sun, Moon, Twitter, Linkedin, Facebook } from 'lucide-react';
+import { RefreshCw, Clock, MapPin, Wifi, WifiOff, Sun, Moon, Twitter, Linkedin, Facebook, Youtube, Mail } from 'lucide-react';
 import axios from 'axios';
 import useSocket from './hooks/useSocket';
 import NewsPanel from './components/NewsPanel';
@@ -321,14 +321,16 @@ function App() {
         color: 'var(--color-muted)'
       }} data-testid="footer">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span>PakESDA Intelligence Monitor v1.0.0</span>
+            <span>PakESDA - Pakistan Energy Systems Data Aggregator</span>
             <a href="https://pakistanenergydata.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none' }}>
                PakistanEnergyData.com
             </a>
             <div style={{ display: 'flex', gap: '0.75rem', marginLeft: '0.5rem' }}>
-               <a href="https://twitter.com/pakenergydata" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Twitter size={14} /></a>
-               <a href="https://www.linkedin.com/company/pakesda/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Linkedin size={14} /></a>
-               <a href="https://www.facebook.com/pakistanenergydata" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Facebook size={14} /></a>
+               <a href="https://x.com/PakESDA" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Twitter size={14} /></a>
+               <a href="https://www.facebook.com/people/Pakistan-Energy-Systems-Data-Aggregator/61573418326285/#" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Facebook size={14} /></a>
+               <a href="https://www.youtube.com/@PakESDA" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Youtube size={14} /></a>
+               <a href="https://www.linkedin.com/company/pakesda" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Linkedin size={14} /></a>
+               <a href="mailto:pakenergydata@gmail.com" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Mail size={14} /></a>
             </div>
         </div>
         {lastUpdate && (
