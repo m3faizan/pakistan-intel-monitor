@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Coins, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react';
 import axios from 'axios';
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, Area, ResponsiveContainer } from 'recharts';
 import EnergyGenerationCostsModal from './EnergyGenerationCostsModal';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
@@ -184,6 +184,12 @@ const EnergyGenerationCostProfilePanel = () => {
                     <div style={{ height: 28, margin: '4px 0 2px' }}>
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={spark}>
+                          <defs>
+                            <linearGradient id={`grad-profile-${name}`} x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0.3} />
+                              <stop offset="95%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0} />
+                            </linearGradient>
+                          </defs>
                           <Line
                             type="monotone"
                             dataKey="value"
@@ -191,6 +197,7 @@ const EnergyGenerationCostProfilePanel = () => {
                             strokeWidth={1.2}
                             dot={false}
                           />
+                          <Area type="monotone" dataKey="value" stroke="none" fill={`url(#grad-profile-${name})`} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>

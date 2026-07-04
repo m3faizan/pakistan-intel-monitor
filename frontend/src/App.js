@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { RefreshCw, Clock, MapPin, Wifi, WifiOff, Sun, Moon } from 'lucide-react';
+import { RefreshCw, Clock, MapPin, Wifi, WifiOff, Sun, Moon, Twitter, Linkedin, Facebook } from 'lucide-react';
 import axios from 'axios';
 import useSocket from './hooks/useSocket';
 import NewsPanel from './components/NewsPanel';
@@ -160,7 +160,7 @@ function App() {
       <header className="header" data-testid="header">
         <div className="header-left">
           <div className="header-logo">
-            <img src="https://customer-assets.emergentagent.com/job_intel-tracker-13/artifacts/8ekxxykb_image.png" alt="PakESDA Logo" style={{ width: 32, height: 32, objectFit: 'contain' }} />
+            <img src="https://customer-assets.emergentagent.com/job_intel-tracker-13/artifacts/8ekxxykb_image.png" alt="PakESDA Logo" style={{ width: 32, height: 32, objectFit: 'contain', background: 'var(--color-surface)', borderRadius: '50%', padding: '2px' }} />
             <h1 className="header-title">
               <span>PakESDA</span> Intelligence Monitor
             </h1>
@@ -325,6 +325,11 @@ function App() {
             <a href="https://pakistanenergydata.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none' }}>
                PakistanEnergyData.com
             </a>
+            <div style={{ display: 'flex', gap: '0.75rem', marginLeft: '0.5rem' }}>
+               <a href="https://twitter.com/pakenergydata" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Twitter size={14} /></a>
+               <a href="https://www.linkedin.com/company/pakesda/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Linkedin size={14} /></a>
+               <a href="https://www.facebook.com/pakistanenergydata" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-muted)', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='var(--color-primary)'} onMouseLeave={e=>e.currentTarget.style.color='var(--color-muted)'}><Facebook size={14} /></a>
+            </div>
         </div>
         {lastUpdate && (
           <span>Last updated: {formatTime(lastUpdate)}</span>
