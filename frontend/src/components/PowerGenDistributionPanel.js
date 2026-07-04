@@ -24,7 +24,7 @@ const SOURCE_COLORS = {
   Solar:   '#FDE68A',
   Bagasse: '#10B981',
   Iran:    '#64748B',
-  Mixed:   '#475569',
+  Mixed:   'var(--color-text-muted)',
 };
 
 const SOURCE_DESC = {
@@ -138,7 +138,7 @@ const PowerGenDistributionPanel = () => {
         {loading ? (
           <div className="loading"><div className="spinner"></div></div>
         ) : !allData || keys.length === 0 ? (
-          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -168,7 +168,7 @@ const PowerGenDistributionPanel = () => {
                     <span style={{ color }}>
                       {name}
                     </span>
-                    <span style={{ color: '#64748b', fontSize: '0.58rem', marginLeft: '0.4rem', textTransform: 'none', letterSpacing: 0, fontFamily: 'var(--font-body)' }}>All sources combined</span>
+                    <span style={{ color: 'var(--color-muted)', fontSize: '0.58rem', marginLeft: '0.4rem', textTransform: 'none', letterSpacing: 0, fontFamily: 'var(--font-body)' }}>All sources combined</span>
                     <ExternalLink size={10} style={{ opacity: 0.4, marginLeft: 'auto' }} />
                   </div>
 
@@ -183,21 +183,21 @@ const PowerGenDistributionPanel = () => {
                     <div className={`pgd-card-change ${isMomPos ? 'positive' : isMomNeg ? 'negative' : ''}`}>
                       {isMomPos && <TrendingUp size={13} />}
                       {isMomNeg && <TrendingDown size={13} />}
-                      {isMomZero && <span style={{ color: '#64748b' }}>= </span>}
-                      <span style={isMomZero ? { color: '#64748b' } : {}}>
+                      {isMomZero && <span style={{ color: 'var(--color-muted)' }}>= </span>}
+                      <span style={isMomZero ? { color: 'var(--color-muted)' } : {}}>
                         {pct !== null && pct !== undefined ? `${isMomPos ? '+' : ''}${pct.toFixed(2)}%` : '—'}
                       </span>
-                      <span style={{ color: '#475569', fontSize: '0.62rem', marginLeft: 3 }}>MoM</span>
+                      <span style={{ color: 'var(--color-text-muted)', fontSize: '0.62rem', marginLeft: 3 }}>MoM</span>
                     </div>
                     {yoy !== null && yoy !== undefined && (
                       <div className={`pgd-card-change ${isYoyPos ? 'positive' : isYoyNeg ? 'negative' : ''}`}>
                         {isYoyPos && <TrendingUp size={13} />}
                         {isYoyNeg && <TrendingDown size={13} />}
-                        {isYoyZero && <span style={{ color: '#64748b' }}>= </span>}
-                        <span style={isYoyZero ? { color: '#64748b' } : {}}>
+                        {isYoyZero && <span style={{ color: 'var(--color-muted)' }}>= </span>}
+                        <span style={isYoyZero ? { color: 'var(--color-muted)' } : {}}>
                           {`${isYoyPos ? '+' : ''}${yoy.toFixed(2)}%`}
                         </span>
-                        <span style={{ color: '#475569', fontSize: '0.62rem', marginLeft: 3 }}>YoY</span>
+                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.62rem', marginLeft: 3 }}>YoY</span>
                       </div>
                     )}
                   </div>
@@ -206,7 +206,7 @@ const PowerGenDistributionPanel = () => {
                   <div className="pgd-card-period" style={{ marginTop: '0.3rem', fontSize: '0.7rem' }}>{fmtDate(date)}</div>
 
                   {/* Click hint */}
-                  <div style={{ marginTop: '0.6rem', fontSize: '0.6rem', color: '#334155', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                  <div style={{ marginTop: '0.6rem', fontSize: '0.6rem', color: 'var(--color-border)', fontFamily: 'var(--font-heading)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                     Click to view full mix chart →
                   </div>
                 </div>
@@ -255,13 +255,13 @@ const PowerGenDistributionPanel = () => {
                       <div className={`pgd-card-change ${iPos ? 'positive' : iNeg ? 'negative' : ''}`}>
                         {iPos && <TrendingUp size={11} />}
                         {iNeg && <TrendingDown size={11} />}
-                        {iZero && <span style={{ color: '#64748b' }}>= </span>}
-                        <span style={iZero ? { color: '#64748b' } : {}}>
+                        {iZero && <span style={{ color: 'var(--color-muted)' }}>= </span>}
+                        <span style={iZero ? { color: 'var(--color-muted)' } : {}}>
                           {m.mom !== null && m.mom !== undefined
                             ? `${iPos ? '+' : ''}${m.mom.toFixed(2)}%`
                             : '—'}
                         </span>
-                        <span style={{ color: '#475569', fontSize: '0.6rem', marginLeft: 3 }}>MoM</span>
+                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.6rem', marginLeft: 3 }}>MoM</span>
                       </div>
                       <div className="pgd-card-period">{fmtDate(m.date)}</div>
                       <div className="pgd-card-desc">{m.desc}</div>

@@ -44,11 +44,11 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
       if (subType?.includes('Fog') && subType?.includes('0 to 50')) return '#EF4444'; // Severe fog
       if (subType?.includes('Fog')) return '#F59E0B'; // Moderate fog
       if (subType?.includes('Rain') || subType?.includes('Snow')) return '#3B82F6';
-      return '#64748b';
+      return 'var(--color-muted)';
     }
     if (type === 'Road Maintenance' || type === 'Construction') return '#F59E0B';
     if (type === 'Accident') return '#EF4444';
-    return '#64748b';
+    return 'var(--color-muted)';
   };
 
   const formatTime = (dateStr) => {

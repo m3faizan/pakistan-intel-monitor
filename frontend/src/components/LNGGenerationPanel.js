@@ -55,7 +55,7 @@ const GenModal = ({ title, genData, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">{genData.latest.rlng?.toLocaleString()} GWh</div>
               <div className="summary-period"><Calendar size={14} /> {fmtMonth(genData.latest.date)}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>
+              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
                 {genData.latest.share}% of total mix
               </div>
             </div>
@@ -91,9 +91,9 @@ const GenModal = ({ title, genData, onClose }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPct ? (
               <ComposedChart data={pctData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" fontSize={10} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={56} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     <p style={{ color: payload[0]?.value >= 0 ? '#22C55E' : '#EF4444', fontSize: '0.8rem' }}>MoM: {payload[0]?.value >= 0 ? '+' : ''}{payload[0]?.value?.toFixed(2)}%</p>
@@ -105,8 +105,8 @@ const GenModal = ({ title, genData, onClose }) => {
             ) : (
               <AreaChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={10} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis stroke='var(--color-muted)' fontSize={10} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     {payload.filter(p => p.value != null).map((p, i) => <div key={i} style={{ color: p.color || p.stroke, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: {p.value?.toLocaleString()} GWh</div>)}
@@ -116,7 +116,7 @@ const GenModal = ({ title, genData, onClose }) => {
             )}
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: GWh</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: 'var(--color-text-muted)' }}>Unit: GWh</span></div>
       </div>
     </div>
   );
@@ -146,7 +146,7 @@ const PaymentModal = ({ pmtData, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">${(pmtData.latest.value / 1000).toFixed(1)}M</div>
               <div className="summary-period"><Calendar size={14} /> {pmtData.latest.month}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>Million USD</div>
+              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>Million USD</div>
             </div>
             {pmtData.mom_change_pct !== null && (
               <div className="summary-changes">
@@ -174,9 +174,9 @@ const PaymentModal = ({ pmtData, onClose }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPct ? (
               <ComposedChart data={pctData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" fontSize={10} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={56} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     <p style={{ color: payload[0]?.value >= 0 ? '#22C55E' : '#EF4444', fontSize: '0.8rem' }}>MoM: {payload[0]?.value >= 0 ? '+' : ''}{payload[0]?.value?.toFixed(2)}%</p>
@@ -188,8 +188,8 @@ const PaymentModal = ({ pmtData, onClose }) => {
             ) : (
               <AreaChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={10} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis stroke='var(--color-muted)' fontSize={10} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     {payload.filter(p => p.value != null).map((p, i) => <div key={i} style={{ color: p.color || p.stroke, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: ${(p.value / 1000).toFixed(1)}M</div>)}
@@ -199,7 +199,7 @@ const PaymentModal = ({ pmtData, onClose }) => {
             )}
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: Million USD</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: 'var(--color-text-muted)' }}>Unit: Million USD</span></div>
       </div>
     </div>
   );

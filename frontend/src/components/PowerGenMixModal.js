@@ -19,7 +19,7 @@ const SOURCE_COLORS = {
   Solar:   '#FDE68A',
   Bagasse: '#10B981',
   Iran:    '#64748B',
-  Mixed:   '#475569',
+  Mixed:   'var(--color-text-muted)',
 };
 
 const TIME_RANGES = [
@@ -150,7 +150,7 @@ const PowerGenMixModal = ({ isOpen, onClose, allData }) => {
     return (
       <div
         className={`summary-change ${isZero ? '' : isPos ? 'positive' : 'negative'}`}
-        style={isZero ? { color: '#64748b' } : {}}
+        style={isZero ? { color: 'var(--color-muted)' } : {}}
       >
         {isZero ? '=' : isPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
         <span>{isPos && !isZero ? '+' : ''}{val.toFixed(2)}%</span>
@@ -178,7 +178,7 @@ const PowerGenMixModal = ({ isOpen, onClose, allData }) => {
           <div className="summary-main">
             <div className="summary-value">
               {fmtFull(totalLatest?.value)}
-              <span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>GWh</span>
+              <span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 8 }}>GWh</span>
             </div>
             <div className="summary-period">
               <Calendar size={14} />
@@ -234,9 +234,9 @@ const PowerGenMixModal = ({ isOpen, onClose, allData }) => {
           <ResponsiveContainer width="100%" height={310}>
             {showPct ? (
               <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={56} />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="pct_change" radius={[2, 2, 0, 0]} maxBarSize={28}>
                   {chartData.map((entry, i) => (
@@ -246,9 +246,9 @@ const PowerGenMixModal = ({ isOpen, onClose, allData }) => {
               </ComposedChart>
             ) : (
               <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={42} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={42} />
                 <Tooltip content={<CustomTooltip />} />
                 {available.map(src => (
                   <Bar key={src} dataKey={src} stackId="mix" fill={SOURCE_COLORS[src] || '#94A3B8'} hide={visible[src] === false} maxBarSize={32} />

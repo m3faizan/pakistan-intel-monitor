@@ -119,7 +119,7 @@ const LNGImportPctModal = ({ sbpPayments, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">{latest.pct?.toFixed(2)}%</div>
               <div className="summary-period"><Calendar size={14} /> {fmtMonth(latest.date)}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>of total Pakistan imports</div>
+              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>of total Pakistan imports</div>
             </div>
             {sbpPayments?.mom_change_pct != null && (
               <div className="summary-changes">
@@ -168,8 +168,8 @@ const LNGImportPctModal = ({ sbpPayments, onClose }) => {
             {viewMode === 'pct' ? (
               <AreaChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis tickFormatter={v => `${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={48} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis tickFormatter={v => `${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={48} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip">
                     <p className="tooltip-date">{fmtMonth(label)}</p>
@@ -184,8 +184,8 @@ const LNGImportPctModal = ({ sbpPayments, onClose }) => {
             ) : (
               <ComposedChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${(v/1e6).toFixed(0)}B`} width={50} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis stroke='var(--color-muted)' fontSize={10} tickFormatter={v => `$${(v/1e6).toFixed(0)}B`} width={50} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip">
                     <p className="tooltip-date">{fmtMonth(label)}</p>
@@ -206,7 +206,7 @@ const LNGImportPctModal = ({ sbpPayments, onClose }) => {
           </ResponsiveContainer>
         </div>
 
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: {viewMode === 'pct' ? '%' : 'Thousand USD'}</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: 'var(--color-text-muted)' }}>Unit: {viewMode === 'pct' ? '%' : 'Thousand USD'}</span></div>
       </div>
     </div>
   );
@@ -239,7 +239,7 @@ const SbpPaymentModal = ({ sbpPayments, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">${(latest.value / 1000).toFixed(1)}M</div>
               <div className="summary-period"><Calendar size={14} /> {latest.month}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>Million USD</div>
+              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>Million USD</div>
             </div>
             {sbpPayments.mom_change_pct != null && (
               <div className="summary-changes">
@@ -268,9 +268,9 @@ const SbpPaymentModal = ({ sbpPayments, onClose }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPct ? (
               <ComposedChart data={pctData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={56} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     <p style={{ color: payload[0]?.value >= 0 ? '#22C55E' : '#EF4444', fontSize: '0.8rem' }}>MoM: {payload[0]?.value >= 0 ? '+' : ''}{payload[0]?.value?.toFixed(2)}%</p>
@@ -282,8 +282,8 @@ const SbpPaymentModal = ({ sbpPayments, onClose }) => {
             ) : (
               <AreaChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${(v/1000).toFixed(0)}M`} width={56} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis stroke='var(--color-muted)' fontSize={10} tickFormatter={v => `$${(v/1000).toFixed(0)}M`} width={56} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     {payload.filter(p => p.value != null).map((p, i) => <div key={i} style={{ color: p.stroke, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: ${(p.value / 1000).toFixed(1)}M</div>)}
@@ -293,7 +293,7 @@ const SbpPaymentModal = ({ sbpPayments, onClose }) => {
             )}
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: Million USD</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: 'var(--color-text-muted)' }}>Unit: Million USD</span></div>
       </div>
     </div>
   );
@@ -334,7 +334,7 @@ const SbpGenModal = ({ sbpGen, onClose }) => {
             <div className="summary-main">
               <div className="summary-value">{sbpGen.latest.rlng?.toLocaleString()} GWh</div>
               <div className="summary-period"><Calendar size={14} /> {fmtMonth(sbpGen.latest.date)}</div>
-              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>{sbpGen.latest.share}% of total mix</div>
+              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>{sbpGen.latest.share}% of total mix</div>
             </div>
             {sbpGen.mom_rlng != null && (
               <div className="summary-changes">
@@ -366,9 +366,9 @@ const SbpGenModal = ({ sbpGen, onClose }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPct ? (
               <ComposedChart data={pctData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={56} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     <p style={{ color: payload[0]?.value >= 0 ? '#22C55E' : '#EF4444', fontSize: '0.8rem' }}>MoM: {payload[0]?.value >= 0 ? '+' : ''}{payload[0]?.value?.toFixed(2)}%</p>
@@ -380,8 +380,8 @@ const SbpGenModal = ({ sbpGen, onClose }) => {
             ) : (
               <AreaChart data={filtered}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke="#64748b" fontSize={10} />
-                <YAxis stroke="#64748b" fontSize={10} />
+                <XAxis dataKey="date" tickFormatter={fmtDateShort} stroke='var(--color-muted)' fontSize={10} />
+                <YAxis stroke='var(--color-muted)' fontSize={10} />
                 <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                   <div className="remittances-tooltip"><p className="tooltip-date">{fmtMonth(label)}</p>
                     {payload.filter(p => p.value != null).map((p, i) => <div key={i} style={{ color: p.color || p.stroke, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: {p.value?.toLocaleString()} GWh</div>)}
@@ -392,7 +392,7 @@ const SbpGenModal = ({ sbpGen, onClose }) => {
             )}
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: '#94a3b8' }}>Unit: GWh</span></div>
+        <div className="modal-footer"><span>Source: State Bank of Pakistan</span><span style={{ color: 'var(--color-text-muted)' }}>Unit: GWh</span></div>
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ const AirTrafficPanel = ({ data, loading }) => {
     if (total >= 40) return { status: 'High Traffic', color: '#22C55E', icon: CheckCircle };
     if (total >= 20) return { status: 'Normal', color: '#22C55E', icon: CheckCircle };
     if (total >= 5) return { status: 'Low Traffic', color: '#F59E0B', icon: AlertCircle };
-    return { status: 'Minimal', color: '#64748b', icon: XCircle };
+    return { status: 'Minimal', color: 'var(--color-muted)', icon: XCircle };
   };
 
   const totalFlights = Object.values(airports).reduce((sum, a) => sum + a.departures + a.arrivals, 0);

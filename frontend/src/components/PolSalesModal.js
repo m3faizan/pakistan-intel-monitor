@@ -118,7 +118,7 @@ const PolSalesModal = ({ isOpen, onClose, data, title }) => {
               <Calendar size={14} />
               {latest?.month || 'N/A'}
             </div>
-            <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>
+            <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
               Metric Ton
             </div>
           </div>
@@ -190,9 +190,9 @@ const PolSalesModal = ({ isOpen, onClose, data, title }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPct ? (
               <ComposedChart data={pctData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={56} />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="pct_change" radius={[2, 2, 0, 0]} maxBarSize={28}>
                   {pctData.map((entry, i) => (
@@ -202,9 +202,9 @@ const PolSalesModal = ({ isOpen, onClose, data, title }) => {
               </ComposedChart>
             ) : (
               <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={val => val >= 1000000 ? `${(val / 1000000).toFixed(1)}M` : val >= 1000 ? `${(val / 1000).toFixed(0)}K` : val} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} width={52} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={val => val >= 1000000 ? `${(val / 1000000).toFixed(1)}M` : val >= 1000 ? `${(val / 1000).toFixed(0)}K` : val} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} width={52} />
                 <Tooltip content={<CustomTooltip />} />
                 {categories.map((series, idx) => (
                   <Bar key={series.key} dataKey={series.key} name={series.label} stackId="a" fill={COLORS[idx % COLORS.length]} hide={visibleSeries[series.key] === false} />
@@ -219,7 +219,7 @@ const PolSalesModal = ({ isOpen, onClose, data, title }) => {
         <div className="modal-footer" data-testid="pol-sales-modal-footer">
           <span className="data-source">Source: {data?.source || 'State Bank of Pakistan / PBS'}</span>
           <span className="data-updated">
-            <span style={{ marginRight: '0.8rem', color: '#94a3b8' }}>Unit: Metric Ton</span>
+            <span style={{ marginRight: '0.8rem', color: 'var(--color-text-muted)' }}>Unit: Metric Ton</span>
             Last updated: {new Date(data?.updated || Date.now()).toLocaleDateString()}
           </span>
         </div>

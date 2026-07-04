@@ -337,14 +337,14 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
             {isBreakdownSeries && showBreakdown ? (
               // Stacked bar chart with line for total
               <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
@@ -355,10 +355,10 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
                     }
                     return `$${(val / 1000).toFixed(0)}B`;
                   }}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   domain={[0, 'auto']}
                   width={50}
                 />
@@ -387,7 +387,7 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
                 />
                 <Legend 
                   wrapperStyle={{ paddingTop: '10px' }}
-                  formatter={(value) => <span style={{ color: '#94a3b8', fontSize: '0.75rem' }}>{value}</span>}
+                  formatter={(value) => <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem' }}>{value}</span>}
                 />
                 <Bar dataKey={breakdownKeys.primary} name={breakdownLabels.primary} stackId="a" fill="#22C55E" radius={[0, 0, 0, 0]} />
                 <Bar dataKey={breakdownKeys.secondary} name={breakdownLabels.secondary} stackId="a" fill="#6366f1" radius={[4, 4, 0, 0]} />
@@ -403,14 +403,14 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
             ) : isCurrentAccount ? (
               // Bar chart for Current Account Balance
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
@@ -419,14 +419,14 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
                     const prefix = val >= 0 ? '' : '-';
                     return `${prefix}$${Math.abs(val/1000).toFixed(1)}B`;
                   }}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   domain={[minValue * 1.1, maxValue * 1.1]}
                   width={60}
                 />
-                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="value" radius={[2, 2, 0, 0]}>
                   {filteredData.map((entry, index) => (
@@ -441,27 +441,27 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
             ) : showPctChange ? (
               // % Change Bar Chart
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
                 <YAxis 
                   tickFormatter={(val) => `${val >= 0 ? '+' : ''}${val.toFixed(1)}%`}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   domain={['auto', 'auto']}
                   width={50}
                 />
-                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
                 <Tooltip 
                   content={({ active, payload, label }) => {
                     if (active && payload && payload.length) {
@@ -501,14 +501,14 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
                     <stop offset="95%" stopColor="#22C55E" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
@@ -525,10 +525,10 @@ const SBPDataModal = ({ isOpen, onClose, data, title, icon: Icon = DollarSign, i
                     }
                     return `$${(val / 1000).toFixed(1)}B`;
                   }}
-                  stroke="#64748b"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#1e293b' }}
-                  tickLine={{ stroke: '#1e293b' }}
+                  stroke='var(--color-muted)'
+                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
+                  axisLine={{ stroke: 'var(--color-border)' }}
+                  tickLine={{ stroke: 'var(--color-border)' }}
                   domain={(isPkrUsd || isFDI) ? ['auto', 'auto'] : [0, 'auto']}
                   width={60}
                 />

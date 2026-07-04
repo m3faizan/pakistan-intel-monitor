@@ -114,7 +114,7 @@ const EnergyNewsPanel = () => {
         {loading ? (
           <div className="loading"><div className="spinner"></div></div>
         ) : filtered.length === 0 ? (
-          <div style={{ color: '#475569', fontSize: '0.75rem', padding: '1rem', textAlign: 'center' }}>
+          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', padding: '1rem', textAlign: 'center' }}>
             No energy news available
           </div>
         ) : (

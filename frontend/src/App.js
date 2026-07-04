@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Globe, RefreshCw, Clock, MapPin, Wifi, WifiOff } from 'lucide-react';
+import { RefreshCw, Clock, MapPin, Wifi, WifiOff, Sun, Moon } from 'lucide-react';
 import axios from 'axios';
 import useSocket from './hooks/useSocket';
 import NewsPanel from './components/NewsPanel';
@@ -39,6 +39,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   // Real-time WebSocket connection
   const { isConnected, clientCount, on, off } = useSocket();
@@ -153,9 +160,9 @@ function App() {
       <header className="header" data-testid="header">
         <div className="header-left">
           <div className="header-logo">
-            <Globe size={28} />
+            <img src="https://customer-assets.emergentagent.com/job_intel-tracker-13/artifacts/8ekxxykb_image.png" alt="PakESDA Logo" style={{ width: 32, height: 32, objectFit: 'contain' }} />
             <h1 className="header-title">
-              <span>Pakistan</span> Intelligence Monitor
+              <span>PakESDA</span> Intelligence Monitor
             </h1>
           </div>
           <div className="header-status">
@@ -175,6 +182,13 @@ function App() {
           </div>
         </div>
         <div className="header-right">
+          <button onClick={toggleTheme} className="theme-toggle" style={{ 
+            background: 'transparent', border: '1px solid var(--color-border)', 
+            color: 'var(--color-text)', borderRadius: '4px', padding: '0.4rem', 
+            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '0.75rem' 
+          }}>
+            {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
           <div className="header-time" data-testid="header-time">
             <MapPin size={14} style={{ marginRight: '0.25rem', display: 'inline' }} />
             <span style={{ fontWeight: '600', color: 'var(--color-primary)' }}>Pakistan</span>
@@ -297,7 +311,7 @@ function App() {
 
       {/* Footer */}
       <footer style={{ 
-        padding: '0.5rem 1rem', 
+        padding: '0.75rem 1rem', 
         background: 'var(--color-surface)',
         borderTop: '1px solid var(--color-border)',
         display: 'flex',
@@ -306,7 +320,12 @@ function App() {
         fontSize: '0.75rem',
         color: 'var(--color-muted)'
       }} data-testid="footer">
-        <span>Pakistan Intelligence Monitor v1.0.0</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span>PakESDA Intelligence Monitor v1.0.0</span>
+            <a href="https://pakistanenergydata.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none' }}>
+               PakistanEnergyData.com
+            </a>
+        </div>
         {lastUpdate && (
           <span>Last updated: {formatTime(lastUpdate)}</span>
         )}
