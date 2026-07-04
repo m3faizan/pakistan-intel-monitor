@@ -160,7 +160,7 @@ const PowerPricePanel = () => {
             {/* Card 1: Net Delivered */}
             <div 
               style={{ 
-                  background: 'rgba(34, 197, 94, 0.08)', 
+                  background: 'var(--color-card-bg)', 
                   padding: '0.75rem', 
                   borderRadius: '6px', 
                   border: '1px solid rgba(34, 197, 94, 0.25)',
@@ -170,8 +170,8 @@ const PowerPricePanel = () => {
                   cursor: 'pointer',
                   transition: 'background 0.2s'
               }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(34, 197, 94, 0.15)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(34, 197, 94, 0.08)'}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--color-card-bg-hover)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--color-card-bg)'}
               onClick={() => setActive('Net Delivered')}
             >
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
@@ -197,7 +197,7 @@ const PowerPricePanel = () => {
                )}
 
                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                  <div style={{ fontSize: '1.4rem', color: '#f8fafc', fontWeight: 'bold' }}>
+                  <div style={{ fontSize: '1.4rem', color: 'var(--color-card-text)', fontWeight: 'bold' }}>
                      {fmtVal(netDelivered?.latest?.value)} 
                      <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 400, marginLeft: '4px' }}>PKR/kWh</span>
                   </div>
@@ -216,7 +216,7 @@ const PowerPricePanel = () => {
             {/* Card 2: Highest & Lowest Sources */}
             <div 
               style={{ 
-                  background: 'rgba(168, 85, 247, 0.08)', 
+                  background: 'var(--color-card-bg)', 
                   padding: '0.75rem', 
                   borderRadius: '6px', 
                   border: '1px solid rgba(168, 85, 247, 0.25)',
@@ -244,7 +244,7 @@ const PowerPricePanel = () => {
             <div 
               onClick={() => setActive('PPP_SUMMARY')}
               style={{ 
-                  background: 'rgba(245, 158, 11, 0.08)', 
+                  background: 'var(--color-card-bg)', 
                   padding: '0.75rem', 
                   borderRadius: '6px', 
                   border: '1px solid rgba(245, 158, 11, 0.25)',
@@ -254,8 +254,8 @@ const PowerPricePanel = () => {
                   flexDirection: 'column',
                   justifyContent: 'space-between'
               }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(245, 158, 11, 0.15)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)'}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--color-card-bg-hover)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--color-card-bg)'}
             >
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                   <div style={{ fontSize: '0.65rem', color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Fuel Adjustments (PPP)</div>
@@ -266,7 +266,7 @@ const PowerPricePanel = () => {
                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Requested</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#f59e0b' }}>{fmtVal(reqPPP?.latest?.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></div>
                   </div>
-                  <div style={{ width: '1px', background: 'rgba(255,255,255,0.1)', height: '25px', margin: '0 10px' }} />
+                  <div style={{ width: '1px', background: 'var(--color-border)', height: '25px', margin: '0 10px' }} />
                   <div>
                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Allowed</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#22c55e' }}>{fmtVal(allPPP?.latest?.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></div>
@@ -277,7 +277,7 @@ const PowerPricePanel = () => {
             {/* Card 4: Fuel Adjustments Delta */}
             <div 
               style={{ 
-                  background: 'rgba(244, 63, 94, 0.08)', 
+                  background: 'var(--color-card-bg)', 
                   padding: '0.75rem', 
                   borderRadius: '6px', 
                   border: '1px solid rgba(244, 63, 94, 0.25)',
@@ -294,7 +294,7 @@ const PowerPricePanel = () => {
                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Requested</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: reqDelta?.latest?.value > 0 ? '#ef4444' : '#22c55e' }}>{reqDelta?.latest?.value > 0 ? '+' : ''}{fmtVal(reqDelta?.latest?.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></div>
                   </div>
-                  <div style={{ width: '1px', background: 'rgba(255,255,255,0.1)', height: '25px', margin: '0 10px' }} />
+                  <div style={{ width: '1px', background: 'var(--color-border)', height: '25px', margin: '0 10px' }} />
                   <div>
                      <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Allowed</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: allDelta?.latest?.value > 0 ? '#ef4444' : '#22c55e' }}>{allDelta?.latest?.value > 0 ? '+' : ''}{fmtVal(allDelta?.latest?.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></div>

@@ -237,7 +237,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                 onClick={() => setShowPctChange(p => !p)}
                 style={{ marginLeft: '1rem', borderLeft: '1px solid var(--color-border)', paddingLeft: '1rem' }}
               >
-                {showPctChange ? '% Change' : '% Change'}
+                {showPctChange ? 'Value' : '% Change'}
               </button>
           )}
         </div>

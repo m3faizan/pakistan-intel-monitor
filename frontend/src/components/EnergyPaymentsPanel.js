@@ -187,19 +187,19 @@ const EnergyPaymentsPanel = () => {
             <div
               onClick={() => setModal('Petroleum Group')}
               style={{
-                background: 'rgba(249,115,22,0.06)',
+                background: 'var(--color-card-bg)',
                 border: '1px solid rgba(249,115,22,0.22)',
                 borderRadius: 6, padding: '0.7rem 0.9rem', cursor: 'pointer', transition: 'background 0.15s',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(249,115,22,0.12)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(249,115,22,0.06)'}
+              onMouseEnter={e => e.currentTarget.style.background = 'var(--color-card-bg-hover)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'var(--color-card-bg)'}
             >
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <div>
                   <div style={{ fontSize: '0.58rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.1em', color: '#F97316', textTransform: 'uppercase', marginBottom: 4 }}>
                     Petroleum Group — Total
                   </div>
-                  <div style={{ fontSize: '1.55rem', fontWeight: 700, color: '#F8FAFC', lineHeight: 1.1, letterSpacing: '-0.01em' }}>
+                  <div style={{ fontSize: '1.55rem', fontWeight: 700, color: 'var(--color-card-text)', lineHeight: 1.1, letterSpacing: '-0.01em' }}>
                     {fmtUSD(petro.latest?.value)}
                   </div>
                   <div style={{ fontSize: '0.62rem', color: '#64748b', marginTop: 3 }}>
@@ -243,7 +243,7 @@ const EnergyPaymentsPanel = () => {
                     key={card.key}
                     onClick={() => !card.isPct && setModal(card.key)}
                     style={{
-                      background: '#0f172a', border: '1px solid var(--color-border)',
+                      background: 'var(--color-card-bg)', border: '1px solid var(--color-card-border)',
                       borderRadius: 5, padding: '0.5rem 0.6rem',
                       cursor: card.isPct ? 'default' : 'pointer', transition: 'border-color 0.15s',
                     }}
@@ -253,7 +253,7 @@ const EnergyPaymentsPanel = () => {
                     <div style={{ fontSize: '0.56rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.09em', color, textTransform: 'uppercase', marginBottom: 3 }}>
                       {card.label}
                     </div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#F8FAFC', lineHeight: 1.1 }}>
+                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-card-text)', lineHeight: 1.1 }}>
                       {valueStr}
                     </div>
                     {momVal !== null && momVal !== undefined ? (

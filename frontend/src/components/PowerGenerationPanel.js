@@ -97,7 +97,7 @@ const PowerGenerationPanel = () => {
           style={{
             fontSize: '0.6rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em',
             textTransform: 'uppercase', padding: '0.2rem 0.55rem', borderRadius: 3,
-            border: `1px solid ${showPct ? '#22C55E' : '#1e293b'}`,
+            border: `1px solid ${showPct ? '#22C55E' : 'var(--color-border)'}`,
             background: showPct ? 'rgba(34,197,94,0.12)' : 'transparent',
             color: showPct ? '#22C55E' : '#64748b', cursor: 'pointer', transition: 'all 0.15s',
             marginLeft: 'auto', marginRight: '0.4rem'
