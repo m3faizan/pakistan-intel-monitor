@@ -131,7 +131,7 @@ const AutoVehiclesModal = ({ isOpen, onClose, data, title }) => {
           >
             Sales
           </button>
-          <div style={{ width: '1px', height: '22px', background: 'var(--color-border)', margin: '0 0.3rem' }}></div>
+          <div style={{ width: '1px', height: '22px', background: '#1e293b', margin: '0 0.3rem' }}></div>
           {TIME_RANGES.map((range) => (
             <button
               key={range.key}
@@ -184,23 +184,23 @@ const AutoVehiclesModal = ({ isOpen, onClose, data, title }) => {
         <div className="chart-container" data-testid="auto-vehicles-chart-container">
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
               <XAxis
                 dataKey="date"
                 tickFormatter={formatDate}
-                stroke='var(--color-muted)'
-                tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                axisLine={{ stroke: 'var(--color-border)' }}
-                tickLine={{ stroke: 'var(--color-border)' }}
+                stroke="#64748b"
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#1e293b' }}
+                tickLine={{ stroke: '#1e293b' }}
                 interval="preserveStartEnd"
                 minTickGap={50}
               />
               <YAxis
                 tickFormatter={(val) => `${(val / 1000).toFixed(0)}K`}
-                stroke='var(--color-muted)'
-                tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                axisLine={{ stroke: 'var(--color-border)' }}
-                tickLine={{ stroke: 'var(--color-border)' }}
+                stroke="#64748b"
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#1e293b' }}
+                tickLine={{ stroke: '#1e293b' }}
                 width={45}
               />
               <Tooltip

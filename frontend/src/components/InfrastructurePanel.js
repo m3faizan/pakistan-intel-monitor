@@ -50,7 +50,7 @@ const InfrastructurePanel = ({ data, loading }) => {
             marginBottom: '0.5rem',
             fontSize: '0.7rem',
             fontWeight: 600,
-            color: 'var(--color-text)',
+            color: '#f8fafc',
             textTransform: 'uppercase',
             letterSpacing: '0.05em'
           }}>
@@ -65,7 +65,7 @@ const InfrastructurePanel = ({ data, loading }) => {
           }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   National Grid
                 </div>
                 <div style={{ 
@@ -79,7 +79,7 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
               
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Load Shedding (Urban)
                 </div>
                 <div style={{ 
@@ -93,7 +93,7 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Generation Capacity
                 </div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#22C55E' }}>
@@ -102,12 +102,12 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Demand / Supply
                 </div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 600 }}>
                   <span style={{ color: '#EF4444' }}>{data.power?.demand}</span>
-                  <span style={{ color: 'var(--color-muted)' }}> / </span>
+                  <span style={{ color: '#64748b' }}> / </span>
                   <span style={{ color: '#22C55E' }}>{data.power?.supply}</span>
                 </div>
               </div>
@@ -123,7 +123,7 @@ const InfrastructurePanel = ({ data, loading }) => {
             marginBottom: '0.5rem',
             fontSize: '0.7rem',
             fontWeight: 600,
-            color: 'var(--color-text)',
+            color: '#f8fafc',
             textTransform: 'uppercase',
             letterSpacing: '0.05em'
           }}>
@@ -138,7 +138,7 @@ const InfrastructurePanel = ({ data, loading }) => {
           }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   National Status
                 </div>
                 <div style={{ 
@@ -152,7 +152,7 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Average Speed
                 </div>
                 <div style={{ 
@@ -166,7 +166,7 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Outage Reports
                 </div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 600, color: data.internet?.outage_reports > 0 ? '#F59E0B' : '#22C55E' }}>
@@ -175,10 +175,10 @@ const InfrastructurePanel = ({ data, loading }) => {
               </div>
 
               <div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginBottom: '0.25rem' }}>
                   Affected Regions
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--color-muted)' }}>
+                <div style={{ fontSize: '0.7rem', color: '#64748b' }}>
                   {data.internet?.affected_regions?.length > 0 
                     ? data.internet.affected_regions.join(', ')
                     : 'None'

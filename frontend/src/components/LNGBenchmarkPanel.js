@@ -41,7 +41,7 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
               <div key={f.key} style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid var(--color-border)', padding: '0.75rem', textAlign: 'center' }}>
                 <div style={{ fontSize: '0.55rem', color: f.color, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>{f.label}</div>
                 <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#F8FAFC', fontFamily: 'var(--font-mono)' }}>${b.value?.toFixed(1)}</div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginTop: '0.15rem' }}>{b.region} - {b.delivery}</div>
+                <div style={{ fontSize: '0.55rem', color: '#64748b', marginTop: '0.15rem' }}>{b.region} - {b.delivery}</div>
               </div>
             );
           })}
@@ -58,8 +58,8 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={history} barGap={2}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-              <XAxis dataKey="date" stroke='var(--color-muted)' fontSize={10} />
-              <YAxis stroke='var(--color-muted)' fontSize={10} tickFormatter={v => `$${v}`} />
+              <XAxis dataKey="date" stroke="#64748b" fontSize={10} />
+              <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${v}`} />
               <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                 <div className="remittances-tooltip">
                   <p className="tooltip-date">{label}</p>
@@ -73,7 +73,7 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: Global LNG Hub</span><span style={{ color: 'var(--color-text-muted)' }}>$/MMBtu</span></div>
+        <div className="modal-footer"><span>Source: Global LNG Hub</span><span style={{ color: '#94a3b8' }}>$/MMBtu</span></div>
       </div>
     </div>
   );
@@ -140,10 +140,10 @@ const LNGBenchmarkPanel = () => {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.7rem' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid var(--color-border)' }}>
-                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'left', color: 'var(--color-muted)', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Commodity</th>
-                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Price</th>
-                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Change</th>
-                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Unit</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'left', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Commodity</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Price</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Change</th>
+                  <th style={{ padding: '0.5rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.55rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Unit</th>
                 </tr>
               </thead>
               <tbody>
@@ -169,7 +169,7 @@ const LNGBenchmarkPanel = () => {
                       <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
                         {renderChange(chg?.percent)}
                       </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.6rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
                         /{d.unit}
                       </td>
                     </tr>
@@ -180,7 +180,7 @@ const LNGBenchmarkPanel = () => {
                 <tr>
                   <td colSpan={4} style={{ padding: '0.15rem 0.75rem' }}>
                     <div style={{ borderTop: '1px solid var(--color-border)', marginTop: '0.1rem' }} />
-                    <div style={{ fontSize: '0.45rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', paddingTop: '0.35rem' }}>
+                    <div style={{ fontSize: '0.45rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', paddingTop: '0.35rem' }}>
                       LNG Benchmarks (Weekly)
                     </div>
                   </td>
@@ -208,7 +208,7 @@ const LNGBenchmarkPanel = () => {
                       <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
                         {renderChange(chg)}
                       </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.6rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
                         /MMBtu
                       </td>
                     </tr>

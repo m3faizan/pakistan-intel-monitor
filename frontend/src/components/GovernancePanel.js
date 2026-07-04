@@ -105,7 +105,7 @@ const GovernancePanel = ({ loading }) => {
       <div className="panel-content">
         <div className="governance-note" style={{
           fontSize: '0.6rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           marginBottom: '0.75rem',
           display: 'flex',
           justifyContent: 'space-between'
@@ -148,7 +148,7 @@ const GovernancePanel = ({ loading }) => {
                   </div>
                   <div style={{ 
                     fontSize: '0.6rem', 
-                    color: 'var(--color-muted)',
+                    color: '#64748b',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem'
@@ -179,7 +179,7 @@ const GovernancePanel = ({ loading }) => {
                   }}>
                     {cm.impactScore}/10
                   </div>
-                  <div style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b' }}>
                     Impact Score
                   </div>
                 </div>
@@ -201,7 +201,7 @@ const GovernancePanel = ({ loading }) => {
                   }}>
                     {cm.projects}
                   </div>
-                  <div style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>Projects</div>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b' }}>Projects</div>
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
@@ -213,18 +213,18 @@ const GovernancePanel = ({ loading }) => {
                   }}>
                     {cm.completed}
                   </div>
-                  <div style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>Done</div>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b' }}>Done</div>
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
                   <div style={{ 
                     fontSize: '0.75rem', 
                     fontWeight: 600, 
-                    color: 'var(--color-text)'
+                    color: '#f8fafc'
                   }}>
                     {cm.focusArea}
                   </div>
-                  <div style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>Focus</div>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b' }}>Focus</div>
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
@@ -236,7 +236,7 @@ const GovernancePanel = ({ loading }) => {
                   }}>
                     {cm.daysInPower}
                   </div>
-                  <div style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>Days</div>
+                  <div style={{ fontSize: '0.5rem', color: '#64748b' }}>Days</div>
                 </div>
               </div>
             </div>
@@ -252,7 +252,7 @@ const GovernancePanel = ({ loading }) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           fontSize: '0.55rem',
-          color: 'var(--color-muted)'
+          color: '#64748b'
         }}>
           <span>Source: PakESDA Pakistan Projects</span>
           <a 

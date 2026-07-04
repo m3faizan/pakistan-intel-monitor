@@ -28,7 +28,7 @@ const AirTrafficPanel = ({ data, loading }) => {
     if (total >= 40) return { status: 'High Traffic', color: '#22C55E', icon: CheckCircle };
     if (total >= 20) return { status: 'Normal', color: '#22C55E', icon: CheckCircle };
     if (total >= 5) return { status: 'Low Traffic', color: '#F59E0B', icon: AlertCircle };
-    return { status: 'Minimal', color: 'var(--color-muted)', icon: XCircle };
+    return { status: 'Minimal', color: '#64748b', icon: XCircle };
   };
 
   const totalFlights = Object.values(airports).reduce((sum, a) => sum + a.departures + a.arrivals, 0);
@@ -47,7 +47,7 @@ const AirTrafficPanel = ({ data, loading }) => {
       <div className="panel-content">
         <div className="air-traffic-note" style={{
           fontSize: '0.6rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           marginBottom: '0.75rem',
           display: 'flex',
           justifyContent: 'space-between'
@@ -90,13 +90,13 @@ const AirTrafficPanel = ({ data, loading }) => {
                     <span style={{ 
                       fontWeight: 600, 
                       fontSize: '0.8rem',
-                      color: 'var(--color-text)'
+                      color: '#f8fafc'
                     }}>
                       {airport.name}
                     </span>
                     <span style={{ 
                       fontSize: '0.65rem', 
-                      color: 'var(--color-muted)',
+                      color: '#64748b',
                       fontFamily: 'var(--font-mono)'
                     }}>
                       {airport.code}
@@ -140,7 +140,7 @@ const AirTrafficPanel = ({ data, loading }) => {
                     }}>
                       {airport.departures}
                     </span>
-                    <span style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>DEP</span>
+                    <span style={{ fontSize: '0.5rem', color: '#64748b' }}>DEP</span>
                   </a>
                   
                   <a 
@@ -166,7 +166,7 @@ const AirTrafficPanel = ({ data, loading }) => {
                     }}>
                       {airport.arrivals}
                     </span>
-                    <span style={{ fontSize: '0.5rem', color: 'var(--color-muted)' }}>ARR</span>
+                    <span style={{ fontSize: '0.5rem', color: '#64748b' }}>ARR</span>
                   </a>
                 </div>
               </div>

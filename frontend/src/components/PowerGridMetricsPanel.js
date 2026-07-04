@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Activity, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react';
 import axios from 'axios';
-import { LineChart, Line, Area, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import PowerGridMetricsModal from './PowerGridMetricsModal';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
@@ -109,7 +109,7 @@ const PowerGridMetricsPanel = () => {
 
       <div className="panel-content" style={{ overflowY: 'hidden' }}>
         {!formattedData || Object.keys(formattedData).length === 0 ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -140,12 +140,6 @@ const PowerGridMetricsPanel = () => {
                     <div style={{ height: 28, margin: '4px 0 2px' }}>
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={spark}>
-                          <defs>
-                            <linearGradient id={`grad-metrics-${name}`} x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0.3} />
-                              <stop offset="95%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0} />
-                            </linearGradient>
-                          </defs>
                           <Line
                             type="monotone"
                             dataKey="value"
@@ -153,7 +147,6 @@ const PowerGridMetricsPanel = () => {
                             strokeWidth={1.2}
                             dot={false}
                           />
-                          <Area type="monotone" dataKey="value" stroke="none" fill={`url(#grad-metrics-${name})`} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
@@ -166,7 +159,7 @@ const PowerGridMetricsPanel = () => {
                   
                   {pct !== null && pct !== undefined ? (
                     pct === 0 ? (
-                      <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>= 0.00%</div>
+                      <div className="mineral-change" style={{ color: '#64748b' }}>= 0.00%</div>
                     ) : (
                       <div className={`mineral-change ${isPos ? 'positive' : 'negative'}`}>
                         {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
@@ -174,7 +167,7 @@ const PowerGridMetricsPanel = () => {
                       </div>
                     )
                   ) : (
-                    <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>—</div>
+                    <div className="mineral-change" style={{ color: '#64748b' }}>—</div>
                   )}
 
                   <div className="mineral-sublabel">{fmtDate(d.latest?.date)}</div>

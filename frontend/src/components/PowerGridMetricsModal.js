@@ -133,7 +133,7 @@ const PowerGridMetricsModal = ({ isOpen, onClose, metric, data }) => {
           <div className="summary-main">
             <div className="summary-value">
               {fmt(latest?.value)}
-              <span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 8 }}>{unit}</span>
+              <span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>{unit}</span>
             </div>
             <div className="summary-period">
               <Calendar size={14} />
@@ -181,10 +181,10 @@ const PowerGridMetricsModal = ({ isOpen, onClose, metric, data }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPctChange ? (
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={55} />
-                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={55} />
+                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
                   {filteredData.map((entry, i) => {
@@ -201,9 +201,9 @@ const PowerGridMetricsModal = ({ isOpen, onClose, metric, data }) => {
                     <stop offset="95%" stopColor={chartColor} stopOpacity={0}   />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={yAxisFmt} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={55} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={55} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="value" stroke={chartColor} strokeWidth={2} fillOpacity={1} fill={`url(#powerGridGrad-${metric})`} />
               </AreaChart>

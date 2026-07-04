@@ -227,7 +227,7 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
           const isUp = val > 0;
           return (
             <p key={i} style={{ color: isUp ? '#EF4444' : '#22C55E', fontSize: '0.78rem', margin: '1px 0' }}>
-              {p.name && isGroup ? <span style={{ color: SOURCE_COLORS[p.name.replace(/_pct|_usd/, '')] || 'var(--color-text-muted)', marginRight: 4 }}>●</span> : null}
+              {p.name && isGroup ? <span style={{ color: SOURCE_COLORS[p.name.replace(/_pct|_usd/, '')] || '#94a3b8', marginRight: 4 }}>●</span> : null}
               {isPct
                 ? `${isUp ? '+' : ''}${val?.toFixed(2)}% MoM`
                 : `${isUp ? '+$' : '-$'}${Math.abs(val ?? 0).toFixed(1)}M MoM`
@@ -276,7 +276,7 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
           <div className="summary-main">
             <div className="summary-value">
               {showPct && petroShare !== null && !isChangeMode
-                ? <>{petroShare.toFixed(1)}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 4 }}>%</span></>
+                ? <>{petroShare.toFixed(1)}<span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 4 }}>%</span></>
                 : <>{fmtM(latestVal)}</>
               }
             </div>
@@ -284,14 +284,14 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
               <Calendar size={14} />
               {fmtMonth(latestDate)}
             </div>
-            <div style={{ fontSize: '0.63rem', color: 'var(--color-muted)', marginTop: 2 }}>
+            <div style={{ fontSize: '0.63rem', color: '#64748b', marginTop: 2 }}>
               {activeSeries}
             </div>
           </div>
           <div className="summary-changes" style={{ display: 'flex', gap: '0.5rem' }}>
             {momPct !== null && momPct !== undefined && (
               <div className={`summary-change ${momPct === 0 ? '' : isMoMPos ? 'negative' : 'positive'}`}
-                style={momPct === 0 ? { color: 'var(--color-muted)' } : {}}>
+                style={momPct === 0 ? { color: '#64748b' } : {}}>
                 {momPct === 0 ? '=' : isMoMPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                 <span>{isMoMPos ? '+' : ''}{momPct.toFixed(2)}%</span>
                 <span className="change-label">MoM</span>
@@ -299,7 +299,7 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
             )}
             {yoyPct !== null && yoyPct !== undefined && (
               <div className={`summary-change ${yoyPct === 0 ? '' : isYoYPos ? 'negative' : 'positive'}`}
-                style={yoyPct === 0 ? { color: 'var(--color-muted)' } : {}}>
+                style={yoyPct === 0 ? { color: '#64748b' } : {}}>
                 {yoyPct === 0 ? '=' : isYoYPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                 <span>{isYoYPos ? '+' : ''}{yoyPct.toFixed(2)}%</span>
                 <span className="change-label">YoY</span>
@@ -373,14 +373,14 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
                 barCategoryGap="15%"
                 barGap={1}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis
                   dataKey="date"
                   tickFormatter={fmtDate}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 10 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 10 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   interval="preserveStartEnd"
                   minTickGap={45}
                 />
@@ -388,13 +388,13 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
                   tickFormatter={v => chartMode === MODES.PCT_CHG
                     ? `${v > 0 ? '+' : ''}${v}%`
                     : `${v >= 0 ? '' : '-'}$${Math.abs(v)}M`}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 10 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 10 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   width={52}
                 />
-                <ReferenceLine y={0} stroke='var(--color-border)' strokeWidth={1} />
+                <ReferenceLine y={0} stroke="#334155" strokeWidth={1} />
                 <Tooltip content={<ChangeTooltip />} />
                 {isGroup ? (
                   SERIES_ORDER.filter(s => visible[s] !== false).map(src => {
@@ -423,9 +423,9 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
               </BarChart>
             ) : isGroup && !showPct ? (
               <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => fmtM(v, true)} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={56} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => fmtM(v, true)} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={56} />
                 <Tooltip content={<CustomTooltip />} />
                 {SERIES_ORDER.map(src => (
                   <Bar key={src} dataKey={src} stackId="pmt" fill={SOURCE_COLORS[src]} hide={visible[src] === false} maxBarSize={28} />
@@ -440,11 +440,11 @@ const EnergyPaymentsModal = ({ isOpen, onClose, allData, initialSeries = 'Petrol
                     <stop offset="95%" stopColor={isGroup && showPct ? '#22C55E' : color} stopOpacity={0.02} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
                 <YAxis
                   tickFormatter={showPct ? v => `${v.toFixed(1)}%` : v => fmtM(v, true)}
-                  stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={56}
+                  stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={56}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Area

@@ -103,7 +103,7 @@ const LNGTerminalPanel = ({ summary, history, loading }) => {
 
           {/* Terminal share bar */}
           <div>
-            <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>
+            <div style={{ fontSize: '0.55rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>
               Terminal Share
             </div>
             <div style={{ display: 'flex', height: '22px', borderRadius: '3px', overflow: 'hidden', border: '1px solid var(--color-border)' }}>

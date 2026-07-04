@@ -119,7 +119,7 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
                 background: 'rgba(2, 6, 23, 0.45)',
                 cursor: 'pointer',
                 opacity: isActive ? 1 : 0.42,
-                color: 'var(--color-text)',
+                color: '#f8fafc',
                 fontSize: '0.64rem'
               }}
             >
@@ -277,8 +277,8 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
                 }}
                 data-testid={`business-kpi-${metric.key}`}
               >
-                <div style={{ fontSize: '0.56rem', color: 'var(--color-muted)', marginBottom: '0.2rem' }}>{metric.label}</div>
-                <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ fontSize: '0.56rem', color: '#64748b', marginBottom: '0.2rem' }}>{metric.label}</div>
+                <div style={{ fontSize: '1rem', fontWeight: 700, color: '#f8fafc', fontFamily: 'var(--font-mono)' }}>
                   {metric.value !== null && metric.value !== undefined ? metric.value.toFixed(2) : '--'}
                 </div>
                 {metric.change !== null && metric.change !== undefined && (
@@ -298,7 +298,7 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
                   </div>
                 )}
                 {metric.month && (
-                  <div style={{ marginTop: '0.2rem', fontSize: '0.55rem', color: 'var(--color-text-muted)' }} data-testid={`business-kpi-month-${metric.key}`}>
+                  <div style={{ marginTop: '0.2rem', fontSize: '0.55rem', color: '#94a3b8' }} data-testid={`business-kpi-month-${metric.key}`}>
                     {metric.month}
                   </div>
                 )}
@@ -316,8 +316,8 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
               data-testid={`business-tab-${tab}`}
               style={{
                 textTransform: 'capitalize',
-                borderColor: activeTab === tab ? 'var(--color-primary)' : 'var(--color-border)',
-                color: activeTab === tab ? 'var(--color-primary)' : 'var(--color-muted)',
+                borderColor: activeTab === tab ? 'var(--color-primary)' : '#1e293b',
+                color: activeTab === tab ? 'var(--color-primary)' : '#64748b',
                 background: activeTab === tab ? 'rgba(34, 197, 94, 0.15)' : 'transparent'
               }}
             >
@@ -328,13 +328,13 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
 
         {activeTab === 'overview' && (
           <div style={{ border: '1px solid var(--color-border)', padding: '0.4rem', background: 'rgba(2, 6, 23, 0.45)' }} data-testid="business-overview-view">
-            <div style={{ fontSize: '0.62rem', color: 'var(--color-muted)', marginBottom: '0.35rem' }}>Business Confidence Trend (All Data)</div>
-            <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }} data-testid="bci-date-range-label">{bciDateRange}</div>
+            <div style={{ fontSize: '0.62rem', color: '#64748b', marginBottom: '0.35rem' }}>Business Confidence Trend (All Data)</div>
+            <div style={{ fontSize: '0.55rem', color: '#94a3b8', marginBottom: '0.2rem' }} data-testid="bci-date-range-label">{bciDateRange}</div>
             <ResponsiveContainer width="100%" height={175}>
               <LineChart data={confidenceHistory} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' minTickGap={35} interval="preserveStartEnd" />
-                <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={[0, 100]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" minTickGap={35} interval="preserveStartEnd" />
+                <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={[0, 100]} />
                 <Tooltip content={renderCompactTooltip()} />
                 <Legend
                   content={(props) => (
@@ -357,7 +357,7 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
         {activeTab === 'sectors' && (
           <div style={{ border: '1px solid var(--color-border)', padding: '0.4rem', background: 'rgba(2, 6, 23, 0.45)' }} data-testid="business-sectors-view">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem', gap: '0.5rem' }}>
-              <div style={{ fontSize: '0.62rem', color: 'var(--color-muted)' }}>
+              <div style={{ fontSize: '0.62rem', color: '#64748b' }}>
                 {selectedSectorView === 'snapshot' ? 'Sector Confidence Snapshot (Current Month)' : `${selectedSectorLabel} Trend (All Data)`}
               </div>
               <select
@@ -367,7 +367,7 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
                 style={{
                   background: 'rgba(11, 18, 32, 0.92)',
                   border: '1px solid var(--color-border)',
-                  color: 'var(--color-text)',
+                  color: '#f8fafc',
                   fontSize: '0.68rem',
                   padding: '0.25rem 0.4rem',
                   borderRadius: '4px'
@@ -381,16 +381,16 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
               </select>
             </div>
 
-            <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }} data-testid="sector-date-range-label">
+            <div style={{ fontSize: '0.55rem', color: '#94a3b8', marginBottom: '0.2rem' }} data-testid="sector-date-range-label">
               {selectedSectorView === 'snapshot' ? 'Current month snapshot' : sectorDateRange}
             </div>
 
             {selectedSectorView === 'snapshot' ? (
               <ResponsiveContainer width="100%" height={185}>
                 <BarChart data={sectors} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                  <XAxis dataKey="name" tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' interval={0} angle={-10} textAnchor="end" height={40} />
-                  <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={[0, 100]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                  <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" interval={0} angle={-10} textAnchor="end" height={40} />
+                  <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={[0, 100]} />
                   <Tooltip content={renderCompactTooltip()} />
                   <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                     {sectors.map((entry, idx) => (
@@ -402,9 +402,9 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
             ) : selectedSectorView === 'all_trends' ? (
               <ResponsiveContainer width="100%" height={185}>
                 <LineChart data={selectedSectorHistory} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                  <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' minTickGap={35} interval="preserveStartEnd" />
-                  <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={[0, 100]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                  <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" minTickGap={35} interval="preserveStartEnd" />
+                  <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={[0, 100]} />
                   <Tooltip content={renderCompactTooltip()} />
                   <Legend
                     content={(props) => (
@@ -425,9 +425,9 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
             ) : (
               <ResponsiveContainer width="100%" height={185}>
                 <LineChart data={selectedSectorHistory} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                  <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' minTickGap={35} interval="preserveStartEnd" />
-                  <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={[0, 100]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                  <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" minTickGap={35} interval="preserveStartEnd" />
+                  <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={[0, 100]} />
                   <Tooltip content={renderCompactTooltip()} />
                   <Line type="monotone" dataKey="value" name={selectedSectorLabel} stroke="#22C55E" dot={false} strokeWidth={2} />
                 </LineChart>
@@ -445,14 +445,14 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
               ['Inflation Expectation', drivers?.inflation_expectation]
             ].map(([label, payload]) => (
               <div key={label} style={{ border: '1px solid var(--color-border)', padding: '0.45rem', background: 'rgba(2, 6, 23, 0.45)' }} data-testid={`business-driver-${label.toLowerCase().replace(/\s+/g, '-')}`}>
-                <div style={{ fontSize: '0.63rem', color: 'var(--color-muted)', marginBottom: '0.25rem' }}>{label}</div>
+                <div style={{ fontSize: '0.63rem', color: '#64748b', marginBottom: '0.25rem' }}>{label}</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem' }}>
-                  <span style={{ color: 'var(--color-text-muted)' }}>Current</span>
-                  <span style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>{payload?.current?.latest?.value?.toFixed(2) || '--'}</span>
+                  <span style={{ color: '#94a3b8' }}>Current</span>
+                  <span style={{ color: '#f8fafc', fontFamily: 'var(--font-mono)' }}>{payload?.current?.latest?.value?.toFixed(2) || '--'}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.7rem', marginTop: '0.2rem' }}>
-                  <span style={{ color: 'var(--color-text-muted)' }}>Expected</span>
-                  <span style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>{payload?.expected?.latest?.value?.toFixed(2) || '--'}</span>
+                  <span style={{ color: '#94a3b8' }}>Expected</span>
+                  <span style={{ color: '#f8fafc', fontFamily: 'var(--font-mono)' }}>{payload?.expected?.latest?.value?.toFixed(2) || '--'}</span>
                 </div>
               </div>
             ))}
@@ -461,13 +461,13 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
 
         {activeTab === 'cci' && (
           <div style={{ border: '1px solid var(--color-border)', padding: '0.4rem', background: 'rgba(2, 6, 23, 0.45)' }} data-testid="business-cci-view">
-            <div style={{ fontSize: '0.62rem', color: 'var(--color-muted)', marginBottom: '0.35rem' }}>Consumer Confidence Index Trend (Headline)</div>
-            <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }} data-testid="cci-date-range-label">{cciDateRange}</div>
+            <div style={{ fontSize: '0.62rem', color: '#64748b', marginBottom: '0.35rem' }}>Consumer Confidence Index Trend (Headline)</div>
+            <div style={{ fontSize: '0.55rem', color: '#94a3b8', marginBottom: '0.2rem' }} data-testid="cci-date-range-label">{cciDateRange}</div>
             <ResponsiveContainer width="100%" height={175}>
               <LineChart data={cciHistory} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' minTickGap={35} interval="preserveStartEnd" />
-                <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={[0, 100]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" minTickGap={35} interval="preserveStartEnd" />
+                <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={[0, 100]} />
                 <Tooltip content={renderCompactTooltip()} />
                 <Line type="monotone" dataKey="cci" name="Headline CCI" stroke="#22C55E" dot={false} strokeWidth={2} />
               </LineChart>
@@ -477,15 +477,15 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
 
         {activeTab === 'epu' && (
           <div style={{ border: '1px solid var(--color-border)', padding: '0.4rem', background: 'rgba(2, 6, 23, 0.45)' }} data-testid="business-epu-view">
-            <div style={{ fontSize: '0.62rem', color: 'var(--color-muted)', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            <div style={{ fontSize: '0.62rem', color: '#64748b', marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
               <AlertTriangle size={12} /> EPU Trend (All Data)
             </div>
-            <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', marginBottom: '0.2rem' }} data-testid="epu-date-range-label">{epuDateRange}</div>
+            <div style={{ fontSize: '0.55rem', color: '#94a3b8', marginBottom: '0.2rem' }} data-testid="epu-date-range-label">{epuDateRange}</div>
             <ResponsiveContainer width="100%" height={175}>
               <LineChart data={epuHistory} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' minTickGap={35} />
-                <YAxis tick={{ fill: 'var(--color-muted)', fontSize: 10 }} stroke='var(--color-muted)' width={34} domain={['auto', 'auto']} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={formatDateTick} tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" minTickGap={35} />
+                <YAxis tick={{ fill: '#64748b', fontSize: 10 }} stroke="#64748b" width={34} domain={['auto', 'auto']} />
                 <Tooltip content={renderCompactTooltip()} />
                 <Legend wrapperStyle={{ fontSize: '0.65rem' }} />
                 <Line type="monotone" dataKey="epu4" name="4 Newspapers" stroke="#EF4444" dot={false} strokeWidth={2} />
@@ -501,7 +501,7 @@ const BusinessEnvironmentPanel = ({ loading: parentLoading }) => {
           justifyContent: 'space-between',
           gap: '0.5rem',
           fontSize: '0.55rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           borderTop: '1px solid var(--color-border)',
           paddingTop: '0.35rem'
         }} data-testid="business-environment-footer">

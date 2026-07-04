@@ -44,11 +44,11 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
       if (subType?.includes('Fog') && subType?.includes('0 to 50')) return '#EF4444'; // Severe fog
       if (subType?.includes('Fog')) return '#F59E0B'; // Moderate fog
       if (subType?.includes('Rain') || subType?.includes('Snow')) return '#3B82F6';
-      return 'var(--color-muted)';
+      return '#64748b';
     }
     if (type === 'Road Maintenance' || type === 'Construction') return '#F59E0B';
     if (type === 'Accident') return '#EF4444';
-    return 'var(--color-muted)';
+    return '#64748b';
   };
 
   const formatTime = (dateStr) => {
@@ -133,7 +133,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
       <div className="panel-content">
         <div style={{
           fontSize: '0.6rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           marginBottom: '0.5rem',
           display: 'flex',
           justifyContent: 'space-between'
@@ -146,7 +146,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
           <div style={{
             textAlign: 'center',
             padding: '2rem 1rem',
-            color: 'var(--color-muted)'
+            color: '#64748b'
           }}>
             <AlertTriangle size={24} style={{ marginBottom: '0.5rem', opacity: 0.5 }} />
             <div style={{ fontSize: '0.8rem' }}>No active advisories</div>
@@ -196,7 +196,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
                   </div>
                   <span style={{ 
                     fontSize: '0.55rem',
-                    color: 'var(--color-muted)',
+                    color: '#64748b',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.2rem'
@@ -208,7 +208,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
 
                 <div style={{ 
                   fontSize: '0.7rem',
-                  color: 'var(--color-text)',
+                  color: '#f8fafc',
                   marginBottom: '0.2rem'
                 }}>
                   {adv.route || adv.road}
@@ -219,7 +219,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
                   alignItems: 'center',
                   gap: '0.3rem',
                   fontSize: '0.6rem',
-                  color: 'var(--color-muted)'
+                  color: '#64748b'
                 }}>
                   <MapPin size={9} />
                   <span>{adv.fromPlace}</span>
@@ -263,7 +263,7 @@ const RoadAdvisoryPanel = ({ loading: parentLoading }) => {
           paddingTop: '0.4rem',
           borderTop: '1px solid var(--color-border)',
           fontSize: '0.55rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           display: 'flex',
           justifyContent: 'space-between'
         }}>

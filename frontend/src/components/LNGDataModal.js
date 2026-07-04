@@ -258,9 +258,9 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
       return (
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={pctData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-            <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} />
-            <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' fontSize={10} width={56} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} />
+            <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" fontSize={10} width={56} />
             <Tooltip content={<CustomTooltip fields={config.fields} showPct={true} />} />
             <Bar dataKey="pct_change" radius={[2, 2, 0, 0]} maxBarSize={18}>
               {pctData.map((entry, i) => (
@@ -279,8 +279,8 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={priceTrendData} barGap={1} barSize={8}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-            <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} angle={-45} textAnchor="end" height={50} />
-            <YAxis stroke='var(--color-muted)' fontSize={10} tickFormatter={v => `$${v}`} />
+            <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} angle={-45} textAnchor="end" height={50} />
+            <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${v}`} />
             <Tooltip content={<CustomTooltip fields={priceTrendFields} />} />
             {visPT.map(f => (
               <Bar key={f.key} dataKey={f.key} name={f.label} fill={f.color} opacity={0.85} />
@@ -295,9 +295,9 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
       return (
         <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={data} barGap={1} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-            <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} />
-            <YAxis stroke='var(--color-muted)' fontSize={10} tickFormatter={v => `$${v}`} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} />
+            <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${v}`} />
             <Tooltip content={<CustomTooltip fields={config.fields} />} />
             {visibleFields.filter(f => f.type === 'bar').map(f => (
               <Bar key={f.key} dataKey={f.key} name={f.label} fill={f.color} opacity={0.85} maxBarSize={12} />
@@ -317,8 +317,8 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data} barGap={isStacked ? 0 : 2}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-            <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} />
-            <YAxis stroke='var(--color-muted)' fontSize={10} />
+            <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} />
+            <YAxis stroke="#64748b" fontSize={10} />
             <Tooltip content={<CustomTooltip fields={config.fields} />} />
             {visibleFields.map(f => (
               <Bar key={f.key} dataKey={f.key} name={f.label} fill={f.color} opacity={0.8} stackId={isStacked ? 'stack' : undefined} />
@@ -333,8 +333,8 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-            <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} />
-            <YAxis stroke='var(--color-muted)' fontSize={10} />
+            <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} />
+            <YAxis stroke="#64748b" fontSize={10} />
             <Tooltip content={<CustomTooltip fields={config.fields} />} />
             {visibleFields.map(f => (
               <Line key={f.key} dataKey={f.key} name={f.label} stroke={f.color} strokeWidth={2} dot={false} connectNulls />
@@ -349,8 +349,8 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-          <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' fontSize={10} />
-          <YAxis stroke='var(--color-muted)' fontSize={10} />
+          <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" fontSize={10} />
+          <YAxis stroke="#64748b" fontSize={10} />
           <Tooltip content={<CustomTooltip fields={config.fields} />} />
           {visibleFields.map(f => (
             <Area key={f.key} dataKey={f.key} name={f.label} stroke={f.color} fill={f.color} fillOpacity={0.15} strokeWidth={2} connectNulls />
@@ -384,7 +384,7 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
                 <Calendar size={14} />
                 {fmtMonth(latestRow.date)}
               </div>
-              <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }}>
                 {config.unit}
               </div>
             </div>
@@ -451,7 +451,7 @@ const LNGDataModal = ({ modalKey, summary, history, onClose }) => {
         {/* Footer */}
         <div className="modal-footer">
           <span>Source: PakESDA</span>
-          <span style={{ color: 'var(--color-text-muted)' }}>Unit: {config.unit}</span>
+          <span style={{ color: '#94a3b8' }}>Unit: {config.unit}</span>
         </div>
       </div>
     </div>

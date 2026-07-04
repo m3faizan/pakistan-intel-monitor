@@ -160,7 +160,7 @@ const EnergyPaymentsPanel = () => {
             ? `${isIncrease ? '+' : ''}${val?.toFixed(1)}%`
             : `${isIncrease ? '+$' : '-$'}${Math.abs(val)?.toFixed(1)}M`
           }
-          <span style={{ color: 'var(--color-muted)', fontSize: '0.65rem', marginLeft: 4 }}>{chgRange}</span>
+          <span style={{ color: '#64748b', fontSize: '0.65rem', marginLeft: 4 }}>{chgRange}</span>
         </p>
       </div>
     );
@@ -178,7 +178,7 @@ const EnergyPaymentsPanel = () => {
 
       <div className="panel-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
         {!allData || !petro ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -202,7 +202,7 @@ const EnergyPaymentsPanel = () => {
                   <div style={{ fontSize: '1.55rem', fontWeight: 700, color: '#F8FAFC', lineHeight: 1.1, letterSpacing: '-0.01em' }}>
                     {fmtUSD(petro.latest?.value)}
                   </div>
-                  <div style={{ fontSize: '0.62rem', color: 'var(--color-muted)', marginTop: 3 }}>
+                  <div style={{ fontSize: '0.62rem', color: '#64748b', marginTop: 3 }}>
                     {fmtDate(petro.latest?.date)}
                   </div>
                 </div>
@@ -211,14 +211,14 @@ const EnergyPaymentsPanel = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: '0.7rem', color: isMoMPos ? '#EF4444' : '#22C55E' }}>
                       {isMoMPos ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                       {isMoMPos ? '+' : ''}{pMoM.toFixed(2)}%
-                      <span style={{ color: 'var(--color-muted)', fontSize: '0.6rem' }}>MoM</span>
+                      <span style={{ color: '#64748b', fontSize: '0.6rem' }}>MoM</span>
                     </div>
                   )}
                   {pYoY !== null && pYoY !== undefined && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: '0.7rem', color: isYoYPos ? '#EF4444' : '#22C55E' }}>
                       {isYoYPos ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                       {isYoYPos ? '+' : ''}{pYoY.toFixed(2)}%
-                      <span style={{ color: 'var(--color-muted)', fontSize: '0.6rem' }}>YoY</span>
+                      <span style={{ color: '#64748b', fontSize: '0.6rem' }}>YoY</span>
                     </div>
                   )}
                 </div>
@@ -229,7 +229,7 @@ const EnergyPaymentsPanel = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.45rem' }}>
               {miniCards.map(card => {
                 const d      = card.isPct ? null : allData?.[card.key];
-                const color  = SOURCE_COLORS[card.key] || 'var(--color-muted)';
+                const color  = SOURCE_COLORS[card.key] || '#64748b';
                 const momVal = card.isPct ? derived?.shareMoM : d?.mom_change_pct;
                 const isMPos = momVal !== null && momVal !== undefined && momVal > 0;
                 const valueStr = card.isPct
@@ -243,12 +243,12 @@ const EnergyPaymentsPanel = () => {
                     key={card.key}
                     onClick={() => !card.isPct && setModal(card.key)}
                     style={{
-                      background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+                      background: '#0f172a', border: '1px solid var(--color-border)',
                       borderRadius: 5, padding: '0.5rem 0.6rem',
                       cursor: card.isPct ? 'default' : 'pointer', transition: 'border-color 0.15s',
                     }}
                     onMouseEnter={e => { if (!card.isPct) e.currentTarget.style.borderColor = color; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#1e293b'; }}
                   >
                     <div style={{ fontSize: '0.56rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.09em', color, textTransform: 'uppercase', marginBottom: 3 }}>
                       {card.label}
@@ -262,10 +262,10 @@ const EnergyPaymentsPanel = () => {
                         {isMPos ? '+' : ''}{momVal.toFixed(2)}%
                       </div>
                     ) : (
-                      <div style={{ fontSize: '0.62rem', color: 'var(--color-text-muted)', marginTop: 2 }}>—</div>
+                      <div style={{ fontSize: '0.62rem', color: '#475569', marginTop: 2 }}>—</div>
                     )}
-                    <div style={{ fontSize: '0.56rem', color: 'var(--color-text-muted)', marginTop: 2 }}>{dateStr}</div>
-                    <div style={{ fontSize: '0.54rem', color: 'var(--color-border)', marginTop: 1 }}>{card.desc}</div>
+                    <div style={{ fontSize: '0.56rem', color: '#475569', marginTop: 2 }}>{dateStr}</div>
+                    <div style={{ fontSize: '0.54rem', color: '#334155', marginTop: 1 }}>{card.desc}</div>
                   </div>
                 );
               })}
@@ -279,7 +279,7 @@ const EnergyPaymentsPanel = () => {
             }}>
               {/* Controls */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginBottom: '0.3rem' }}>
-                <span style={{ fontSize: '0.55rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-text-muted)' }}>
+                <span style={{ fontSize: '0.55rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#475569' }}>
                   Period Chg
                 </span>
                 <div style={{ display: 'flex', gap: '0.2rem', marginLeft: '0.3rem' }}>
@@ -290,9 +290,9 @@ const EnergyPaymentsPanel = () => {
                       style={{
                         fontSize: '0.56rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.07em',
                         textTransform: 'uppercase', padding: '0.12rem 0.4rem', borderRadius: 3,
-                        border: `1px solid ${chgRange === r.key ? '#F97316' : 'var(--color-border)'}`,
+                        border: `1px solid ${chgRange === r.key ? '#F97316' : '#1e293b'}`,
                         background: chgRange === r.key ? 'rgba(249,115,22,0.12)' : 'transparent',
-                        color: chgRange === r.key ? '#F97316' : 'var(--color-muted)',
+                        color: chgRange === r.key ? '#F97316' : '#64748b',
                         cursor: 'pointer',
                       }}
                     >
@@ -308,9 +308,9 @@ const EnergyPaymentsPanel = () => {
                       style={{
                         fontSize: '0.56rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.07em',
                         textTransform: 'uppercase', padding: '0.12rem 0.4rem', borderRadius: 3,
-                        border: `1px solid ${chgMode === k ? '#38BDF8' : 'var(--color-border)'}`,
+                        border: `1px solid ${chgMode === k ? '#38BDF8' : '#1e293b'}`,
                         background: chgMode === k ? 'rgba(56,189,248,0.12)' : 'transparent',
-                        color: chgMode === k ? '#38BDF8' : 'var(--color-muted)',
+                        color: chgMode === k ? '#38BDF8' : '#64748b',
                         cursor: 'pointer',
                       }}
                     >
@@ -323,19 +323,19 @@ const EnergyPaymentsPanel = () => {
               {/* Compact bar chart */}
               <ResponsiveContainer width="100%" height={110}>
                 <BarChart data={changeBarData} margin={{ top: 14, right: 4, left: 0, bottom: 5 }} barCategoryGap="25%">
-                  <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                   <XAxis
                     dataKey="name"
-                    stroke='var(--color-border)'
-                    tick={{ fill: 'var(--color-muted)', fontSize: 9 }}
-                    axisLine={{ stroke: 'var(--color-border)' }}
+                    stroke="#334155"
+                    tick={{ fill: '#64748b', fontSize: 9 }}
+                    axisLine={{ stroke: '#1e293b' }}
                     tickLine={false}
                     tickMargin={10}
                   />
                   <YAxis
                     tickFormatter={v => chgMode === 'pct' ? `${v}%` : `$${v}M`}
-                    stroke='var(--color-border)'
-                    tick={{ fill: 'var(--color-muted)', fontSize: 9 }}
+                    stroke="#334155"
+                    tick={{ fill: '#64748b', fontSize: 9 }}
                     axisLine={false}
                     tickLine={false}
                     width={38}
@@ -350,7 +350,7 @@ const EnergyPaymentsPanel = () => {
                       dataKey={chgMode === 'pct' ? 'pct' : 'usd'}
                       position="top"
                       formatter={v => chgMode === 'pct' ? `${v > 0 ? '+' : ''}${v}%` : `${v > 0 ? '+' : ''}$${v}M`}
-                      style={{ fill: 'var(--color-text-muted)', fontSize: 8 }}
+                      style={{ fill: '#94a3b8', fontSize: 8 }}
                     />
                   </Bar>
                 </BarChart>

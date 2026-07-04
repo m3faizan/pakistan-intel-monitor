@@ -126,7 +126,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
     const isHidden = hiddenSeries.includes(value);
     return (
       <span style={{ 
-        color: isHidden ? 'var(--color-muted)' : 'var(--color-text)', 
+        color: isHidden ? '#64748b' : '#f8fafc', 
         textDecoration: isHidden ? 'line-through' : 'none',
         cursor: 'pointer',
         transition: 'all 0.2s'
@@ -152,7 +152,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
            {visiblePayload.map(p => (
                <div key={p.dataKey} style={{ display: 'flex', justifyContent: 'space-between', margin: '4px 0', fontSize: '0.8rem' }}>
                    <span style={{ color: p.color }}>{p.dataKey}:</span>
-                   <span style={{ color: 'var(--color-text)', fontWeight: 'bold' }}>{fmt(p.value)} {unit}</span>
+                   <span style={{ color: '#f8fafc', fontWeight: 'bold' }}>{fmt(p.value)} {unit}</span>
                </div>
            ))}
         </div>
@@ -194,7 +194,7 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
           <div className="summary-main">
             <div className="summary-value">
               {fmt(latest?.value)}
-              <span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 8 }}>{unit}</span>
+              <span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>{unit}</span>
             </div>
             <div className="summary-period">
               <Calendar size={14} />
@@ -246,9 +246,9 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
           <ResponsiveContainer width="100%" height={300}>
             {isCombined ? (
                 <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                    <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={yAxisFmt} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={45} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                    <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={45} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend 
                       onClick={toggleSeries} 
@@ -268,10 +268,10 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                 </ComposedChart>
             ) : showPctChange ? (
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={55} />
-                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={55} />
+                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
                   {filteredData.map((entry, i) => (
@@ -287,9 +287,9 @@ const EnergyGenerationCostsModal = ({ isOpen, onClose, metric, data }) => {
                     <stop offset="95%" stopColor={chartColor} stopOpacity={0}   />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={yAxisFmt} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={['auto', 'auto']} width={40} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={yAxisFmt} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={['auto', 'auto']} width={40} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="value" stroke={chartColor} strokeWidth={2} fillOpacity={1} fill={`url(#powerCostGrad-${metric})`} />
               </AreaChart>

@@ -86,20 +86,20 @@ const PSXDataModal = ({ isOpen, onClose, data }) => {
           margin: '1rem 0'
         }}>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Day High</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Day High</div>
             <div style={{ color: '#22C55E', fontWeight: '600' }}>{formatNumber(data.high)}</div>
           </div>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Day Low</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Day Low</div>
             <div style={{ color: '#EF4444', fontWeight: '600' }}>{formatNumber(data.low)}</div>
           </div>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Previous Close</div>
-            <div style={{ color: 'var(--color-text)', fontWeight: '600' }}>{formatNumber(data.previous_close)}</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Previous Close</div>
+            <div style={{ color: '#f8fafc', fontWeight: '600' }}>{formatNumber(data.previous_close)}</div>
           </div>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Volume</div>
-            <div style={{ color: 'var(--color-text)', fontWeight: '600' }}>{formatVolume(data.volume)}</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>Volume</div>
+            <div style={{ color: '#f8fafc', fontWeight: '600' }}>{formatVolume(data.volume)}</div>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ const PSXDataModal = ({ isOpen, onClose, data }) => {
           marginBottom: '1rem'
         }}>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>YTD Change</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>YTD Change</div>
             <div style={{ 
               color: data.ytd_change >= 0 ? '#22C55E' : '#EF4444', 
               fontWeight: '600',
@@ -126,7 +126,7 @@ const PSXDataModal = ({ isOpen, onClose, data }) => {
             </div>
           </div>
           <div className="psx-stat-item">
-            <div style={{ color: 'var(--color-muted)', fontSize: '0.75rem', marginBottom: '0.25rem' }}>1-Year Change</div>
+            <div style={{ color: '#64748b', fontSize: '0.75rem', marginBottom: '0.25rem' }}>1-Year Change</div>
             <div style={{ 
               color: data.yoy_change >= 0 ? '#22C55E' : '#EF4444', 
               fontWeight: '600',
@@ -151,7 +151,7 @@ const PSXDataModal = ({ isOpen, onClose, data }) => {
           marginBottom: '1rem'
         }}>
           <Activity size={16} style={{ color: marketOpen ? '#22C55E' : '#EF4444' }} />
-          <span style={{ fontSize: '0.85rem', color: 'var(--color-text)' }}>
+          <span style={{ fontSize: '0.85rem', color: '#f8fafc' }}>
             Market {marketOpen ? 'Open' : 'Closed'}
           </span>
         </div>

@@ -93,7 +93,7 @@ const TwoThreeWheelersModal = ({ isOpen, onClose, data, title }) => {
         <div className="time-range-selector" data-testid="two-three-time-selector">
           <button className={`range-btn ${mode === 'production' ? 'active' : ''}`} onClick={() => setMode('production')} data-testid="two-three-mode-production">Production</button>
           <button className={`range-btn ${mode === 'sales' ? 'active' : ''}`} onClick={() => setMode('sales')} data-testid="two-three-mode-sales">Sales</button>
-          <div style={{ width: '1px', height: '22px', background: 'var(--color-border)', margin: '0 0.3rem' }}></div>
+          <div style={{ width: '1px', height: '22px', background: '#1e293b', margin: '0 0.3rem' }}></div>
           {TIME_RANGES.map((range) => (
             <button
               key={range.key}
@@ -115,9 +115,9 @@ const TwoThreeWheelersModal = ({ isOpen, onClose, data, title }) => {
                   <stop offset="95%" stopColor="#14B8A6" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-              <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
-              <YAxis tickFormatter={(val) => `${(val / 1000).toFixed(0)}K`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} width={45} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+              <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
+              <YAxis tickFormatter={(val) => `${(val / 1000).toFixed(0)}K`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} width={45} />
               <Tooltip
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {

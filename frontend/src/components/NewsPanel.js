@@ -92,8 +92,8 @@ const NewsPanel = ({ news, loading }) => {
               fontSize: '0.625rem',
               textTransform: 'uppercase',
               background: selectedCategory === cat ? 'var(--color-primary)' : 'transparent',
-              color: selectedCategory === cat ? '#000' : 'var(--color-muted)',
-              border: `1px solid ${selectedCategory === cat ? 'var(--color-primary)' : 'var(--color-border)'}`,
+              color: selectedCategory === cat ? '#000' : '#64748b',
+              border: `1px solid ${selectedCategory === cat ? 'var(--color-primary)' : '#1e293b'}`,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
               fontFamily: 'var(--font-mono)'
@@ -152,7 +152,7 @@ const NewsPanel = ({ news, loading }) => {
                 style={{
                   padding: '1rem',
                   textAlign: 'center',
-                  color: 'var(--color-muted)',
+                  color: '#64748b',
                   fontSize: '0.75rem',
                   display: 'flex',
                   alignItems: 'center',
@@ -169,7 +169,7 @@ const NewsPanel = ({ news, loading }) => {
               <div style={{
                 padding: '1rem',
                 textAlign: 'center',
-                color: 'var(--color-muted)',
+                color: '#64748b',
                 fontSize: '0.625rem',
                 textTransform: 'uppercase'
               }}>

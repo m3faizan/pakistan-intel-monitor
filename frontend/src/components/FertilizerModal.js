@@ -77,7 +77,7 @@ const FertilizerModal = ({ isOpen, onClose, data, title }) => {
               <Calendar size={14} />
               {latest?.month || 'N/A'}
             </div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }} data-testid="fertilizer-unit-label">
+            <div style={{ fontSize: '0.68rem', color: '#94a3b8', marginTop: '0.15rem' }} data-testid="fertilizer-unit-label">
               Thousand Metric Ton
             </div>
           </div>
@@ -103,7 +103,7 @@ const FertilizerModal = ({ isOpen, onClose, data, title }) => {
               {range.label}
             </button>
           ))}
-          <div style={{ width: '1px', height: '22px', background: 'var(--color-border)', margin: '0 0.3rem' }}></div>
+          <div style={{ width: '1px', height: '22px', background: '#1e293b', margin: '0 0.3rem' }}></div>
           {[
             { key: 'total', label: 'Total' },
             { key: 'urea', label: 'Urea' },
@@ -128,9 +128,9 @@ const FertilizerModal = ({ isOpen, onClose, data, title }) => {
         <div className="chart-container" data-testid="fertilizer-chart-container">
           <ResponsiveContainer width="100%" height={300}>
             <ComposedChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-              <XAxis dataKey="date" tickFormatter={formatDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
-              <YAxis tickFormatter={(val) => `${val.toFixed(0)}`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} width={45} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+              <XAxis dataKey="date" tickFormatter={formatDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
+              <YAxis tickFormatter={(val) => `${val.toFixed(0)}`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} width={45} />
               <Tooltip
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
@@ -159,7 +159,7 @@ const FertilizerModal = ({ isOpen, onClose, data, title }) => {
         <div className="modal-footer" data-testid="fertilizer-modal-footer">
           <span className="data-source">Source: {data?.source || 'State Bank of Pakistan / PBS'}</span>
           <span className="data-updated">
-            <span style={{ marginRight: '0.8rem', color: 'var(--color-text-muted)' }}>Unit: Thousand Metric Ton</span>
+            <span style={{ marginRight: '0.8rem', color: '#94a3b8' }}>Unit: Thousand Metric Ton</span>
             Last updated: {new Date(data?.updated || Date.now()).toLocaleDateString()}
           </span>
         </div>

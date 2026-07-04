@@ -39,7 +39,7 @@ const MarineTrafficPanel = ({ data, loading }) => {
       <div className="panel-content">
         <div className="marine-traffic-note" style={{
           fontSize: '0.6rem',
-          color: 'var(--color-muted)',
+          color: '#64748b',
           marginBottom: '0.75rem',
           display: 'flex',
           justifyContent: 'space-between'
@@ -81,13 +81,13 @@ const MarineTrafficPanel = ({ data, loading }) => {
                 <span style={{ 
                   fontWeight: 600, 
                   fontSize: '0.85rem',
-                  color: 'var(--color-text)'
+                  color: '#f8fafc'
                 }}>
                   {port.name}
                 </span>
                 <span style={{ 
                   fontSize: '0.6rem', 
-                  color: 'var(--color-muted)',
+                  color: '#64748b',
                   fontFamily: 'var(--font-mono)'
                 }}>
                   {port.code}
@@ -107,8 +107,8 @@ const MarineTrafficPanel = ({ data, loading }) => {
                     gap: '0.25rem',
                     marginBottom: '0.25rem'
                   }}>
-                    <MapPin size={10} color="var(--color-muted)" />
-                    <span style={{ fontSize: '0.55rem', color: 'var(--color-muted)' }}>In Port</span>
+                    <MapPin size={10} color="#64748b" />
+                    <span style={{ fontSize: '0.55rem', color: '#64748b' }}>In Port</span>
                   </div>
                   <div style={{ 
                     fontSize: '1rem', 
@@ -128,8 +128,8 @@ const MarineTrafficPanel = ({ data, loading }) => {
                     gap: '0.25rem',
                     marginBottom: '0.25rem'
                   }}>
-                    <ArrowDown size={10} color="var(--color-muted)" />
-                    <span style={{ fontSize: '0.55rem', color: 'var(--color-muted)' }}>Arrivals</span>
+                    <ArrowDown size={10} color="#64748b" />
+                    <span style={{ fontSize: '0.55rem', color: '#64748b' }}>Arrivals</span>
                   </div>
                   <div style={{ 
                     fontSize: '1rem', 
@@ -149,8 +149,8 @@ const MarineTrafficPanel = ({ data, loading }) => {
                     gap: '0.25rem',
                     marginBottom: '0.25rem'
                   }}>
-                    <ArrowUp size={10} color="var(--color-muted)" />
-                    <span style={{ fontSize: '0.55rem', color: 'var(--color-muted)' }}>Departures</span>
+                    <ArrowUp size={10} color="#64748b" />
+                    <span style={{ fontSize: '0.55rem', color: '#64748b' }}>Departures</span>
                   </div>
                   <div style={{ 
                     fontSize: '1rem', 
@@ -170,8 +170,8 @@ const MarineTrafficPanel = ({ data, loading }) => {
                     gap: '0.25rem',
                     marginBottom: '0.25rem'
                   }}>
-                    <Clock size={10} color="var(--color-muted)" />
-                    <span style={{ fontSize: '0.55rem', color: 'var(--color-muted)' }}>Expected</span>
+                    <Clock size={10} color="#64748b" />
+                    <span style={{ fontSize: '0.55rem', color: '#64748b' }}>Expected</span>
                   </div>
                   <div style={{ 
                     fontSize: '1rem', 
@@ -195,7 +195,7 @@ const MarineTrafficPanel = ({ data, loading }) => {
           display: 'flex',
           justifyContent: 'space-between',
           fontSize: '0.6rem',
-          color: 'var(--color-muted)'
+          color: '#64748b'
         }}>
           <span>Total vessels in Pakistan ports: <strong style={{ color: '#22C55E' }}>{totalInPort}</strong></span>
           <span>Expected arrivals: <strong style={{ color: '#8B5CF6' }}>{totalExpected}</strong></span>

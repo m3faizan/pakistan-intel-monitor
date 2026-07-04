@@ -151,15 +151,15 @@ const ImportedSourcesModal = ({ isOpen, onClose, allData }) => {
           <div className="summary-main">
             <div className="summary-value">
               {showGwh
-                ? <>{fmtGwh(importNow)}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 8 }}>GWh</span></>
-                : <>{importShare.toFixed(1)}<span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 4 }}>%</span></>
+                ? <>{fmtGwh(importNow)}<span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>GWh</span></>
+                : <>{importShare.toFixed(1)}<span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 4 }}>%</span></>
               }
             </div>
             <div className="summary-period">
               <Calendar size={14} />
               {fmtMonth(latestDate)}
             </div>
-            <div style={{ fontSize: '0.65rem', color: 'var(--color-muted)', marginTop: 2 }}>
+            <div style={{ fontSize: '0.65rem', color: '#64748b', marginTop: 2 }}>
               RLNG + Iran
             </div>
           </div>
@@ -167,7 +167,7 @@ const ImportedSourcesModal = ({ isOpen, onClose, allData }) => {
             {importMoM !== null && (
               <div
                 className={`summary-change ${isMomZero ? '' : isMomPos ? 'positive' : 'negative'}`}
-                style={isMomZero ? { color: 'var(--color-muted)' } : {}}
+                style={isMomZero ? { color: '#64748b' } : {}}
               >
                 {isMomZero ? '=' : isMomPos ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                 <span>{isMomPos && !isMomZero ? '+' : ''}{importMoM.toFixed(2)}%</span>
@@ -177,7 +177,7 @@ const ImportedSourcesModal = ({ isOpen, onClose, allData }) => {
             {!showGwh && importGwhMoM !== null && (
               <div
                 className={`summary-change ${importGwhMoM === 0 ? '' : importGwhMoM > 0 ? 'positive' : 'negative'}`}
-                style={importGwhMoM === 0 ? { color: 'var(--color-muted)' } : {}}
+                style={importGwhMoM === 0 ? { color: '#64748b' } : {}}
               >
                 {importGwhMoM === 0 ? '=' : importGwhMoM > 0 ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                 <span>{importGwhMoM > 0 ? '+' : ''}{importGwhMoM.toFixed(2)}%</span>
@@ -230,9 +230,9 @@ const ImportedSourcesModal = ({ isOpen, onClose, allData }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showGwh ? (
               <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={42} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={42} />
                 <Tooltip content={<CustomTooltip />} />
                 {IMPORT_SOURCES.map(src => (
                   <Bar key={src} dataKey={src} stackId="imp" fill={SOURCE_COLORS[src]} hide={visible[src] === false} maxBarSize={32} />
@@ -247,9 +247,9 @@ const ImportedSourcesModal = ({ isOpen, onClose, allData }) => {
                     <stop offset="95%" stopColor="#FB923C" stopOpacity={0.02} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-                <XAxis dataKey="date" tickFormatter={fmtDate} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} interval="preserveStartEnd" minTickGap={50} />
-                <YAxis tickFormatter={v => `${v.toFixed(0)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} axisLine={{ stroke: 'var(--color-border)' }} tickLine={{ stroke: 'var(--color-border)' }} domain={[0, 'auto']} width={42} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                <XAxis dataKey="date" tickFormatter={fmtDate} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} interval="preserveStartEnd" minTickGap={50} />
+                <YAxis tickFormatter={v => `${v.toFixed(0)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={{ stroke: '#1e293b' }} tickLine={{ stroke: '#1e293b' }} domain={[0, 'auto']} width={42} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="importShare" stroke="#FB923C" strokeWidth={2.5} fill="url(#importGrad)" dot={false} connectNulls />
               </AreaChart>

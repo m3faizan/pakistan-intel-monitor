@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Zap, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react';
 import axios from 'axios';
-import { LineChart, Line, Area, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import PowerGenerationModal from './PowerGenerationModal';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
@@ -24,7 +24,7 @@ const SOURCE_COLORS = {
   Solar:   '#FDE68A',
   Bagasse: '#10B981',
   Iran:    '#64748B',
-  Mixed:   'var(--color-text-muted)',
+  Mixed:   '#475569',
 };
 
 const PowerGenerationPanel = () => {
@@ -97,9 +97,9 @@ const PowerGenerationPanel = () => {
           style={{
             fontSize: '0.6rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em',
             textTransform: 'uppercase', padding: '0.2rem 0.55rem', borderRadius: 3,
-            border: `1px solid ${showPct ? '#22C55E' : 'var(--color-border)'}`,
+            border: `1px solid ${showPct ? '#22C55E' : '#1e293b'}`,
             background: showPct ? 'rgba(34,197,94,0.12)' : 'transparent',
-            color: showPct ? '#22C55E' : 'var(--color-muted)', cursor: 'pointer', transition: 'all 0.15s',
+            color: showPct ? '#22C55E' : '#64748b', cursor: 'pointer', transition: 'all 0.15s',
             marginLeft: 'auto', marginRight: '0.4rem'
           }}
         >
@@ -110,7 +110,7 @@ const PowerGenerationPanel = () => {
 
       <div className="panel-content">
         {!allData || keys.length === 0 ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -158,12 +158,6 @@ const PowerGenerationPanel = () => {
                     <div style={{ height: 28, margin: '4px 0 2px' }}>
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={spark}>
-                          <defs>
-                            <linearGradient id={`grad-${name}`} x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor={isPos ? color : '#EF4444'} stopOpacity={0.3} />
-                              <stop offset="95%" stopColor={isPos ? color : '#EF4444'} stopOpacity={0} />
-                            </linearGradient>
-                          </defs>
                           <Line
                             type="monotone"
                             dataKey="value"
@@ -171,7 +165,6 @@ const PowerGenerationPanel = () => {
                             strokeWidth={1.2}
                             dot={false}
                           />
-                          <Area type="monotone" dataKey="value" stroke="none" fill={`url(#grad-${name})`} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
@@ -185,7 +178,7 @@ const PowerGenerationPanel = () => {
                       <div className="mineral-unit">% of total</div>
                       {latestPct?.mom !== null && latestPct?.mom !== undefined ? (
                         latestPct.mom === 0 ? (
-                          <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>= 0.00%</div>
+                          <div className="mineral-change" style={{ color: '#64748b' }}>= 0.00%</div>
                         ) : (
                           <div className={`mineral-change ${latestPct.mom > 0 ? 'positive' : 'negative'}`}>
                             {latestPct.mom > 0 ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
@@ -193,7 +186,7 @@ const PowerGenerationPanel = () => {
                           </div>
                         )
                       ) : (
-                        <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>—</div>
+                        <div className="mineral-change" style={{ color: '#64748b' }}>—</div>
                       )}
                     </>
                   ) : (
@@ -204,7 +197,7 @@ const PowerGenerationPanel = () => {
                       <div className="mineral-unit">{d?.unit || 'GWh'}</div>
                       {pct !== null && pct !== undefined ? (
                         pct === 0 ? (
-                          <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>= 0.00%</div>
+                          <div className="mineral-change" style={{ color: '#64748b' }}>= 0.00%</div>
                         ) : (
                           <div className={`mineral-change ${isPos ? 'positive' : 'negative'}`}>
                             {isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
@@ -212,7 +205,7 @@ const PowerGenerationPanel = () => {
                           </div>
                         )
                       ) : (
-                        <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>—</div>
+                        <div className="mineral-change" style={{ color: '#64748b' }}>—</div>
                       )}
                     </>
                   )}

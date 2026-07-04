@@ -110,7 +110,7 @@ const LNGMap = ({ terminals }) => {
             <MapPin size={14} />
             {selected.name}
             <button onClick={() => setSelected(null)} style={{
-              background: 'none', border: 'none', color: 'var(--color-muted)',
+              background: 'none', border: 'none', color: '#64748b',
               cursor: 'pointer', marginLeft: 'auto', padding: '2px',
               display: 'flex', alignItems: 'center',
             }}>
@@ -126,7 +126,7 @@ const LNGMap = ({ terminals }) => {
                 gap: '1rem',
               }}>
                 <span style={{
-                  color: 'var(--color-muted)', textTransform: 'uppercase',
+                  color: '#64748b', textTransform: 'uppercase',
                   fontSize: '0.58rem', letterSpacing: '0.06em',
                   flexShrink: 0, minWidth: '70px',
                 }}>

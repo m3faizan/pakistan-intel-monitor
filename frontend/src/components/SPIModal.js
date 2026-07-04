@@ -109,9 +109,9 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
       return (
         <ResponsiveContainer width="100%" height={320}>
           <BarChart data={movementData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-            <XAxis dataKey="date" tickFormatter={fmtTick} stroke='var(--color-muted)' fontSize={10} interval="preserveStartEnd" minTickGap={50} />
-            <YAxis stroke='var(--color-muted)' fontSize={10} width={35} label={{ value: 'Items', angle: -90, position: 'insideLeft', style: { fill: 'var(--color-muted)', fontSize: 10 } }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={10} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis stroke="#64748b" fontSize={10} width={35} label={{ value: 'Items', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontSize: 10 } }} />
             <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
               <div className="remittances-tooltip" style={{ minWidth: 180 }}>
                 <p className="tooltip-date">{fmtTooltip(label)}</p>
@@ -137,20 +137,20 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', padding: '0.5rem 0 1rem' }}>
             <button onClick={() => setQuintileWeekIdx(i => Math.max(0, i - 1))}
               disabled={quintileWeekIdx <= 0}
-              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx <= 0 ? 'var(--color-border)' : '#E2E8F0', cursor: quintileWeekIdx <= 0 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
+              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx <= 0 ? '#334155' : '#E2E8F0', cursor: quintileWeekIdx <= 0 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
               <ChevronLeft size={16} />
             </button>
             <div style={{ textAlign: 'center', minWidth: '200px' }}>
               <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#F8FAFC', fontFamily: 'var(--font-mono)' }}>
                 {qWeek?.week} — {qWeek?.week_ending_formatted || new Date(qWeek?.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </div>
-              <div style={{ fontSize: '0.6rem', color: 'var(--color-muted)', marginTop: '0.15rem' }}>
+              <div style={{ fontSize: '0.6rem', color: '#64748b', marginTop: '0.15rem' }}>
                 Combined: {qWeek?.value?.toFixed(2)}
               </div>
             </div>
             <button onClick={() => setQuintileWeekIdx(i => Math.min(sortedHistory.length - 1, i + 1))}
               disabled={quintileWeekIdx >= sortedHistory.length - 1}
-              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx >= sortedHistory.length - 1 ? 'var(--color-border)' : '#E2E8F0', cursor: quintileWeekIdx >= sortedHistory.length - 1 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
+              style={{ background: 'none', border: '1px solid var(--color-border)', color: quintileWeekIdx >= sortedHistory.length - 1 ? '#334155' : '#E2E8F0', cursor: quintileWeekIdx >= sortedHistory.length - 1 ? 'default' : 'pointer', padding: '0.35rem 0.5rem', display: 'flex', alignItems: 'center' }}>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -158,9 +158,9 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
           {/* Quintile bar chart */}
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={qData} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' horizontal={false} />
-              <XAxis type="number" stroke='var(--color-muted)' fontSize={10} domain={[0, 'dataMax + 20']} />
-              <YAxis type="category" dataKey="name" stroke='var(--color-muted)' fontSize={10} width={100} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={false} />
+              <XAxis type="number" stroke="#64748b" fontSize={10} domain={[0, 'dataMax + 20']} />
+              <YAxis type="category" dataKey="name" stroke="#64748b" fontSize={10} width={100} />
               <Tooltip content={({ active, payload }) => active && payload?.length ? (
                 <div className="remittances-tooltip">
                   <p style={{ color: payload[0]?.payload?.color, fontSize: '0.85rem', fontWeight: 700 }}>
@@ -178,15 +178,15 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', padding: '0.5rem 0', borderTop: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1rem', fontWeight: 700, color: '#EF4444' }}>{qWeek.increase}</div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Increased</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Increased</div>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1rem', fontWeight: 700, color: '#64748B' }}>{qWeek.stable}</div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Stable</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Stable</div>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1rem', fontWeight: 700, color: '#22C55E' }}>{qWeek.decrease}</div>
-                <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Decreased</div>
+                <div style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase' }}>Decreased</div>
               </div>
             </div>
           )}
@@ -199,10 +199,10 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
       return (
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-            <XAxis dataKey="date" tickFormatter={fmtTick} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
-            <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke='var(--color-muted)' tick={{ fill: 'var(--color-muted)', fontSize: 11 }} domain={['auto', 'auto']} width={50} />
-            <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`} stroke="#64748b" tick={{ fill: '#64748b', fontSize: 11 }} domain={['auto', 'auto']} width={50} />
+            <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
             <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
               <div className="remittances-tooltip">
                 <p className="tooltip-date">{fmtTooltip(label)}</p>
@@ -222,9 +222,9 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
       return (
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-            <XAxis dataKey="date" tickFormatter={fmtTick} stroke='var(--color-muted)' fontSize={11} interval="preserveStartEnd" minTickGap={50} />
-            <YAxis stroke='var(--color-muted)' fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+            <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={11} interval="preserveStartEnd" minTickGap={50} />
+            <YAxis stroke="#64748b" fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
             <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
               <div className="remittances-tooltip" style={{ minWidth: 190 }}>
                 <p className="tooltip-date">{fmtTooltip(label)}</p>
@@ -247,9 +247,9 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs><linearGradient id="colorSPI" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#22C55E" stopOpacity={0.3} /><stop offset="95%" stopColor="#22C55E" stopOpacity={0} /></linearGradient></defs>
-          <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
-          <XAxis dataKey="date" tickFormatter={fmtTick} stroke='var(--color-muted)' fontSize={11} interval="preserveStartEnd" minTickGap={50} />
-          <YAxis stroke='var(--color-muted)' fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+          <XAxis dataKey="date" tickFormatter={fmtTick} stroke="#64748b" fontSize={11} interval="preserveStartEnd" minTickGap={50} />
+          <YAxis stroke="#64748b" fontSize={11} domain={[Math.max(0, minValue * 0.98), maxValue * 1.02]} width={50} />
           <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
             <div className="remittances-tooltip">
               <p className="tooltip-date">{fmtTooltip(label)}</p>
@@ -365,7 +365,7 @@ const SPIModal = ({ isOpen, onClose, data, title, frequency = 'Weekly' }) => {
           <span>
             Source: <a href="https://spi.pakesda.com/" target="_blank" rel="noreferrer" style={{ color: 'var(--color-primary)', textDecoration: 'none' }}>spi.pakesda.com</a>
           </span>
-          <span style={{ color: 'var(--color-text-muted)' }}>
+          <span style={{ color: '#94a3b8' }}>
             {data?.total_data_points || 0} weeks | {data?.date_range || ''}
           </span>
         </div>

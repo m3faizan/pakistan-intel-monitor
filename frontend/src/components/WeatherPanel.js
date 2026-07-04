@@ -45,7 +45,7 @@ const WeatherPanel = ({ cities, loading }) => {
                 </div>
                 <div style={{ 
                   fontSize: '0.625rem', 
-                  color: 'var(--color-muted)',
+                  color: '#64748b',
                   marginTop: '0.25rem',
                   display: 'flex',
                   alignItems: 'center',

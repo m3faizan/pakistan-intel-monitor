@@ -55,7 +55,7 @@ const SecurityPanel = ({ alerts, loading }) => {
                 <div
                   style={{
                     fontSize: '0.68rem',
-                    color: 'var(--color-text-muted)',
+                    color: '#94a3b8',
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
                     marginBottom: '0.35rem'

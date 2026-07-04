@@ -128,7 +128,7 @@ const MineralsMetalsPanel = ({ loading: parentLoading }) => {
                     {isPos ? '+' : ''}{pct.toFixed(2)}%
                   </div>
                 ) : (
-                  <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>—</div>
+                  <div className="mineral-change" style={{ color: '#64748b' }}>—</div>
                 )}
 
                 <div className="mineral-sublabel">{formatDate(d?.latest?.date)}</div>

@@ -48,7 +48,7 @@ const LNGNewsPanel = () => {
         {loading ? (
           <div className="loading"><div className="spinner"></div></div>
         ) : news.length === 0 ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', padding: '1rem', textAlign: 'center' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', padding: '1rem', textAlign: 'center' }}>
             No LNG news available
           </div>
         ) : (
@@ -63,7 +63,7 @@ const LNGNewsPanel = () => {
                 <ExternalLink size={10} style={{ marginLeft: 4, opacity: 0.5, flexShrink: 0 }} />
               </a>
               {item.summary && !item.summary.includes('<img') && (
-                <div style={{ fontSize: '0.65rem', color: 'var(--color-muted)', marginTop: '0.2rem', lineHeight: 1.4 }}>
+                <div style={{ fontSize: '0.65rem', color: '#64748b', marginTop: '0.2rem', lineHeight: 1.4 }}>
                   {item.summary}
                 </div>
               )}

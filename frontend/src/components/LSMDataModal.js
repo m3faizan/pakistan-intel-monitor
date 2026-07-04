@@ -111,7 +111,7 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
           <p className="tooltip-date">{formattedDate}</p>
           <p className="tooltip-value" style={{ color: '#22C55E' }}>{(payload[0].value || 0).toFixed(2)}</p>
           {point?.base_year && (
-            <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+            <p style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '4px' }}>
               {point.base_year}
             </p>
           )}
@@ -136,7 +136,7 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
 
         <div className="modal-summary">
           <div className="summary-main">
-            <div className="summary-value" style={{ color: 'var(--color-text)' }} data-testid="lsm-summary-value">
+            <div className="summary-value" style={{ color: '#f8fafc' }} data-testid="lsm-summary-value">
               {latestValue.toFixed(2)}
             </div>
             <div className="summary-period" data-testid="lsm-summary-period">
@@ -174,7 +174,7 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
             </button>
           ))}
           <div style={{ marginLeft: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.45rem' }} data-testid="lsm-base-inline-selector-wrap">
-            <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>Base:</span>
+            <span style={{ fontSize: '0.68rem', color: '#94a3b8' }}>Base:</span>
             <select
               value={selectedBase}
               onChange={(e) => setSelectedBase(e.target.value)}
@@ -182,7 +182,7 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
               style={{
                 background: 'rgba(11, 18, 32, 0.92)',
                 border: '1px solid var(--color-border)',
-                color: 'var(--color-text)',
+                color: '#f8fafc',
                 fontSize: '0.72rem',
                 padding: '0.22rem 0.45rem',
                 borderRadius: '4px'
@@ -204,23 +204,23 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
                   <stop offset="95%" stopColor="#22C55E" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
               <XAxis
                 dataKey="date"
                 tickFormatter={formatDate}
-                stroke='var(--color-muted)'
-                tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                axisLine={{ stroke: 'var(--color-border)' }}
-                tickLine={{ stroke: 'var(--color-border)' }}
+                stroke="#64748b"
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#1e293b' }}
+                tickLine={{ stroke: '#1e293b' }}
                 interval="preserveStartEnd"
                 minTickGap={50}
               />
               <YAxis
                 tickFormatter={(val) => val.toFixed(0)}
-                stroke='var(--color-muted)'
-                tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                axisLine={{ stroke: 'var(--color-border)' }}
-                tickLine={{ stroke: 'var(--color-border)' }}
+                stroke="#64748b"
+                tick={{ fill: '#64748b', fontSize: 11 }}
+                axisLine={{ stroke: '#1e293b' }}
+                tickLine={{ stroke: '#1e293b' }}
                 domain={[Math.max(0, minValue * 0.95), maxValue * 1.05]}
                 width={45}
               />
@@ -234,7 +234,7 @@ const LSMDataModal = ({ isOpen, onClose, data, title }) => {
           <span className="data-source">Source: {data?.source || 'State Bank of Pakistan / PBS'}</span>
           <span className="data-updated">
             {filteredData?.length > 0 && (
-              <span style={{ marginRight: '1rem', color: 'var(--color-muted)' }}>
+              <span style={{ marginRight: '1rem', color: '#64748b' }}>
                 {filteredData.length} data points
               </span>
             )}

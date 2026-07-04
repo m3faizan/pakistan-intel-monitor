@@ -131,7 +131,7 @@ const MineralsDetailModal = ({ isOpen, onClose, mineral, data }) => {
           <div className="summary-main">
             <div className="summary-value">
               {formatVal(latest?.value)}
-              <span style={{ fontSize: '1rem', fontWeight: 400, color: 'var(--color-text-muted)', marginLeft: 8 }}>{unit}</span>
+              <span style={{ fontSize: '1rem', fontWeight: 400, color: '#94a3b8', marginLeft: 8 }}>{unit}</span>
             </div>
             <div className="summary-period">
               <Calendar size={14} />
@@ -181,27 +181,27 @@ const MineralsDetailModal = ({ isOpen, onClose, mineral, data }) => {
           <ResponsiveContainer width="100%" height={300}>
             {showPctChange ? (
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis
                   dataKey="date"
                   tickFormatter={formatDate}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
                 <YAxis
                   tickFormatter={v => `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   domain={['auto', 'auto']}
                   width={55}
                 />
-                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
+                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="pct_change" radius={[2, 2, 0, 0]}>
                   {filteredData.map((entry, i) => (
@@ -221,23 +221,23 @@ const MineralsDetailModal = ({ isOpen, onClose, mineral, data }) => {
                     <stop offset="95%" stopColor="#22C55E" stopOpacity={0}   />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis
                   dataKey="date"
                   tickFormatter={formatDate}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
                 <YAxis
                   tickFormatter={yAxisFormatter}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   domain={[0, 'auto']}
                   width={55}
                 />

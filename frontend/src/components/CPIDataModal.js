@@ -118,7 +118,7 @@ const CPIDataModal = ({ isOpen, onClose, data, title, type }) => {
             {formatValue(value)}
           </p>
           {baseYear && (
-            <p className="tooltip-base" style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginTop: '4px' }}>
+            <p className="tooltip-base" style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '4px' }}>
               Base Year: {baseYear}
             </p>
           )}
@@ -192,7 +192,7 @@ const CPIDataModal = ({ isOpen, onClose, data, title, type }) => {
               </div>
             )}
             {yoyComparison !== null && yoyComparison !== undefined && type === 'yoy' && (
-              <div className="summary-change" style={{ color: 'var(--color-muted)' }}>
+              <div className="summary-change" style={{ color: '#64748b' }}>
                 <span>Year ago: {yoyComparison.toFixed(1)}%</span>
               </div>
             )}
@@ -217,27 +217,27 @@ const CPIDataModal = ({ isOpen, onClose, data, title, type }) => {
             {type === 'mom' ? (
               // Bar chart for MoM (shows positive/negative better)
               <BarChart data={filteredData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
                 <YAxis 
                   tickFormatter={(val) => `${val}%`}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   domain={[Math.min(minValue * 1.2, -1), Math.max(maxValue * 1.2, 1)]}
                   width={45}
                 />
-                <ReferenceLine y={0} stroke='var(--color-muted)' strokeDasharray="3 3" />
+                <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
                 {/* Base year change markers */}
                 {baseYearMarkers.map((marker, idx) => (
                   <ReferenceLine 
@@ -275,23 +275,23 @@ const CPIDataModal = ({ isOpen, onClose, data, title, type }) => {
                     <stop offset="95%" stopColor="#EF4444" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke='var(--color-border)' vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   interval="preserveStartEnd"
                   minTickGap={50}
                 />
                 <YAxis 
                   tickFormatter={(val) => `${val}%`}
-                  stroke='var(--color-muted)'
-                  tick={{ fill: 'var(--color-muted)', fontSize: 11 }}
-                  axisLine={{ stroke: 'var(--color-border)' }}
-                  tickLine={{ stroke: 'var(--color-border)' }}
+                  stroke="#64748b"
+                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  axisLine={{ stroke: '#1e293b' }}
+                  tickLine={{ stroke: '#1e293b' }}
                   domain={[0, 'auto']}
                   width={45}
                 />
@@ -331,7 +331,7 @@ const CPIDataModal = ({ isOpen, onClose, data, title, type }) => {
           <span className="data-source">Source: State Bank of Pakistan</span>
           <span className="data-updated">
             {data?.total_data_points && (
-              <span style={{ marginRight: '1rem', color: 'var(--color-muted)' }}>
+              <span style={{ marginRight: '1rem', color: '#64748b' }}>
                 {data.total_data_points} data points
               </span>
             )}

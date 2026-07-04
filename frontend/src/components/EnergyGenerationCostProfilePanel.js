@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Coins, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react';
 import axios from 'axios';
-import { LineChart, Line, Area, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import EnergyGenerationCostsModal from './EnergyGenerationCostsModal';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
@@ -20,7 +20,7 @@ const SOURCE_COLORS = {
   'RLNG':          '#FB923C',
   'Nuclear':       '#A855F7',
   'Import Iran':   '#64748B',
-  'Mixed':         'var(--color-text-muted)',
+  'Mixed':         '#475569',
   'Wind':          '#6EE7B7',
   'Baggasse':      '#10B981',
   'Solar':         '#FDE68A',
@@ -54,8 +54,8 @@ const EnergyGenerationCostProfilePanel = () => {
     return () => clearInterval(iv);
   }, []);
 
-  const activeData = (mode === 'PKR_KWH' || mode === 'PCT_CHG') ? dataPkrKwh : dataMlnPkr;
-  const activeUnit = mode === 'PKR_KWH' ? 'PKR/kWh' : mode === 'MLN_PKR' ? 'Mln PKR' : '% Chg';
+  const activeData = mode === 'PKR_KWH' ? dataPkrKwh : dataMlnPkr;
+  const activeUnit = mode === 'PKR_KWH' ? 'PKR/kWh' : 'Mln PKR';
 
   const formattedData = useMemo(() => {
     if (!activeData || activeData.length === 0) return null;
@@ -127,9 +127,9 @@ const EnergyGenerationCostProfilePanel = () => {
             style={{
               fontSize: '0.6rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em',
               textTransform: 'uppercase', padding: '0.2rem 0.55rem', borderRadius: 3,
-              border: `1px solid ${mode === 'PKR_KWH' ? '#22C55E' : 'var(--color-border)'}`,
+              border: `1px solid ${mode === 'PKR_KWH' ? '#22C55E' : '#1e293b'}`,
               background: mode === 'PKR_KWH' ? 'rgba(34,197,94,0.12)' : 'transparent',
-              color: mode === 'PKR_KWH' ? '#22C55E' : 'var(--color-muted)', cursor: 'pointer', transition: 'all 0.15s'
+              color: mode === 'PKR_KWH' ? '#22C55E' : '#64748b', cursor: 'pointer', transition: 'all 0.15s'
             }}
           >
             PKR/kWh
@@ -139,24 +139,12 @@ const EnergyGenerationCostProfilePanel = () => {
             style={{
               fontSize: '0.6rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em',
               textTransform: 'uppercase', padding: '0.2rem 0.55rem', borderRadius: 3,
-              border: `1px solid ${mode === 'MLN_PKR' ? '#38BDF8' : 'var(--color-border)'}`,
+              border: `1px solid ${mode === 'MLN_PKR' ? '#38BDF8' : '#1e293b'}`,
               background: mode === 'MLN_PKR' ? 'rgba(56,189,248,0.12)' : 'transparent',
-              color: mode === 'MLN_PKR' ? '#38BDF8' : 'var(--color-muted)', cursor: 'pointer', transition: 'all 0.15s'
+              color: mode === 'MLN_PKR' ? '#38BDF8' : '#64748b', cursor: 'pointer', transition: 'all 0.15s'
             }}
           >
             Mln PKR
-          </button>
-          <button
-            onClick={() => setMode('PCT_CHG')}
-            style={{
-              fontSize: '0.6rem', fontFamily: 'var(--font-heading)', letterSpacing: '0.08em',
-              textTransform: 'uppercase', padding: '0.2rem 0.55rem', borderRadius: 3,
-              border: `1px solid ${mode === 'PCT_CHG' ? '#F59E0B' : 'var(--color-border)'}`,
-              background: mode === 'PCT_CHG' ? 'rgba(245,158,11,0.12)' : 'transparent',
-              color: mode === 'PCT_CHG' ? '#F59E0B' : 'var(--color-muted)', cursor: 'pointer', transition: 'all 0.15s', marginLeft: '0.5rem'
-            }}
-          >
-            % Chg
           </button>
         </div>
 
@@ -165,7 +153,7 @@ const EnergyGenerationCostProfilePanel = () => {
 
       <div className="panel-content">
         {!formattedData || Object.keys(formattedData).length === 0 ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -175,24 +163,7 @@ const EnergyGenerationCostProfilePanel = () => {
               if (!d) return null;
               
               const color = d.color;
-              
-              let spark = d.history.slice(-24);
-              let displayVal = d.latest?.value;
-              let displayPct = d.mom_change_pct;
-              let displayUnit = d.unit;
-
-              if (mode === 'PCT_CHG') {
-                  spark = spark.map((p, idx) => {
-                      if (idx === 0) return { date: p.date, value: 0 };
-                      const prev = spark[idx - 1].value;
-                      const change = prev && prev !== 0 ? ((p.value - prev) / Math.abs(prev)) * 100 : 0;
-                      return { date: p.date, value: change };
-                  });
-                  displayVal = displayPct;
-                  displayUnit = '% MoM';
-                  displayPct = null; // Don't double show pct
-              }
-
+              const spark = d.history.slice(-24);
               const pct = d.mom_change_pct;
               // Cost increase is BAD (red)
               const isPos = pct !== null && pct !== undefined && pct <= 0;
@@ -213,12 +184,6 @@ const EnergyGenerationCostProfilePanel = () => {
                     <div style={{ height: 28, margin: '4px 0 2px' }}>
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={spark}>
-                          <defs>
-                            <linearGradient id={`grad-profile-${name}`} x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0.3} />
-                              <stop offset="95%" stopColor={isPos ? '#22C55E' : '#EF4444'} stopOpacity={0} />
-                            </linearGradient>
-                          </defs>
                           <Line
                             type="monotone"
                             dataKey="value"
@@ -226,28 +191,27 @@ const EnergyGenerationCostProfilePanel = () => {
                             strokeWidth={1.2}
                             dot={false}
                           />
-                          <Area type="monotone" dataKey="value" stroke="none" fill={`url(#grad-profile-${name})`} />
                         </LineChart>
                       </ResponsiveContainer>
                     </div>
                   )}
 
                   <div className="mineral-value">
-                    {mode === 'PCT_CHG' ? (displayVal !== null ? `${displayVal > 0 ? '+' : ''}${displayVal.toFixed(2)}%` : '--') : fmtVal(displayVal)}
+                    {fmtVal(d.latest?.value)}
                   </div>
-                  <div className="mineral-unit">{displayUnit}</div>
+                  <div className="mineral-unit">{d.unit}</div>
                   
-                  {displayPct !== null && displayPct !== undefined ? (
-                    displayPct === 0 ? (
-                      <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>= 0.00%</div>
+                  {pct !== null && pct !== undefined ? (
+                    pct === 0 ? (
+                      <div className="mineral-change" style={{ color: '#64748b' }}>= 0.00%</div>
                     ) : (
                       <div className={`mineral-change ${isPos ? 'positive' : 'negative'}`}>
                         {!isPos ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
-                        {displayPct > 0 ? '+' : ''}{displayPct.toFixed(2)}%
+                        {pct > 0 ? '+' : ''}{pct.toFixed(2)}%
                       </div>
                     )
                   ) : (
-                    <div className="mineral-change" style={{ color: 'var(--color-muted)' }}>—</div>
+                    <div className="mineral-change" style={{ color: '#64748b' }}>—</div>
                   )}
 
                   <div className="mineral-sublabel">{fmtDate(d.latest?.date)}</div>

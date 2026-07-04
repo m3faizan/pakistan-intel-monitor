@@ -244,7 +244,7 @@ const InflationPanel = ({ loading: parentLoading }) => {
                   <span 
                     className={`inflation-value ${status}`}
                     style={{
-                      color: 'var(--color-text)'
+                      color: '#f8fafc'
                     }}
                   >
                     {formatDisplayValue(item)}

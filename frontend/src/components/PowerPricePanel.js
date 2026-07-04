@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Coins, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react';
 import axios from 'axios';
-import { LineChart, Line, Area, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import EnergyGenerationCostsModal from './EnergyGenerationCostsModal';
 
 const API_BASE = process.env.REACT_APP_BACKEND_URL || '';
@@ -19,7 +19,7 @@ const SOURCE_COLORS = {
   'RLNG':          '#FB923C',
   'Nuclear':       '#A855F7',
   'Import Iran':   '#64748B',
-  'Mixed':         'var(--color-text-muted)',
+  'Mixed':         '#475569',
   'Wind':          '#6EE7B7',
   'Baggasse':      '#10B981',
   'Solar':         '#FDE68A',
@@ -119,8 +119,8 @@ const PowerPricePanel = () => {
   const fmtDate = (d) => !d ? '' : new Date(d).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 
   // Calculate highest & lowest generation sources based on latest month
-  let minFuel = { name: '--', value: Infinity, color: 'var(--color-text-muted)' };
-  let maxFuel = { name: '--', value: -Infinity, color: 'var(--color-text-muted)' };
+  let minFuel = { name: '--', value: Infinity, color: '#94a3b8' };
+  let maxFuel = { name: '--', value: -Infinity, color: '#94a3b8' };
   
   if (data && data.length > 0) {
       const latestDataPoint = data[data.length - 1];
@@ -151,7 +151,7 @@ const PowerPricePanel = () => {
 
       <div className="panel-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {!formattedData || Object.keys(formattedData).length === 0 ? (
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
+          <div style={{ color: '#475569', fontSize: '0.75rem', textAlign: 'center', padding: '1rem' }}>
             Data unavailable
           </div>
         ) : (
@@ -183,23 +183,16 @@ const PowerPricePanel = () => {
                   <div style={{ height: 28, margin: '4px 0 6px' }}>
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={netDelivered.history.slice(-24)}>
-                        <defs>
-                          <linearGradient id="netDeliveredGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor={netDelivered.mom_change_pct <= 0 ? '#22C55E' : '#EF4444'} stopOpacity={0.3} />
-                            <stop offset="95%" stopColor={netDelivered.mom_change_pct <= 0 ? '#22C55E' : '#EF4444'} stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
                         <Line type="monotone" dataKey="value" stroke={netDelivered.mom_change_pct <= 0 ? '#22C55E' : '#EF4444'} strokeWidth={1.5} dot={false} />
-                        <Area type="monotone" dataKey="value" stroke="none" fill="url(#netDeliveredGrad)" />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
                )}
 
                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                  <div style={{ fontSize: '1.4rem', color: 'var(--color-text)', fontWeight: 'bold' }}>
+                  <div style={{ fontSize: '1.4rem', color: '#f8fafc', fontWeight: 'bold' }}>
                      {fmtVal(netDelivered?.latest?.value)} 
-                     <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', fontWeight: 400, marginLeft: '4px' }}>PKR/kWh</span>
+                     <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 400, marginLeft: '4px' }}>PKR/kWh</span>
                   </div>
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '6px' }}>
@@ -209,7 +202,7 @@ const PowerPricePanel = () => {
                         {netDelivered.mom_change_pct > 0 ? '+' : ''}{netDelivered.mom_change_pct.toFixed(2)}%
                       </div>
                    ) : <div />}
-                   <div style={{ fontSize: '0.65rem', color: 'var(--color-muted)' }}>{fmtDate(netDelivered?.latest?.date)}</div>
+                   <div style={{ fontSize: '0.65rem', color: '#64748b' }}>{fmtDate(netDelivered?.latest?.date)}</div>
                </div>
             </div>
 
@@ -230,12 +223,12 @@ const PowerPricePanel = () => {
                </div>
                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                     <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>Highest <span style={{ color: maxFuel.color, fontWeight: 500 }}>({maxFuel.name})</span></span>
-                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#ef4444' }}>{fmtVal(maxFuel.value)} <span style={{ fontSize: '0.65rem', color: 'var(--color-muted)', fontWeight: 400 }}>PKR/kWh</span></span>
+                     <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Highest <span style={{ color: maxFuel.color, fontWeight: 500 }}>({maxFuel.name})</span></span>
+                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#ef4444' }}>{fmtVal(maxFuel.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                     <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>Lowest <span style={{ color: minFuel.color, fontWeight: 500 }}>({minFuel.name})</span></span>
-                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#22c55e' }}>{fmtVal(minFuel.value)} <span style={{ fontSize: '0.65rem', color: 'var(--color-muted)', fontWeight: 400 }}>PKR/kWh</span></span>
+                     <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Lowest <span style={{ color: minFuel.color, fontWeight: 500 }}>({minFuel.name})</span></span>
+                     <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#22c55e' }}>{fmtVal(minFuel.value)} <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>PKR/kWh</span></span>
                   </div>
                </div>
             </div>
@@ -263,12 +256,12 @@ const PowerPricePanel = () => {
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto' }}>
                   <div>
-                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Requested</div>
+                     <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Requested</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#f59e0b' }}>{fmtVal(reqPPP?.latest?.value)}</div>
                   </div>
                   <div style={{ width: '1px', background: 'rgba(255,255,255,0.1)', height: '25px', margin: '0 10px' }} />
                   <div>
-                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Allowed</div>
+                     <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Allowed</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#22c55e' }}>{fmtVal(allPPP?.latest?.value)}</div>
                   </div>
                </div>
@@ -291,12 +284,12 @@ const PowerPricePanel = () => {
                </div>
                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 'auto' }}>
                   <div>
-                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Requested</div>
+                     <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Requested</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: reqDelta?.latest?.value > 0 ? '#ef4444' : '#22c55e' }}>{reqDelta?.latest?.value > 0 ? '+' : ''}{fmtVal(reqDelta?.latest?.value)}</div>
                   </div>
                   <div style={{ width: '1px', background: 'rgba(255,255,255,0.1)', height: '25px', margin: '0 10px' }} />
                   <div>
-                     <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Allowed</div>
+                     <div style={{ fontSize: '0.65rem', color: '#94a3b8', marginBottom: '2px' }}>Allowed</div>
                      <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: allDelta?.latest?.value > 0 ? '#ef4444' : '#22c55e' }}>{allDelta?.latest?.value > 0 ? '+' : ''}{fmtVal(allDelta?.latest?.value)}</div>
                   </div>
                </div>
