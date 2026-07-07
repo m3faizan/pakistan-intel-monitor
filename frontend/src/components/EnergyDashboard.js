@@ -61,6 +61,7 @@ const EnergyDashboard = () => {
             alerts={security}
             energyReport={energyReport}
             loading={loading}
+            defaultLayer="energy"
           />
         </div>
         <div className="energy-news-col">

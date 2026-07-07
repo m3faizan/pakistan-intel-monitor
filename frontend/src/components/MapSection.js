@@ -125,14 +125,14 @@ const resolveAlertCoords = (alert) => {
   return null;
 };
 
-const MapSection = ({ mapData, alerts = [], energyReport, loading }) => {
+const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer = 'overview' }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const maplibreRef = useRef(null);
   const markerRefs = useRef([]);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [showAlertsLayer, setShowAlertsLayer] = useState(true);
-  const [activeLayer, setActiveLayer] = useState('overview');
+  const [activeLayer, setActiveLayer] = useState(defaultLayer);
   const [energySidebarOpen, setEnergySidebarOpen] = useState(true);
 
   const topAlerts = useMemo(() => {
