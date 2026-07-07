@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Bell, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
+import { POWER_PLANTS_DATA } from './powerPlantsData';
 
 const ALERT_COORDS = {
   islamabad: [73.0479, 33.6844],
@@ -235,45 +236,57 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading }) => {
         const bounds = new maplibregl.LngLatBounds();
         let hasEnergy = false;
 
-        energyEntries.forEach((entry, index) => {
-          if (entry?.lon === undefined || entry?.lat === undefined) return;
+        POWER_PLANTS_DATA.forEach((plant, index) => {
+          if (plant?.lng === undefined || plant?.lat === undefined) return;
           hasEnergy = true;
-          bounds.extend([entry.lon, entry.lat]);
+          bounds.extend([plant.lng, plant.lat]);
+
+          const isRenewable = plant.energyType.toLowerCase().includes('bagasse') || plant.energyType.toLowerCase().includes('solar') || plant.energyType.toLowerCase().includes('wind');
+          const isCoal = plant.energyType.toLowerCase().includes('coal');
+          const markerColor = isRenewable ? '#10B981' : isCoal ? '#78716C' : '#38BDF8';
 
           const el = document.createElement('div');
           el.className = 'map-marker energy-marker';
-          el.setAttribute('data-testid', `energy-marker-${index}`);
+          el.setAttribute('data-testid', `power-plant-marker-${index}`);
           el.style.cssText = `
-            width: 11px;
-            height: 11px;
-            background: #38BDF8;
+            width: 12px;
+            height: 12px;
+            background: ${markerColor};
             border-radius: 50%;
             border: 2px solid rgba(255,255,255,0.6);
             cursor: pointer;
-            box-shadow: 0 0 10px #38BDF8;
+            box-shadow: 0 0 10px ${markerColor};
           `;
 
-          const items = (entry.items || []).map((item) => `
-            <li style="margin-bottom: 6px;">${item}</li>
-          `).join('');
-
           const popup = new maplibregl.Popup({ offset: 15 }).setHTML(`
-            <div style="background: #0F172A; color: #F8FAFC; padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid #38BDF8; max-width: 280px;">
-              <div style="color: #38BDF8; text-transform: uppercase; font-size: 10px; margin-bottom: 6px;">${entry.country} • ${entry.region || 'Region'} • ${entry.count || entry.items?.length || 0} items</div>
-              <div style="max-height: 220px; overflow-y: auto; padding-right: 4px;">
-                <ul style="padding-left: 16px; color: #E2E8F0;">
-                  ${items}
-                </ul>
+            <div style="background: var(--color-surface); color: var(--color-text); padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid ${markerColor}; max-width: 280px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+              <div style="color: ${markerColor}; font-weight: 600; font-size: 13px; margin-bottom: 4px;">${plant.name}</div>
+              <div style="color: var(--color-text-muted); font-size: 10px; text-transform: uppercase; margin-bottom: 8px;">${plant.owner}</div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
+                 <span style="color: var(--color-muted);">Capacity</span>
+                 <span style="font-weight: 600;">${plant.capacity} MW</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
+                 <span style="color: var(--color-muted);">Category</span>
+                 <span style="font-weight: 500;">${plant.type}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
+                 <span style="color: var(--color-muted);">Type</span>
+                 <span style="font-weight: 500;">${plant.energyType}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                 <span style="color: var(--color-muted);">Tech</span>
+                 <span style="font-weight: 500;">${plant.tech}</span>
               </div>
             </div>
           `);
 
-          const marker = new maplibregl.Marker({ element: el }).setLngLat([entry.lon, entry.lat]).setPopup(popup).addTo(mapRef.current);
+          const marker = new maplibregl.Marker({ element: el }).setLngLat([plant.lng, plant.lat]).setPopup(popup).addTo(mapRef.current);
           markerRefs.current.push(marker);
         });
 
         if (hasEnergy) {
-          mapRef.current.fitBounds(bounds, { padding: 80, maxZoom: 4 });
+          mapRef.current.fitBounds(bounds, { padding: 50, maxZoom: 6 });
         }
         return;
       }
@@ -444,6 +457,21 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading }) => {
                   <Bell size={11} style={{ marginRight: '0.3rem', display: 'inline' }} />
                   Alerts: {showAlertsLayer ? 'On' : 'Off'}
                 </button>
+              </>
+            ) : activeLayer === 'energy' ? (
+              <>
+                <div className="legend-item">
+                  <span className="legend-dot" style={{ background: '#38BDF8', width: 10, height: 10 }}></span>
+                  <span>Thermal / Gas</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-dot" style={{ background: '#78716C', width: 10, height: 10 }}></span>
+                  <span>Coal</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-dot" style={{ background: '#10B981', width: 10, height: 10 }}></span>
+                  <span>Renewable</span>
+                </div>
               </>
             ) : (
               <>
