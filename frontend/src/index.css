@@ -2346,3 +2346,27 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.7rem 0.8rem;
   cursor: pointer;
 }
+/* Map Popup Overrides */
+.custom-power-popup .maplibregl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: 300px !important;
+}
+
+.custom-power-popup .maplibregl-popup-close-button {
+  color: var(--color-muted);
+  right: 12px;
+  top: 12px;
+  font-size: 16px;
+}
+
+.custom-power-popup .maplibregl-popup-close-button:hover {
+  color: var(--color-text);
+  background: transparent;
+}
+
+.custom-power-popup .maplibregl-popup-tip {
+  border-top-color: var(--color-surface) !important;
+}
+

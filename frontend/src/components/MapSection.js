@@ -133,7 +133,7 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
   const [mapLoaded, setMapLoaded] = useState(false);
   const [showAlertsLayer, setShowAlertsLayer] = useState(true);
   const [activeLayer, setActiveLayer] = useState(defaultLayer);
-  const [energySidebarOpen, setEnergySidebarOpen] = useState(true);
+  const [energySidebarOpen, setEnergySidebarOpen] = useState(false);
 
   const topAlerts = useMemo(() => {
     const sorted = [...(alerts || [])].sort((a, b) => {
@@ -243,7 +243,7 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
 
           const isRenewable = plant.energyType.toLowerCase().includes('bagasse') || plant.energyType.toLowerCase().includes('solar') || plant.energyType.toLowerCase().includes('wind');
           const isCoal = plant.energyType.toLowerCase().includes('coal');
-          const markerColor = isRenewable ? '#10B981' : isCoal ? '#78716C' : '#38BDF8';
+          const markerColor = isRenewable ? '#10B981' : isCoal ? '#64748b' : '#38BDF8';
 
           const el = document.createElement('div');
           el.className = 'map-marker energy-marker';
@@ -258,25 +258,24 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
             box-shadow: 0 0 10px ${markerColor};
           `;
 
-          const popup = new maplibregl.Popup({ offset: 15 }).setHTML(`
-            <div style="background: var(--color-surface); color: var(--color-text); padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid ${markerColor}; max-width: 280px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-              <div style="color: ${markerColor}; font-weight: 600; font-size: 13px; margin-bottom: 4px;">${plant.name}</div>
-              <div style="color: var(--color-text-muted); font-size: 10px; text-transform: uppercase; margin-bottom: 8px;">${plant.owner}</div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
-                 <span style="color: var(--color-muted);">Capacity</span>
-                 <span style="font-weight: 600;">${plant.capacity} MW</span>
+          const popup = new maplibregl.Popup({ offset: 15, closeButton: true, className: 'custom-power-popup' }).setHTML(`
+            <div style="background: var(--color-surface); color: var(--color-text); padding: 16px; font-family: var(--font-mono); font-size: 11px; border: 1px solid ${markerColor}40; border-radius: 6px; min-width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
+                 <div style="width: 8px; height: 8px; border-radius: 50%; background: ${markerColor}; border: 1px solid ${markerColor}; box-shadow: 0 0 5px ${markerColor};"></div>
+                 <div style="color: ${markerColor}; font-weight: 700; font-family: var(--font-heading); font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">${plant.name}</div>
               </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
-                 <span style="color: var(--color-muted);">Category</span>
-                 <span style="font-weight: 500;">${plant.type}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 4px; border-bottom: 1px solid var(--color-border); padding-bottom: 4px;">
-                 <span style="color: var(--color-muted);">Type</span>
-                 <span style="font-weight: 500;">${plant.energyType}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between;">
-                 <span style="color: var(--color-muted);">Tech</span>
-                 <span style="font-weight: 500;">${plant.tech}</span>
+              <div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px 12px; margin-bottom: 4px;">
+                 <span style="color: var(--color-muted); text-transform: uppercase; font-size: 10px;">Operator</span>
+                 <span style="font-weight: 500; text-align: right; color: var(--color-text);">${plant.owner}</span>
+                 
+                 <span style="color: var(--color-muted); text-transform: uppercase; font-size: 10px;">Type</span>
+                 <span style="font-weight: 500; text-align: right; color: var(--color-text);">${plant.tech}</span>
+                 
+                 <span style="color: var(--color-muted); text-transform: uppercase; font-size: 10px;">Category</span>
+                 <span style="font-weight: 500; text-align: right; color: var(--color-text);">${plant.type}</span>
+                 
+                 <span style="color: var(--color-muted); text-transform: uppercase; font-size: 10px;">Capacity</span>
+                 <span style="font-weight: 700; text-align: right; color: var(--color-text);">${plant.capacity.toLocaleString()} MW</span>
               </div>
             </div>
           `);
@@ -356,7 +355,7 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
   return (
     <div className="map-container" data-testid="map-container">
       <div className={`map-layout ${activeLayer === 'energy' ? 'energy-active' : ''}`} data-testid="map-layout">
-        {activeLayer === 'energy' && (
+        {activeLayer === 'energy' && false && (
           <div
             className={`energy-sidebar ${energySidebarOpen ? 'open' : 'collapsed'}`}
             data-testid="energy-sidebar"
@@ -419,10 +418,10 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
                 onClick={() => setActiveLayer('energy')}
                 data-testid="map-tab-energy"
               >
-                Daily Energy Report
+                Power Plants
               </button>
             </div>
-            {activeLayer === 'energy' && energyReportDate && (
+            {activeLayer === 'energy' && false && energyReportDate && (
               <div className="map-report-date" data-testid="map-energy-report-date">
                 Report: {energyReportDate}
               </div>
