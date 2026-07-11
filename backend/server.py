@@ -6709,6 +6709,22 @@ async def fetch_world_lng_benchmarks():
             "unit": "$/MMBtu",
             "change_pct": -0.37,
             "description": "Arbitrage spread between JKM and Henry Hub.",
+        },
+        "bunker_rotterdam": {
+            "name": "Rotterdam",
+            "region": "Europe",
+            "value": 901,
+            "unit": "$/mt",
+            "change_pct": 5.25,
+            "description": "LNG Bunkering Spot (Rotterdam)",
+        },
+        "bunker_singapore": {
+            "name": "Singapore",
+            "region": "Asia",
+            "value": 1086,
+            "unit": "$/mt",
+            "change_pct": 2.07,
+            "description": "LNG Bunkering Spot (Singapore)",
         }
     }
 

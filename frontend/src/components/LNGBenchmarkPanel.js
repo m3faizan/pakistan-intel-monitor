@@ -11,12 +11,6 @@ const BENCH_COLORS = {
   henry_hub: '#A855F7',
 };
 
-const OIL_META = {
-  BRENT_CRUDE_USD: { label: 'Brent', color: '#EF4444' },
-  WTI_USD:         { label: 'WTI', color: '#F97316' },
-  NATURAL_GAS_USD: { label: 'Nat Gas', color: '#22C55E' },
-};
-
 const BenchmarkModal = ({ benchmarks, history, onClose }) => {
   const [hiddenSeries, setHiddenSeries] = useState(new Set());
   const toggle = useCallback(k => { setHiddenSeries(p => { const n = new Set(p); n.has(k) ? n.delete(k) : n.add(k); return n; }); }, []);
@@ -85,19 +79,14 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
 
 const LNGBenchmarkPanel = () => {
   const [benchData, setBenchData] = useState(null);
-  const [oilData, setOilData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const load = async () => {
       try {
-        const [benchRes, oilRes] = await Promise.allSettled([
-          axios.get(`${API_BASE}/api/lng/benchmarks`),
-          axios.get(`${API_BASE}/api/lng/oil-prices`),
-        ]);
-        if (benchRes.status === 'fulfilled') setBenchData(benchRes.value.data.data);
-        if (oilRes.status === 'fulfilled') setOilData(oilRes.value.data.data);
+        const benchRes = await axios.get(`${API_BASE}/api/lng/benchmarks`);
+        setBenchData(benchRes.data.data);
       } catch (e) {
         console.error('Benchmark error:', e);
       } finally {
@@ -111,14 +100,19 @@ const LNGBenchmarkPanel = () => {
 
   const benchmarks = benchData?.benchmarks;
   const history = benchData?.history || [];
+  const latestDate = benchData?.latest_date;
 
-  const oilCodes = ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'];
   const benchKeys = [
     { key: 'jkm', label: 'JKM', color: BENCH_COLORS.jkm },
     { key: 'ttf', label: 'TTF', color: BENCH_COLORS.ttf },
     { key: 'henry_hub', label: 'US Henry Hub', color: BENCH_COLORS.henry_hub },
     { key: 'nbp', label: 'UK (NBP)', color: '#22C55E' },
     { key: 'jkm_hh_spread', label: 'JKM-HH Spread', color: '#EF4444' },
+  ];
+
+  const bunkerKeys = [
+    { key: 'bunker_rotterdam', label: 'Rotterdam', color: '#F97316' },
+    { key: 'bunker_singapore', label: 'Singapore', color: '#10B981' },
   ];
 
   const renderChange = (pct) => {
@@ -153,41 +147,11 @@ const LNGBenchmarkPanel = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* Oil & Gas rows */}
-                {oilData && oilCodes.map(code => {
-                  const d = oilData[code];
-                  if (!d) return null;
-                  const meta = OIL_META[code];
-                  const chg = d.changes_24h;
-                  return (
-                    <tr key={code} style={{ borderBottom: '1px solid rgba(30,41,59,0.5)' }}>
-                      <td style={{ padding: '0.55rem 0.75rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <span style={{ width: 4, height: 16, background: meta.color, borderRadius: 1, flexShrink: 0 }} />
-                          <span style={{ color: '#E2E8F0', fontWeight: 600 }}>{meta.label}</span>
-                        </div>
-                      </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
-                        <span style={{ color: '#F8FAFC', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
-                          {d.formatted}
-                        </span>
-                      </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
-                        {renderChange(chg?.percent)}
-                      </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
-                        /{d.unit}
-                      </td>
-                    </tr>
-                  );
-                })}
-
                 {/* Separator */}
                 <tr>
                   <td colSpan={4} style={{ padding: '0.15rem 0.75rem' }}>
-                    <div style={{ borderTop: '1px solid var(--color-border)', marginTop: '0.1rem' }} />
                     <div style={{ fontSize: '0.45rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', paddingTop: '0.35rem' }}>
-                      LNG Benchmarks (Weekly)
+                      LNG Benchmarks (Daily)
                     </div>
                   </td>
                 </tr>
@@ -219,6 +183,49 @@ const LNGBenchmarkPanel = () => {
                     </tr>
                   );
                 })}
+                {/* Separator */}
+                <tr>
+                  <td colSpan={4} style={{ padding: '0.15rem 0.75rem' }}>
+                    <div style={{ borderTop: '1px solid var(--color-border)', marginTop: '0.1rem' }} />
+                    <div style={{ fontSize: '0.45rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', paddingTop: '0.35rem' }}>
+                      LNG Bunkering (Daily)
+                    </div>
+                  </td>
+                </tr>
+
+                {/* LNG Bunkering rows */}
+                {benchmarks && bunkerKeys.map(bk => {
+                  const b = benchmarks[bk.key];
+                  if (!b) return null;
+                  const chg = b.change_pct;
+                  return (
+                    <tr key={bk.key} style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <span style={{ width: 4, height: 16, background: bk.color, borderRadius: 1, flexShrink: 0 }} />
+                          <span style={{ color: 'var(--color-text)', fontWeight: 600 }}>{bk.label}</span>
+                        </div>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        <span style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
+                          ${b.value?.toFixed(0)}
+                        </span>
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
+                        {renderChange(chg)}
+                      </td>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.6rem' }}>
+                        /mt
+                      </td>
+                    </tr>
+                  );
+                })}
+
+                <tr>
+                  <td colSpan={4} style={{ padding: '0.4rem 0.75rem', textAlign: 'right', fontSize: '0.5rem', color: 'var(--color-muted)' }}>
+                    Last Updated: {latestDate || '--'}
+                  </td>
+                </tr>
               </tbody>
             </table>
           )}
