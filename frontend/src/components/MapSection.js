@@ -241,27 +241,50 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
           hasEnergy = true;
           bounds.extend([plant.lng, plant.lat]);
 
-          const isRenewable = plant.energyType.toLowerCase().includes('bagasse') || plant.energyType.toLowerCase().includes('solar') || plant.energyType.toLowerCase().includes('wind');
-          const isCoal = plant.energyType.toLowerCase().includes('coal');
-          const markerColor = isRenewable ? '#10B981' : isCoal ? '#64748b' : '#38BDF8';
+          const typeLower = plant.energyType.toLowerCase();
+          
+          let iconUrl = '';
+          let markerColor = '#38BDF8';
+          
+          if (typeLower.includes('coal')) {
+            iconUrl = 'https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/4a90e2/external-coal-nature-resource-vitaliy-gorbachev-blue-vitaly-gorbachev.png';
+            markerColor = '#4a90e2';
+          } else if (typeLower.includes('rlng') || typeLower.includes('lng')) {
+            iconUrl = 'https://img.icons8.com/ios-filled/50/000000/cargo-ship.png';
+            markerColor = '#000000';
+          } else if (typeLower.includes('solid waste')) {
+            iconUrl = 'https://img.icons8.com/ios/50/000000/garbage-truck.png';
+            markerColor = '#000000';
+          } else if (typeLower.includes('bagasse') || typeLower.includes('solar') || typeLower.includes('wind') || typeLower.includes('renewable')) {
+            iconUrl = 'https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-sugar-cane-vegetables-dreamstale-lineal-dreamstale.png';
+            markerColor = '#10B981';
+          } else {
+            // Thermal
+            iconUrl = 'https://img.icons8.com/ios-filled/50/fa314a/power-plant.png';
+            markerColor = '#fa314a';
+          }
 
           const el = document.createElement('div');
           el.className = 'map-marker energy-marker';
           el.setAttribute('data-testid', `power-plant-marker-${index}`);
           el.style.cssText = `
-            width: 12px;
-            height: 12px;
-            background: ${markerColor};
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff;
+            background-image: url('${iconUrl}');
+            background-size: 70%;
+            background-repeat: no-repeat;
+            background-position: center;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.6);
+            border: 2px solid ${markerColor};
             cursor: pointer;
-            box-shadow: 0 0 10px ${markerColor};
+            box-shadow: 0 0 10px ${markerColor}80;
           `;
 
           const popup = new maplibregl.Popup({ offset: 15, closeButton: true, className: 'custom-power-popup' }).setHTML(`
             <div style="background: var(--color-surface); color: var(--color-text); padding: 16px; font-family: var(--font-mono); font-size: 11px; border: 1px solid ${markerColor}40; border-radius: 6px; min-width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 8px;">
-                 <div style="width: 8px; height: 8px; border-radius: 50%; background: ${markerColor}; border: 1px solid ${markerColor}; box-shadow: 0 0 5px ${markerColor};"></div>
+                 <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #fff; background-image: url('${iconUrl}'); background-size: 70%; background-repeat: no-repeat; background-position: center; border: 1px solid ${markerColor}; box-shadow: 0 0 5px ${markerColor}80;"></div>
                  <div style="color: ${markerColor}; font-weight: 700; font-family: var(--font-heading); font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">${plant.name}</div>
               </div>
               <div style="display: grid; grid-template-columns: 100px 1fr; gap: 8px 12px; margin-bottom: 4px;">
@@ -459,17 +482,25 @@ const MapSection = ({ mapData, alerts = [], energyReport, loading, defaultLayer 
               </>
             ) : activeLayer === 'energy' ? (
               <>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#38BDF8', width: 10, height: 10 }}></span>
-                  <span>Thermal / Gas</span>
+                <div className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <img src="https://img.icons8.com/ios-filled/50/fa314a/power-plant.png" alt="Thermal" style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', padding: '1px', border: '1px solid #fa314a' }} />
+                  <span>Thermal</span>
                 </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#78716C', width: 10, height: 10 }}></span>
-                  <span>Coal</span>
+                <div className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <img src="https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/4a90e2/external-coal-nature-resource-vitaliy-gorbachev-blue-vitaly-gorbachev.png" alt="Coal" style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', padding: '1px', border: '1px solid #4a90e2' }} />
+                  <span>Coal-Fired</span>
                 </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#10B981', width: 10, height: 10 }}></span>
-                  <span>Renewable</span>
+                <div className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <img src="https://img.icons8.com/ios-filled/50/000000/cargo-ship.png" alt="RLNG" style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', padding: '1px', border: '1px solid #000' }} />
+                  <span>RLNG</span>
+                </div>
+                <div className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <img src="https://img.icons8.com/ios/50/000000/garbage-truck.png" alt="Solid Waste" style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', padding: '1px', border: '1px solid #000' }} />
+                  <span>Solid Waste</span>
+                </div>
+                <div className="legend-item" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <img src="https://img.icons8.com/external-dreamstale-lineal-dreamstale/32/000000/external-sugar-cane-vegetables-dreamstale-lineal-dreamstale.png" alt="Bagasse" style={{ width: 14, height: 14, background: '#fff', borderRadius: '50%', padding: '1px', border: '1px solid #10B981' }} />
+                  <span>Bagasse - Cogen</span>
                 </div>
               </>
             ) : (
