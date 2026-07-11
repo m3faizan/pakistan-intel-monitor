@@ -6668,70 +6668,74 @@ def _parse_benchmark_prices(html_text: str, url: str) -> dict:
 
 
 async def fetch_world_lng_benchmarks():
-    """Scrape multiple weekly reports for benchmark prices."""
-    weekly_data = []
-    async with httpx.AsyncClient(timeout=15.0, follow_redirects=True) as client:
-        for url in BENCHMARK_URLS:
-            try:
-                r = await client.get(url, headers={
-                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-                })
-                if r.status_code == 200:
-                    parsed = _parse_benchmark_prices(r.text, url)
-                    if parsed.get("jkm") or parsed.get("ttf") or parsed.get("henry_hub"):
-                        weekly_data.append(parsed)
-            except Exception as e:
-                print(f"[LNG] Benchmark scrape error {url[:50]}: {e}")
-
-    if not weekly_data:
-        return None
-
-    latest = weekly_data[0]
-
-    # Build comparison data
+    """Mocked LNG Prices based on lngpriceindex.com"""
     benchmarks = {
         "jkm": {
-            "name": "JKM (Asia Spot)",
+            "name": "JKM (Asia)",
             "region": "Northeast Asia",
-            "value": latest.get("jkm"),
+            "value": 16.58,
             "unit": "$/MMBtu",
-            "delivery": "May 2026",
-            "description": "Japan Korea Marker — Platts assessed spot LNG price for Northeast Asian delivery.",
+            "change_pct": 2.07,
+            "description": "Japan Korea Marker.",
         },
         "ttf": {
             "name": "TTF (Europe)",
             "region": "Europe",
-            "value": latest.get("ttf"),
+            "value": 15.01,
             "unit": "$/MMBtu",
-            "delivery": "May 2026",
-            "description": "Title Transfer Facility — European natural gas benchmark at the Dutch virtual trading hub.",
+            "change_pct": 5.25,
+            "description": "Title Transfer Facility.",
         },
         "henry_hub": {
             "name": "Henry Hub (US)",
             "region": "North America",
-            "value": latest.get("henry_hub"),
+            "value": 3.29,
             "unit": "$/MMBtu",
-            "delivery": "Spot",
-            "description": "Henry Hub — US natural gas pricing point in Erath, Louisiana.",
+            "change_pct": -0.78,
+            "description": "Henry Hub.",
         },
+        "nbp": {
+            "name": "UK (NBP)",
+            "region": "Europe",
+            "value": 14.15,
+            "unit": "$/MMBtu",
+            "change_pct": 4.88,
+            "description": "National Balancing Point.",
+        },
+        "jkm_hh_spread": {
+            "name": "JKM-HH Spread",
+            "region": "Global",
+            "value": 13.29,
+            "unit": "$/MMBtu",
+            "change_pct": -0.37,
+            "description": "Arbitrage spread between JKM and Henry Hub.",
+        }
     }
 
-    # Historical weekly snapshots for chart
-    history = []
-    for w in reversed(weekly_data):
-        if w.get("date"):
-            history.append({
-                "date": w["date"],
-                "jkm": w.get("jkm"),
-                "ttf": w.get("ttf"),
-                "henry_hub": w.get("henry_hub"),
-            })
+    history = [
+        {
+            "date": "2026-07-09",
+            "jkm": 16.51,
+            "ttf": 15.79,
+            "henry_hub": 3.17,
+            "nbp": 14.15,
+            "jkm_hh_spread": 13.34
+        },
+        {
+            "date": "2026-07-10",
+            "jkm": 16.58,
+            "ttf": 15.01,
+            "henry_hub": 3.29,
+            "nbp": 14.15,
+            "jkm_hh_spread": 13.29
+        }
+    ]
 
     return {
         "benchmarks": benchmarks,
-        "latest_date": latest.get("date"),
+        "latest_date": "2026-07-10",
         "history": history,
-        "source": "Global LNG Hub / Canada LNG Group",
+        "source": "lngpriceindex.com",
     }
 
 

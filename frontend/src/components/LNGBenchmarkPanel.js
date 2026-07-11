@@ -21,9 +21,11 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
   const [hiddenSeries, setHiddenSeries] = useState(new Set());
   const toggle = useCallback(k => { setHiddenSeries(p => { const n = new Set(p); n.has(k) ? n.delete(k) : n.add(k); return n; }); }, []);
   const fields = [
-    { key: 'jkm', label: 'JKM (Asia)', color: BENCH_COLORS.jkm },
-    { key: 'ttf', label: 'TTF (Europe)', color: BENCH_COLORS.ttf },
-    { key: 'henry_hub', label: 'Henry Hub (US)', color: BENCH_COLORS.henry_hub },
+    { key: 'jkm', label: 'JKM', color: BENCH_COLORS.jkm },
+    { key: 'ttf', label: 'TTF', color: BENCH_COLORS.ttf },
+    { key: 'henry_hub', label: 'US Henry Hub', color: BENCH_COLORS.henry_hub },
+    { key: 'nbp', label: 'UK (NBP)', color: '#22C55E' },
+    { key: 'jkm_hh_spread', label: 'JKM-HH Spread', color: '#EF4444' },
   ];
 
   return (
@@ -33,15 +35,15 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
           <div className="modal-title">World LNG Benchmark Prices</div>
           <button className="modal-close" onClick={onClose}><X size={18} /></button>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', padding: '1rem 1.25rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem', padding: '1rem 1.25rem' }}>
           {fields.map(f => {
             const b = benchmarks?.[f.key];
             if (!b) return null;
             return (
-              <div key={f.key} style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid var(--color-border)', padding: '0.75rem', textAlign: 'center' }}>
+              <div key={f.key} style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', padding: '0.75rem', textAlign: 'center' }}>
                 <div style={{ fontSize: '0.55rem', color: f.color, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.3rem' }}>{f.label}</div>
-                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: '#F8FAFC', fontFamily: 'var(--font-mono)' }}>${b.value?.toFixed(1)}</div>
-                <div style={{ fontSize: '0.55rem', color: '#64748b', marginTop: '0.15rem' }}>{b.region} - {b.delivery}</div>
+                <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--color-text)', fontFamily: 'var(--font-mono)' }}>${b.value?.toFixed(2)}</div>
+                <div style={{ fontSize: '0.55rem', color: 'var(--color-muted)', marginTop: '0.15rem' }}>{b.region}</div>
               </div>
             );
           })}
@@ -57,23 +59,25 @@ const BenchmarkModal = ({ benchmarks, history, onClose }) => {
         <div className="chart-container" style={{ padding: '1rem' }}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={history} barGap={2}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,41,59,0.6)" />
-              <XAxis dataKey="date" stroke="#64748b" fontSize={10} />
-              <YAxis stroke="#64748b" fontSize={10} tickFormatter={v => `$${v}`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
+              <XAxis dataKey="date" stroke="var(--color-muted)" fontSize={10} />
+              <YAxis stroke="var(--color-muted)" fontSize={10} tickFormatter={v => `$${v}`} />
               <Tooltip content={({ active, payload, label }) => active && payload?.length ? (
                 <div className="remittances-tooltip">
                   <p className="tooltip-date">{label}</p>
                   {payload.filter(p => p.value != null).map((p, i) => (
-                    <div key={i} style={{ color: p.fill, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: ${p.value?.toFixed(1)}/MMBtu</div>
+                    <div key={i} style={{ color: p.fill, fontSize: '0.8rem', fontWeight: 600 }}>{p.name}: ${p.value?.toFixed(2)}/MMBtu</div>
                   ))}
                 </div>) : null} />
-              {!hiddenSeries.has('jkm') && <Bar dataKey="jkm" name="JKM (Asia)" fill={BENCH_COLORS.jkm} opacity={0.85} />}
-              {!hiddenSeries.has('ttf') && <Bar dataKey="ttf" name="TTF (Europe)" fill={BENCH_COLORS.ttf} opacity={0.85} />}
-              {!hiddenSeries.has('henry_hub') && <Bar dataKey="henry_hub" name="Henry Hub (US)" fill={BENCH_COLORS.henry_hub} opacity={0.85} />}
+              {!hiddenSeries.has('jkm') && <Bar dataKey="jkm" name="JKM" fill={BENCH_COLORS.jkm} opacity={0.85} />}
+              {!hiddenSeries.has('ttf') && <Bar dataKey="ttf" name="TTF" fill={BENCH_COLORS.ttf} opacity={0.85} />}
+              {!hiddenSeries.has('henry_hub') && <Bar dataKey="henry_hub" name="US Henry Hub" fill={BENCH_COLORS.henry_hub} opacity={0.85} />}
+              {!hiddenSeries.has('nbp') && <Bar dataKey="nbp" name="UK (NBP)" fill="#22C55E" opacity={0.85} />}
+              {!hiddenSeries.has('jkm_hh_spread') && <Bar dataKey="jkm_hh_spread" name="JKM-HH Spread" fill="#EF4444" opacity={0.85} />}
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="modal-footer"><span>Source: Global LNG Hub</span><span style={{ color: '#94a3b8' }}>$/MMBtu</span></div>
+        <div className="modal-footer"><span>Source: lngpriceindex.com</span><span style={{ color: 'var(--color-text-muted)' }}>$/MMBtu</span></div>
       </div>
     </div>
   );
@@ -110,9 +114,11 @@ const LNGBenchmarkPanel = () => {
 
   const oilCodes = ['BRENT_CRUDE_USD', 'WTI_USD', 'NATURAL_GAS_USD'];
   const benchKeys = [
-    { key: 'jkm', label: 'JKM (Asia)', color: BENCH_COLORS.jkm },
-    { key: 'ttf', label: 'TTF (Europe)', color: BENCH_COLORS.ttf },
-    { key: 'henry_hub', label: 'Henry Hub', color: BENCH_COLORS.henry_hub },
+    { key: 'jkm', label: 'JKM', color: BENCH_COLORS.jkm },
+    { key: 'ttf', label: 'TTF', color: BENCH_COLORS.ttf },
+    { key: 'henry_hub', label: 'US Henry Hub', color: BENCH_COLORS.henry_hub },
+    { key: 'nbp', label: 'UK (NBP)', color: '#22C55E' },
+    { key: 'jkm_hh_spread', label: 'JKM-HH Spread', color: '#EF4444' },
   ];
 
   const renderChange = (pct) => {
@@ -190,25 +196,24 @@ const LNGBenchmarkPanel = () => {
                 {benchmarks && benchKeys.map(bk => {
                   const b = benchmarks[bk.key];
                   if (!b) return null;
-                  const prev = history.length > 1 ? history[history.length - 2]?.[bk.key] : null;
-                  const chg = b.value && prev && prev !== 0 ? ((b.value - prev) / prev * 100) : null;
+                  const chg = b.change_pct;
                   return (
-                    <tr key={bk.key} style={{ borderBottom: '1px solid rgba(30,41,59,0.5)', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
+                    <tr key={bk.key} style={{ borderBottom: '1px solid var(--color-border)', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
                       <td style={{ padding: '0.55rem 0.75rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                           <span style={{ width: 4, height: 16, background: bk.color, borderRadius: 1, flexShrink: 0 }} />
-                          <span style={{ color: '#E2E8F0', fontWeight: 600 }}>{bk.label}</span>
+                          <span style={{ color: 'var(--color-text)', fontWeight: 600 }}>{bk.label}</span>
                         </div>
                       </td>
                       <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
-                        <span style={{ color: '#F8FAFC', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
-                          ${b.value?.toFixed(1)}
+                        <span style={{ color: 'var(--color-text)', fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.8rem' }}>
+                          ${b.value?.toFixed(2)}
                         </span>
                       </td>
                       <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right' }}>
                         {renderChange(chg)}
                       </td>
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: '#64748b', fontSize: '0.6rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', color: 'var(--color-muted)', fontSize: '0.6rem' }}>
                         /MMBtu
                       </td>
                     </tr>
